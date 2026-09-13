@@ -1,0 +1,20 @@
+aid: ss-c-technologies
+name: SS&C Technologies
+description: 'SS&C Technologies is a company surfaced via the API Evangelist harvest backlog (source:
+  absent-parent) and added to the network as a stub for full-pipeline profiling.'
+url: https://raw.githubusercontent.com/api-evangelist/ss-c-technologies/refs/heads/main/apis.yml
+x-type: company
+x-source: harvest:absent-parent
+x-tier: stub
+x-tier-reason: harvest
+specificationVersion: '0.20'
+created: '2026-09-13'
+modified: '2026-09-13'
+tags:
+- Company
+apis: []
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
+- FN: APIs.json
+  email: info@apis.io
