@@ -1,0 +1,65 @@
+generated: '2026-09-13'
+method: searched
+source: >-
+  https://github.com/ezesoft/xapi/blob/master/faq.md,
+  https://github.com/ezesoft/xapi/blob/master/readme.md,
+  openapi/ss-c-technologies-eze-ems-xapi-openapi.json,
+  https://www.ssctech.com/about/support-client-portals
+applies_to: SS&C Eze EMS xAPI
+versioning:
+  scheme: uri-path
+  current: v2 (partial) alongside v1
+  build_version: 2026.5.0
+  detail: >-
+    Ten operations exist at /api/v2/, all of them also still served at /api/v1/; everything else is
+    v1-only. SS&C publishes no policy for how long a version is supported, no Sunset or Deprecation
+    header contract (RFC 8594), and no statement of what changed between v1 and v2 of an operation.
+deprecation:
+  policy_published: true
+  policy_form: product-migration statement, not an API deprecation policy
+  headers:
+    sunset: false
+    deprecation: false
+  spec_deprecated_operations: 0
+  detail: >-
+    SS&C Eze states a real, dated-in-direction deprecation in its own FAQ: the legacy Eze EMS Excel
+    API "is now in maintenance-only mode with no future roadmap", EMS xAPI "will eventually replace"
+    it, and xAPI "supports all legacy Excel API capabilities". That is a genuine published
+    end-of-life direction for a shipping product, which is why a Deprecation pointer is wired. What
+    it is NOT is an API deprecation policy: no end-of-support date is given, no notice period is
+    stated, and no operation in the OpenAPI carries `deprecated: true` even though ten v1
+    operations now have v2 successors.
+  quotes:
+  - text: The Excel API is now in maintenance-only mode with no future roadmap.
+    url: https://github.com/ezesoft/xapi/blob/master/faq.md
+  - text: It will eventually replace the legacy Excel API.
+    url: https://github.com/ezesoft/xapi/blob/master/faq.md
+status_page:
+  published: false
+  probed:
+  - url: https://status.ssctech.com/
+    result: DNS does not resolve
+  detail: >-
+    No public status page was found for SS&C Technologies or for Eze EMS xAPI. Operational status
+    is routed through the per-product client support portals at
+    https://www.ssctech.com/about/support-client-portals, which require a client login. The API's
+    own liveness surface is in-band: GET /health and GET /ready, plus the SubscribeHeartBeat stream.
+    No StatusPage pointer is wired, because none is published.
+sla:
+  published: false
+  detail: No public SLA or uptime commitment was found for any SS&C API surface.
+support:
+  channel: client relationship manager / client service representative
+  url: https://www.ssctech.com/about/support-client-portals
+  detail: >-
+    Every SS&C API surface routes support and access through a named account contact rather than a
+    public ticket queue. SS&C Eze says to "contact your SS&C Eze client service representative";
+    the APIM portal says to contact a Client Relationship manager.
+release_signal:
+  form: git history
+  url: https://github.com/ezesoft/xapi/commits/master
+  detail: >-
+    The xAPI repository has zero releases and zero tags as of 2026-09-13. The only dated change
+    signal is the commit log on the default branch (most recent 2026-08-25, "GetOrderDetailByDateRange"),
+    plus the 2026.5.0 version stamp carried in both the proto comments and OpenAPI info.version.
+    No dated changelog page is published, so no changelog/ artifact was written.

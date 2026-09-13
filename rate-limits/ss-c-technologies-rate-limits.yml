@@ -1,0 +1,41 @@
+generated: '2026-09-13'
+method: searched
+source: >-
+  https://github.com/ezesoft/xapi/blob/master/faq.md,
+  openapi/ss-c-technologies-eze-ems-xapi-openapi.json,
+  grpc/ss-c-technologies-xapi-utilities.proto
+applies_to: SS&C Eze EMS xAPI
+limit_count: 1
+response_headers: []
+status_on_exhaustion: not published
+note: >-
+  SS&C publishes exactly one quantified throttle for the Eze EMS xAPI, and it is an authentication
+  lockout rather than a request quota. No per-key, per-account or per-endpoint call limit is
+  documented, no burst allowance is stated, and the API returns no rate-limit headers: neither
+  X-RateLimit-*, nor RateLimit-*, nor Retry-After appears in the OpenAPI or in any published
+  document. There is no 429 response declared on any of the 73 operations — the spec declares only
+  200 and a google.rpc.Status `default` — so an agent has no runtime signal telling it how close to
+  a limit it is or when to retry. Market-data subscription caps, if any exist, are provisioned per
+  client entitlement and are not published.
+limits:
+- scope: per-user authentication
+  name: login lockout
+  window: 60 seconds
+  limit: 3
+  action: account temporarily locked for 3 minutes
+  applies_to:
+  - UtilityServices.Connect (GET /api/v1/authentication/connect)
+  - UtilityServices.StartLoginSrp / CompleteLoginSrp
+  detail: >-
+    "Your account will be temporarily locked for 3 minutes if you attempt to log in three (3) times
+    within a 60-second period, irrespective of whether those attempts are successful or not."
+    Verbatim from SS&C Eze's published FAQ. Note the "irrespective of whether those attempts are
+    successful" clause: a client that reconnects aggressively after a dropped stream can lock itself
+    out with valid credentials.
+  source: https://github.com/ezesoft/xapi/blob/master/faq.md
+undocumented:
+- per-key or per-account request quota
+- per-endpoint limits
+- burst allowance
+- market-data subscription caps
+- concurrent stream limits

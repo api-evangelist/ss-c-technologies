@@ -1,0 +1,141 @@
+generated: '2026-09-13'
+method: derived
+source: >-
+  openapi/ss-c-technologies-eze-ems-xapi-openapi.json,
+  grpc/ss-c-technologies-xapi-market-data.proto,
+  grpc/ss-c-technologies-xapi-utilities.proto,
+  grpc/ss-c-technologies-xapi-order.proto,
+  well-known/ss-c-technologies-openid-configuration.json,
+  https://github.com/ezesoft/xapi/blob/master/faq.md,
+  https://www.ssctech.com/about/disclosures/security-addendum-schedule3
+note: >-
+  Every entry below is asserted from a contract SS&C publishes, not from a marketing claim. Where
+  SS&C's own contract reuses a standard's vocabulary without declaring conformance to a version of
+  that standard, that distinction is stated in the entry rather than rounded up.
+conformance:
+- id: openapi-3.0
+  conforms: true
+  version: 3.0.4
+  evidence: >-
+    openapi/ss-c-technologies-eze-ems-xapi-openapi.json declares openapi 3.0.4, 61 paths, 73
+    operations and 123 component schemas. Fetched live from
+    https://emsuatxapi.taltrade.com:9001/swagger/v1/swagger.json on 2026-09-13.
+- id: grpc
+  conforms: true
+  evidence: >-
+    Three proto3 service definitions published at https://github.com/ezesoft/xapi/tree/master/protos —
+    MarketDataService (24 RPCs), SubmitOrderService (17), UtilityServices (23) — 64 RPCs and 163
+    messages in total, including six server-streaming and one bidirectional-streaming RPC.
+- id: protobuf-proto3
+  conforms: true
+  evidence: 'Each .proto declares syntax = "proto3" and imports google/protobuf wrappers, duration and timestamp.'
+- id: google-rpc-status
+  conforms: true
+  evidence: >-
+    Every error response in the OpenAPI resolves to #/components/schemas/Google.Rpc.Status
+    (code/message/details[Any]), the gRPC canonical error model.
+- id: rfc9457
+  conforms: false
+  evidence: >-
+    No application/problem+json media type and no problem-type URIs appear in the spec; errors use
+    google.rpc.Status instead.
+- id: rfc8594-sunset
+  conforms: false
+  evidence: No Sunset or Deprecation response header is declared in the spec or documented anywhere.
+- id: oauth2
+  conforms: true
+  scope: SS&C APIM developer portal only, not the Eze EMS xAPI
+  evidence: >-
+    https://ssoprod.ssnc.cloud/auth/realms/APIM/.well-known/openid-configuration advertises an RFC
+    8414 authorization-server metadata document with authorization_code, client_credentials,
+    refresh_token, device_code, jwt-bearer, token-exchange, uma-ticket and CIBA grants.
+- id: oidc
+  conforms: true
+  scope: SS&C APIM developer portal only
+  evidence: >-
+    Same document declares issuer, jwks_uri, userinfo_endpoint, end_session_endpoint,
+    id_token_signing_alg_values_supported and a standard OIDC scope set.
+- id: pkce-rfc7636
+  conforms: true
+  scope: SS&C APIM developer portal only
+  evidence: 'code_challenge_methods_supported: ["plain","S256"] in the APIM realm discovery document.'
+- id: srp-rfc2945
+  conforms: true
+  scope: SS&C Eze EMS xAPI, on SRP-enabled domains
+  evidence: >-
+    UtilityServices.StartLoginSrp / CompleteLoginSrp / ChangePasswordSRP in
+    grpc/ss-c-technologies-xapi-utilities.proto, with REST equivalents at
+    /api/v1/authentication/start-login-srp and /complete-login-srp. SS&C's FAQ documents that both
+    SRP and standard login work on an SRP-enabled domain.
+- id: idempotency
+  conforms: false
+  evidence: >-
+    No Idempotency-Key header, no request-id, and no documented replay semantics on any of the 30
+    mutating operations. See conventions/ss-c-technologies-conventions.yml idempotency.coverage.
+- id: pagination
+  conforms: false
+  evidence: >-
+    No cursor, page, offset, limit or page-size parameter appears on any of the 73 operations;
+    large result sets are served by streaming RPCs instead.
+- id: asyncapi
+  conforms: false
+  evidence: >-
+    A real event surface exists (six server-streaming RPCs plus one bidirectional stream) but SS&C
+    publishes no AsyncAPI document and no webhook catalog for it. Nothing was authored in its place.
+domain_standards:
+- id: securities-identifier-schemes
+  conforms: true
+  standard: ISIN (ISO 6166), SEDOL, CUSIP, RIC, Bloomberg (BBG)
+  evidence: >-
+    grpc/ss-c-technologies-xapi-market-data.proto, message AlternateSymbology, enum Symbology:
+    ISIN = 0; SEDOL = 1; RIC = 2; CUSIP = 3; BBG = 4. Surfaced over REST at
+    GET /api/v1/security/symbol-from-alternate-symbology, which resolves any of these to an Eze
+    symbol in single or bulk form. A counterparty that already carries ISINs or CUSIPs needs no
+    bespoke mapping table to trade through this API, which is precisely the integration cost this
+    check measures.
+- id: iso-10383-mic
+  conforms: true
+  standard: ISO 10383 Market Identifier Code
+  evidence: >-
+    grpc/ss-c-technologies-xapi-market-data.proto line 545 declares `string MIC = 56;` on the
+    Level 1 market-data record, so venue is reported as an ISO 10383 MIC rather than a
+    vendor-private venue code.
+- id: fix-order-semantics
+  conforms: partial
+  standard: FIX Protocol order vocabulary
+  evidence: >-
+    The order model reuses FIX semantics directly rather than inventing its own: TimeInForce is
+    ExpirationTypes {DAY, GTC, GTX, CLO, OPG, IOC, GTD, OTHER} — FIX tag 59 values — and PriceType
+    is PriceTypesEnum {Market, Limit, StopMarket, StopLimit, Other} — FIX tag 40. SS&C's own FAQ
+    additionally instructs users to set FIX field ID 31640
+    (COMPLIANCE_USER_OPTION_FLAGS) to trigger automated compliance checks on an xAPI-originated
+    order, which is a FIX tag crossing the API boundary in the documentation.
+  qualifier: >-
+    Marked `partial`, not `true`: xAPI is a gRPC/REST API that speaks FIX's vocabulary, not a FIX
+    session-layer implementation, and SS&C declares no FIX version (4.2/4.4/5.0 SP2) anywhere in
+    the contract or docs. A buyer who already speaks FIX will recognise every field; a buyer who
+    wants a FIX session still needs a different connection.
+compliance_program:
+- id: soc1-type2
+  conforms: true
+  standard: SOC 1 Type 2 (SSAE 18)
+  evidence: >-
+    https://www.ssctech.com/about/disclosures/security-addendum-schedule3 (HTTP 200, 2026-09-13)
+    commits SS&C to provide, on request, "the most recent relevant Service Organization Controls
+    (SOC) 1, Type 2 Audit, issued under SSAE 18, covering SS&C controls", plus an executive summary
+    of its information security policy.
+  availability: on request under contract; the report itself is not public
+- id: iso-27001
+  conforms: unverified
+  evidence: >-
+    ISO 27001 certification is widely attributed to SS&C in third-party write-ups, but no
+    first-party SS&C page located in this pass states it. Recorded as unverified rather than
+    claimed. Direct checks of https://www.ssctech.com/solutions/managed-services and
+    https://www.ssctech.com/about/corporate-responsibility on 2026-09-13 found no ISO 27001 text.
+regulatory_context:
+  sector: financial-services
+  note: >-
+    SS&C's customers are regulated (investment advisers, broker-dealers, fund administrators,
+    superannuation and insurance), and SS&C's FAQ documents an automated-compliance hook on order
+    submission, but SS&C publishes no PSD2, FAPI, Open Banking or FDX surface, and none was
+    asserted here.

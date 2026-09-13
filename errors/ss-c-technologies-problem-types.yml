@@ -1,0 +1,64 @@
+generated: '2026-09-13'
+method: derived
+source: openapi/ss-c-technologies-eze-ems-xapi-openapi.json, grpc/ss-c-technologies-xapi-utilities.proto
+applies_to: SS&C Eze EMS xAPI
+format: google.rpc.Status
+rfc9457: false
+summary: >-
+  The Eze EMS xAPI declares exactly one error shape across the whole surface. Seventy-one of its 73
+  operations carry a single `default` response whose schema is Google.Rpc.Status; the remaining two
+  (GET /health, GET /ready) declare only a 200. No named 4xx or 5xx status code appears anywhere in
+  the spec, and no error is enumerated, so there is no published problem-type registry to catalog —
+  that absence is the finding. The two operations without an error response are the health probes.
+envelope:
+  schema: Google.Rpc.Status
+  media_type: application/json
+  fields:
+  - name: code
+    type: integer (int32)
+    meaning: >-
+      The gRPC canonical status code (google.rpc.Code). Values are the standard sixteen: 0 OK,
+      1 CANCELLED, 2 UNKNOWN, 3 INVALID_ARGUMENT, 4 DEADLINE_EXCEEDED, 5 NOT_FOUND,
+      6 ALREADY_EXISTS, 7 PERMISSION_DENIED, 8 RESOURCE_EXHAUSTED, 9 FAILED_PRECONDITION,
+      10 ABORTED, 11 OUT_OF_RANGE, 12 UNIMPLEMENTED, 13 INTERNAL, 14 UNAVAILABLE, 15 DATA_LOSS,
+      16 UNAUTHENTICATED. The spec does not say which of these the service actually returns, or when.
+  - name: message
+    type: string
+    meaning: A developer-facing message. No published catalog of message strings exists.
+  - name: details
+    type: array of google.protobuf.Any
+    meaning: >-
+      Typed error detail payloads. The spec declares the Any container but names no concrete detail
+      type, so a client cannot know in advance what may arrive here.
+application_level_errors:
+  note: >-
+    A transport-level 200 does not mean the operation succeeded. Most responses carry a
+    `ServerResponse` string and a `ServerAcknowledgement` object, and SS&C's own tutorial checks
+    `connect_response.Response == 'success'` rather than an HTTP status. Agents must read the body.
+  fields:
+  - ServerResponse (string) — present on ConnectResponse, DisconnectResponse, SubmitSingleOrderResponse and most others
+  - ServerAcknowledgement (object) — present on the order and connect responses
+  - DPermStatusCode (string) — entitlement/permission status returned on ConnectResponse
+documented_failure_conditions:
+- condition: Account temporarily locked
+  source: https://github.com/ezesoft/xapi/blob/master/faq.md
+  detail: >-
+    Three login attempts within a 60-second window lock the account for three minutes, whether or
+    not those attempts succeeded.
+  code: not published
+- condition: Standard login on a non-SRP domain
+  source: https://github.com/ezesoft/xapi/blob/master/faq.md
+  detail: >-
+    Where a domain is not SRP-enabled the SRP login path does not work and only standard login will;
+    the error returned is not published.
+  code: not published
+- condition: Session terminated
+  source: https://github.com/ezesoft/xapi/blob/master/faq.md
+  detail: >-
+    SubscribeHeartBeat notifies the subscriber and requests a reconnect when an active server
+    connection is terminated. This is the documented liveness failure signal.
+  code: not published
+gaps:
+- No enumerated error catalog, error-code reference, or remediation guidance is published.
+- No operation declares a 400, 401, 403, 404, 409, 429 or 5xx response.
+- google.protobuf.Any detail types are undeclared, so typed error details cannot be parsed ahead of time.

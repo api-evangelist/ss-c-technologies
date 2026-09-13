@@ -1,0 +1,159 @@
+generated: '2026-09-13'
+method: derived
+source: >-
+  openapi/ss-c-technologies-eze-ems-xapi-openapi.json,
+  grpc/ss-c-technologies-xapi-order.proto,
+  grpc/ss-c-technologies-xapi-utilities.proto,
+  grpc/ss-c-technologies-xapi-market-data.proto,
+  https://github.com/ezesoft/xapi/blob/master/readme.md,
+  https://github.com/ezesoft/xapi/blob/master/faq.md
+applies_to: SS&C Eze EMS xAPI
+scope_note: >-
+  These conventions describe the one SS&C surface with a public machine-readable contract. The SS&C
+  APIM portal and the Black Diamond API are behind authentication and their conventions could not be
+  read.
+surface_shape:
+  primary: grpc
+  note: >-
+    The gRPC contract is the source of truth and the REST surface is a generated projection of it:
+    the three OpenAPI tags (MarketDataService, SubmitOrderService, UtilityServices) are the three
+    proto service names, the 123 OpenAPI component schemas are the proto messages, and the error
+    schema is Google.Rpc.Status. Anything in the protos that cannot be expressed over REST — the
+    six server-streaming RPCs and the one bidirectional-streaming RPC — is the real divergence
+    between the two surfaces.
+auth:
+  style: session-token
+  detail: >-
+    Connect returns a UserToken that is carried on every subsequent call. The OpenAPI additionally
+    declares a global HTTP Bearer (JWT) scheme. See authentication/ss-c-technologies-authentication.yml.
+  transport_note: >-
+    On REST, every parameter including UserToken and Password is carried in the QUERY STRING, even
+    for POST, PUT and DELETE — the spec declares no requestBody on any of its 73 operations.
+idempotency:
+  coverage: none
+  mechanism: null
+  header: null
+  detail: >-
+    No idempotency key, no replay-safe retry contract, and no documented deduplication window exist
+    on any of the mutating operations. The nearest thing is OrderTag, a client-supplied identifier
+    carried on order submission and echoed back on every update message; SS&C's own FAQ describes it
+    as a way to "match orders between your system and ours", which is correlation, not replay
+    protection. Re-sending a SubmitSingleOrder with the same OrderTag is not documented as returning
+    the first result, so an agent retrying a timed-out order submission must assume it may double-fire.
+  mutating_operation_count: 30
+  protected_operation_count: 0
+reversibility:
+  grade: documented
+  detail: >-
+    Every order-creating operation has a first-class reversal RPC, and they are named in the
+    published contract, but SS&C states no window inside which a reversal is guaranteed to work.
+    That is the difference between `documented` and `verified` here, and it is a real gap for an
+    agent: the reversal succeeds only while the order is still working, and nothing published says
+    how to know that from the API.
+  reversals:
+  - write: SubmitSingleOrder (POST /api/v1/order, POST /api/v2/order)
+    reversal: CancelSingleOrder (DELETE /api/v1/order)
+    amendment: ChangeSingleOrder (PUT /api/v1/order, PUT /api/v2/order)
+    window: null
+    window_source: not stated in any published document
+  - write: SubmitPairOrder (POST /api/v1/order/pair-order, POST /api/v2/order/pair-order)
+    reversal: CancelPairOrder (DELETE /api/v1/order/pair-order)
+    amendment: ChangePairOrder (PUT /api/v1/order/pair-order, PUT /api/v2/order/pair-order)
+    window: null
+    window_source: not stated in any published document
+  - write: AddSymbols (POST /api/v1/security/symbols, POST /api/v2/security/symbols)
+    reversal: RemoveSymbols (DELETE /api/v1/security/symbols)
+    window: null
+    note: Watchlist membership; reversible at any time.
+  - write: SubscribeLevel1Ticks / SubscribeLevel2Ticks / SubscribeTickData / SubscribeIntradayBars / SubscribeTodaysNetPositions
+    reversal: the matching UnSubscribe RPC (DELETE on the same REST path)
+    window: null
+    note: Every subscription in the contract has a paired unsubscribe.
+  unreversed_writes:
+  - SubmitBookTrade (POST /api/v1/order/book-trade, POST /api/v2/order/book-trade)
+  - SubmitTradeReport (POST /api/v1/order/trade-report, POST /api/v2/order/trade-report)
+  - SubmitAllocationOrder (POST /api/v1/order/allocation-order, POST /api/v2/order/allocation-order)
+  - SubmitBasketOrder (POST /api/v1/orders, POST /api/v2/orders)
+  - SubmitSeedData (POST /api/v1/order/seed-data, POST /api/v2/order/seed-data)
+  - CreateStrategy (POST /api/v1/utility/create-strategy) — UpdateStrategy exists, no delete
+  - ChangePassword / ChangePasswordSRP
+  unreversed_note: >-
+    Basket orders resolve into single orders that can be cancelled individually; book trades, trade
+    reports and allocations have no reversal operation in the published contract.
+dry_run_mode:
+  supported: partial
+  detail: >-
+    Not a dry run, but SubmitSingleOrder carries a `Staged` boolean and a `ClaimRequire` boolean,
+    and `ReturnResult` / `ReturnResultTimeOutInMs` control whether the call blocks for an
+    acknowledgement. A staged order is created but not released, which is the closest thing to a
+    rehearsal the contract offers. Neither is documented as a validation-only mode.
+pagination:
+  style: none
+  detail: >-
+    No operation in the spec declares a cursor, page, offset, limit or page-size parameter. Bounded
+    queries are scoped by domain filters instead — a date range on
+    GET /api/v1/order/get-order-detail-by-date-range, symbol lists on the market-data operations —
+    and the large-result cases are served by server-streaming RPCs rather than pages.
+versioning:
+  style: uri-path
+  detail: >-
+    /api/v1/ and /api/v2/ coexist. Ten operations are published at v2, all of them also present at v1: nine in
+    SubmitOrderService (order, order/book-trade, order/pair-order, order/seed-data, orders,
+    order/allocation-order, order/trade-report) plus security/symbols in MarketDataService. No v2
+    exists for UtilityServices or UserServices.
+  build_version: 2026.5.0
+  build_version_sources:
+  - openapi info.version (v2026.5.0)
+  - a "// Version : 2026.5.0" comment at the head of each .proto file
+error_envelope:
+  shape: google.rpc.Status
+  detail: >-
+    Every one of the 71 operations that declares an error response declares exactly one, a `default`
+    whose schema is Google.Rpc.Status — {code: int32, message: string, details: Any[]}. This is the
+    gRPC canonical error model surfaced through REST, not RFC 9457 problem+json, and there are no
+    declared 4xx or 5xx status codes anywhere in the spec. See
+    errors/ss-c-technologies-problem-types.yml.
+  application_level: >-
+    Separately from transport errors, most responses carry a `ServerResponse` string and a
+    `ServerAcknowledgement` object, so a 200 does not by itself mean the operation succeeded.
+request_id_tracing:
+  supported: false
+  detail: >-
+    No request-id, correlation-id or trace header is declared in the spec or documented. OrderTag is
+    the only client-supplied identifier that is echoed back, and it is order-scoped.
+rate_limit_signaling:
+  headers: none declared
+  detail: >-
+    No X-RateLimit-*, RateLimit-* or Retry-After header appears in the spec or the documentation.
+    The one published throttle is an authentication lockout. See
+    rate-limits/ss-c-technologies-rate-limits.yml.
+event_surface:
+  style: grpc-server-streaming
+  webhooks: false
+  asyncapi_published: false
+  detail: >-
+    The event surface is gRPC streaming, not webhooks and not an AsyncAPI document. Server-streaming
+    RPCs: SubscribeLevel1Ticks, SubscribeLevel2Ticks, SubscribeTickData, SubscribeIntradayBars
+    (MarketDataService), SubscribeOrderInfo, SubscribeOrderInfoJson, GetOrderDetailByDateRange
+    (SubmitOrderService), SubscribeTodaysNetPositions, SubscribeHeartBeat (UtilityServices).
+    StreamMarketData is bidirectional-streaming. SS&C's FAQ explicitly documents the blocking
+    iterator semantics and recommends a dedicated thread per stream.
+  liveness: >-
+    SubscribeHeartBeat is the documented connection-liveness signal; SS&C's FAQ says a subscriber is
+    notified and asked to reconnect when the server connection terminates.
+  rest_projection_gap: >-
+    The REST projection exposes the subscribe/unsubscribe lifecycle (GET to subscribe, DELETE to
+    unsubscribe) but cannot deliver the stream, so REST-only consumers get subscription management
+    without the events. This is the largest capability divergence between the two surfaces.
+health:
+  endpoints:
+  - GET /health
+  - GET /ready
+  tag: XAPIServer
+cross_links:
+  authentication: authentication/ss-c-technologies-authentication.yml
+  errors: errors/ss-c-technologies-problem-types.yml
+  lifecycle: lifecycle/ss-c-technologies-lifecycle.yml
+  rate_limits: rate-limits/ss-c-technologies-rate-limits.yml
+  data_model: data-model/ss-c-technologies-data-model.yml
+  sandbox: sandbox/ss-c-technologies-sandbox.yml

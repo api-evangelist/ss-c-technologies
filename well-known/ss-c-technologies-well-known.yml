@@ -1,0 +1,258 @@
+generated: '2026-09-13'
+method: probed
+source: live probes of the named /.well-known path list on every host this record knows
+note: >-
+  Nine hosts probed on 2026-09-13. Only one real discovery document was found, and it is not at a
+  host root: the Keycloak realm behind the SS&C APIM developer portal serves an RFC 8414 / OpenID
+  Connect discovery document at https://ssoprod.ssnc.cloud/auth/realms/APIM/.well-known/openid-configuration
+  (issuer and jwks_uri both present and both on ssoprod.ssnc.cloud). The realm path was found in the
+  portal's own JavaScript bundle, not guessed. Three hosts are catch-alls and their 200s are NOT
+  documents — developer.ssctech.com and apim.ssnc.cloud return the Angular portal shell (2,498 bytes,
+  text/html) for every /.well-known/* path, and www.ezesoft.com (which now redirects to advent.com)
+  returns an 86,741-byte marketing page for every path including the negative control, so its
+  path_echo/soft-404 control FAILED and every 200 on that host is discarded.
+path_echo_control: failed-on-www.ezesoft.com
+soft_404_control:
+  developer.ssctech.com: SPA shell, 2498 bytes, text/html, identical for every path
+  apim.ssnc.cloud: SPA shell, 2498 bytes, text/html, identical for every path
+  www.ezesoft.com: marketing page, 86741 bytes, 200 on every path including /.well-known/ssc-negative-control-7f3ab91c.json
+hit_count: 1
+hosts:
+- host: https://ssoprod.ssnc.cloud
+  documents:
+  - path: /auth/realms/APIM/.well-known/openid-configuration
+    status: 200
+    file: ss-c-technologies-openid-configuration.json
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/apis.json
+    status: 404
+  - path: /apis.json
+    status: 404
+  - path: /apis.yml
+    status: 404
+  - path: /.well-known/aauth-resource.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /.well-known/ssc-negative-control-7f3ab91c.json
+    status: 404
+- host: https://www.ssctech.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/apis.json
+    status: 404
+  - path: /apis.json
+    status: 404
+  - path: /apis.yml
+    status: 404
+  - path: /.well-known/aauth-resource.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /.well-known/ssc-negative-control-7f3ab91c.json
+    status: 404
+- host: https://developer.ssctech.com
+  note: SPA catch-all; every 200 below is the Angular portal shell, not a document
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    result: spa-shell-not-a-document
+  - path: /.well-known/openid-configuration
+    status: 200
+    result: spa-shell-not-a-document
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    result: spa-shell-not-a-document
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    result: spa-shell-not-a-document
+  - path: /.well-known/api-catalog
+    status: 200
+    result: spa-shell-not-a-document
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/apis.json
+    status: 404
+  - path: /apis.json
+    status: 404
+  - path: /apis.yml
+    status: 200
+    result: spa-shell-not-a-document
+  - path: /.well-known/aauth-resource.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /.well-known/ssc-negative-control-7f3ab91c.json
+    status: 404
+- host: https://apim.ssnc.cloud
+  note: same Angular application as developer.ssctech.com; 200s are the shell
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    result: spa-shell-not-a-document
+  - path: /.well-known/openid-configuration
+    status: 200
+    result: spa-shell-not-a-document
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    result: spa-shell-not-a-document
+  - path: /.well-known/api-catalog
+    status: 200
+    result: spa-shell-not-a-document
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/apis.json
+    status: 404
+  - path: /apis.json
+    status: 404
+  - path: /.well-known/aauth-resource.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /.well-known/ssc-negative-control-7f3ab91c.json
+    status: 404
+- host: https://emsuatxapi.taltrade.com:9001
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/apis.json
+    status: 404
+  - path: /apis.json
+    status: 404
+  - path: /apis.yml
+    status: 404
+  - path: /.well-known/aauth-resource.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /.well-known/ssc-negative-control-7f3ab91c.json
+    status: 404
+- host: https://www.ezesoft.com
+  note: >-
+    Redirects to www.advent.com. Returns 200 with the same 86,741-byte marketing page for EVERY
+    probed path including the negative control, so no 200 on this host is credited.
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    result: soft-404-catch-all
+  - path: /.well-known/openid-configuration
+    status: 200
+    result: soft-404-catch-all
+  - path: /.well-known/apis.json
+    status: 200
+    result: soft-404-catch-all
+  - path: /apis.json
+    status: 200
+    result: soft-404-catch-all
+  - path: /.well-known/agent-card.json
+    status: 200
+    result: soft-404-catch-all
+  - path: /.well-known/agent.json
+    status: 200
+    result: soft-404-catch-all
+  - path: /.well-known/ssc-negative-control-7f3ab91c.json
+    status: 200
+    result: soft-404-catch-all
+- host: https://www.blackdiamondwealthplatform.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/apis.json
+    status: 404
+  - path: /apis.json
+    status: 404
+  - path: /apis.yml
+    status: 404
+  - path: /.well-known/aauth-resource.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /.well-known/ssc-negative-control-7f3ab91c.json
+    status: 404
+- host: https://api.blackdiamondwealthplatform.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/apis.json
+    status: 404
+  - path: /apis.json
+    status: 404
+  - path: /apis.yml
+    status: 404
+  - path: /.well-known/aauth-resource.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /.well-known/ssc-negative-control-7f3ab91c.json
+    status: 404
+a2a:
+  result: no-agent-card
+  note: >-
+    /.well-known/agent-card.json and /.well-known/agent.json were probed on every host above and
+    every one either 404d or returned HTML. No agent card exists, so no a2a/ artifact was written.

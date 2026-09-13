@@ -1,0 +1,26 @@
+generated: '2026-09-13'
+method: searched
+source: >-
+  https://www.ssctech.com/ (site navigation and footer), https://www.ssctech.com/solutions,
+  https://www.ssctech.com/contact-sales, https://github.com/ezesoft/xapi/blob/master/readme.md,
+  https://developer.ssctech.com/
+plan_count: 0
+pricing_model: enterprise-contract
+public_pricing_page: false
+free_tier: false
+self_serve: false
+note: >-
+  SS&C publishes no pricing page, no plan tiers, no rate card and no per-call price for any product
+  or API. Every commercial path is a sales conversation: the corporate site routes to
+  /contact-sales and /contact-us, the SS&C APIM developer portal grants access through a Client
+  Relationship manager, SS&C Eze directs xAPI prospects to a client service representative or the
+  "request a demo" form at https://info.ezesoft.com/request-a-demo, and the Black Diamond developer
+  portal routes new partners to a request form. This is plan_count 0 as a fact about SS&C's
+  go-to-market, not a gap in the probe — an agent or a buyer cannot price, budget for, or begin
+  using any SS&C API without a signed contract.
+contact_paths:
+- https://www.ssctech.com/contact-sales
+- https://www.ssctech.com/contact-us
+- https://info.ezesoft.com/request-a-demo
+- https://developer.ssctech.com/register
+plans: []

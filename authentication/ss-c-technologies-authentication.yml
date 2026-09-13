@@ -1,0 +1,89 @@
+generated: '2026-09-13'
+method: searched
+source: >-
+  openapi/ss-c-technologies-eze-ems-xapi-openapi.json,
+  grpc/ss-c-technologies-xapi-utilities.proto,
+  https://github.com/ezesoft/xapi/blob/master/readme.md,
+  https://github.com/ezesoft/xapi/blob/master/faq.md,
+  https://ssoprod.ssnc.cloud/auth/realms/APIM/.well-known/openid-configuration
+docs: https://github.com/ezesoft/xapi/blob/master/readme.md#tutorial-1-connecting-and-disconnecting
+summary:
+  types:
+  - http
+  - session-token
+  - srp
+  - openIdConnect
+schemes:
+- name: Bearer
+  type: http
+  scheme: Bearer
+  bearerFormat: JWT
+  description: 'Please enter a valid token :'
+  applies_to: SS&C Eze EMS xAPI REST surface
+  sources:
+  - openapi/ss-c-technologies-eze-ems-xapi-openapi.json
+  note: >-
+    The only securityScheme the OpenAPI declares, and it is applied globally via a root-level
+    `security: [{Bearer: []}]`. The spec gives no token-issuance endpoint for this bearer token and
+    no description beyond the placeholder text above.
+- name: UserToken
+  type: session-token
+  in: query
+  parameter: UserToken
+  applies_to: both the gRPC and REST surfaces
+  sources:
+  - grpc/ss-c-technologies-xapi-utilities.proto
+  - openapi/ss-c-technologies-eze-ems-xapi-openapi.json
+  description: >-
+    The working credential for Eze EMS xAPI. UtilityServices.Connect (REST GET
+    /api/v1/authentication/connect) takes UserName, Domain, Password and Locale and returns a
+    UserToken in ConnectResponse; SS&C's own tutorial states the token "must be provided on all
+    subsequent calls to the server". UtilityServices.Disconnect ends the session.
+  note: >-
+    On the REST projection the login parameters and the UserToken are carried as QUERY parameters,
+    including Password on GET /api/v1/authentication/connect and
+    GET /api/v1/authentication/change-password. This is recorded because it is what the published
+    contract says, not as an assessment.
+- name: SRP
+  type: srp
+  applies_to: SS&C Eze EMS xAPI, where the client domain is SRP-enabled
+  sources:
+  - grpc/ss-c-technologies-xapi-utilities.proto
+  - https://github.com/ezesoft/xapi/blob/master/faq.md
+  description: >-
+    Secure Remote Password (SRP) login, a zero-knowledge password proof, exposed as the
+    StartLoginSrp / CompleteLoginSrp RPC pair (REST GET /api/v1/authentication/start-login-srp and
+    /api/v1/authentication/complete-login-srp) plus ChangePasswordSRP.
+  availability: >-
+    SS&C's FAQ states both SRP and standard login work on an SRP-enabled domain, and only standard
+    login works on a domain that is not SRP-enabled. Whether a domain is SRP-enabled is set by SS&C.
+- name: MFA
+  type: mfa
+  applies_to: SS&C Eze EMS xAPI
+  sources:
+  - grpc/ss-c-technologies-xapi-utilities.proto
+  description: >-
+    UtilityServices.MultiFactorAuthentication (REST GET
+    /api/v1/authentication/multi-factor-authentication). ConnectResponse carries MFASecurityCode,
+    MFAtotpPreference and MFAtotpValue fields, so TOTP is a supported second factor.
+- name: SS&C APIM OpenID Connect
+  type: openIdConnect
+  openIdConnectUrl: https://ssoprod.ssnc.cloud/auth/realms/APIM/.well-known/openid-configuration
+  applies_to: the SS&C APIM developer portal (developer.ssctech.com / apim.ssnc.cloud)
+  sources:
+  - well-known/ss-c-technologies-openid-configuration.json
+  description: >-
+    A Keycloak realm named APIM. The discovery document advertises authorization_code,
+    client_credentials, implicit, password, refresh_token, device_code, jwt-bearer, token-exchange,
+    uma-ticket and CIBA grants, PKCE (S256), and a scope list that includes one API-specific scope,
+    events_enrichment_api_member.
+  note: >-
+    This governs the developer portal and the Kong gateway it fronts, not the Eze EMS xAPI. Every
+    portal catalog endpoint probed anonymously 302s to https://developer.ssctech.com/sso/login.
+credential_acquisition:
+  self_serve: false
+  note: >-
+    No surface here issues credentials without a human. SS&C Eze says "Server details and
+    authentication credentials will be provided by your SS&C Eze representative"; the SS&C APIM
+    portal says to contact a Client Relationship manager; Black Diamond routes new partners to a
+    request form and existing clients to their account team.

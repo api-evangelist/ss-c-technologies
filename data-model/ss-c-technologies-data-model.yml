@@ -1,0 +1,202 @@
+generated: '2026-09-13'
+method: derived
+source: >-
+  openapi/ss-c-technologies-eze-ems-xapi-openapi.json ($ref graph across 123 component schemas and
+  id-reference fields), cross-checked against grpc/ss-c-technologies-xapi-*.proto (163 messages)
+applies_to: SS&C Eze EMS xAPI
+note: >-
+  The OpenAPI schemas are generated from the proto messages, so this graph is request/response
+  shaped rather than resource shaped — there is no /orders/{id} resource whose representation is an
+  Order. Entities below are reconstructed from the identifier fields that actually cross operation
+  boundaries, which is how a client links one call's output to the next call's input.
+entities:
+- name: Session
+  key: UserToken
+  created_by: UtilityServices.Connect (GET /api/v1/authentication/connect)
+  destroyed_by: UtilityServices.Disconnect (GET /api/v1/authentication/disconnect)
+  detail: >-
+    The root of everything. UserToken appears on 15 request schemas and is required by every
+    non-health operation. ConnectResponse also carries DPermStatusCode (entitlement status) and the
+    MFA fields.
+  relationships:
+  - has_many: Order
+    via: UserToken
+  - has_many: Subscription
+    via: UserToken
+  - has_one: User
+    via: UserToken
+- name: User
+  key: UserName + Domain
+  read_by:
+  - UserServices.GetUserPermissions (GET /api/v1/user/user-permissions)
+  - UtilityServices.GetUserRoutes (GET /api/v1/utility/user-routes)
+  - UtilityServices.GetUserRouteProps (GET /api/v1/utility/user-route-props)
+  - UtilityServices.UserExists (GET /api/v1/utility/user-exists)
+  - UtilityServices.GetFirmName (GET /api/v1/utility/firm-name)
+  - SubmitOrderService.GetUserAccounts (GET /api/v1/order/user-accounts)
+  relationships:
+  - has_many: Account
+    via: GetUserAccounts
+  - has_many: Route
+    via: GetUserRoutes
+  - has_many: UserPermissionRecord
+    via: GetUserPermissions
+- name: Order
+  key: OrderId
+  alternate_keys:
+  - OrderTag (client-supplied, echoed on every update)
+  - TicketId
+  - ClientOrderId
+  created_by:
+  - SubmitOrderService.SubmitSingleOrder (POST /api/v1/order, /api/v2/order)
+  - SubmitOrderService.SubmitBasketOrder (POST /api/v1/orders, /api/v2/orders)
+  - SubmitOrderService.SubmitAllocationOrder (POST /api/v1/order/allocation-order)
+  - SubmitOrderService.SubmitBookTrade (POST /api/v1/order/book-trade)
+  - SubmitOrderService.SubmitTradeReport (POST /api/v1/order/trade-report)
+  amended_by: SubmitOrderService.ChangeSingleOrder (PUT /api/v1/order)
+  cancelled_by: SubmitOrderService.CancelSingleOrder (DELETE /api/v1/order)
+  read_by:
+  - SubmitOrderService.GetOrderDetailByOrderId (GET /api/v1/order/order-detail-by-order-id)
+  - SubmitOrderService.GetOrderDetailByOrderTag (GET /api/v1/order/order-detail-by-order-tag)
+  - SubmitOrderService.GetOrderDetailByDateRange (GET /api/v1/order/get-order-detail-by-date-range, server-streaming)
+  - SubmitOrderService.SubscribeOrderInfo / SubscribeOrderInfoJson (server-streaming)
+  relationships:
+  - belongs_to: Account
+    via: Account
+  - belongs_to: Route
+    via: Route
+  - belongs_to: Security
+    via: Symbol
+  - has_one: ExpirationType
+    via: TimeInForce.Expiration
+  - has_one: PriceTypeEnum
+    via: PriceType.PriceType
+  - has_many: Execution
+    via: OrderId
+  - belongs_to: Order
+    via: OriginalOrderId
+    note: Set on an amended or replaced order, pointing at its predecessor.
+  - has_one: Order
+    via: LinkedOrderId
+  - has_one: Order
+    via: RefersToId
+- name: PairOrder
+  key: PairOrderId
+  created_by: SubmitOrderService.SubmitPairOrder (POST /api/v1/order/pair-order)
+  amended_by: SubmitOrderService.ChangePairOrder (PUT /api/v1/order/pair-order)
+  cancelled_by: SubmitOrderService.CancelPairOrder (DELETE /api/v1/order/pair-order)
+  relationships:
+  - has_one: Order
+    via: Leg1OrderId
+  - has_one: Order
+    via: Leg2OrderId
+- name: Execution
+  key: OrderId + fill sequence
+  read_by: UtilityServices.GetTodaysActivity / GetTodaysActivityJson (GET /api/v1/utility/todays-activity)
+  detail: >-
+    Fills and rejections arrive as activity rows filtered by the include flags on
+    TodaysActivityJsonRequest (IncludeUserSubmitOrder, IncludeExchangeTradeOrder and siblings),
+    not as a distinct resource.
+  relationships:
+  - belongs_to: Order
+    via: OrderId
+- name: Account
+  key: Account
+  alternate_keys:
+  - TboAccountId
+  - SourceAccount / TargetAccount (allocation legs)
+  read_by: SubmitOrderService.GetUserAccounts (GET /api/v1/order/user-accounts)
+  relationships:
+  - has_many: Position
+    via: Account
+  - has_many: Balance
+    via: Account
+- name: Position
+  key: Account + Symbol
+  read_by:
+  - UtilityServices.GetTodaysNetPositions (GET /api/v1/utility/todays-net-positions)
+  - UtilityServices.GetTodaysBrokenDownPositions (GET /api/v1/utility/todays-breakdown-positions)
+  - UtilityServices.SubscribeTodaysNetPositions (server-streaming)
+  relationships:
+  - belongs_to: Account
+  - belongs_to: Security
+    via: Symbol
+- name: Balance
+  key: Account
+  read_by: UtilityServices.GetTodaysBalances (GET /api/v1/utility/todays-balances)
+  relationships:
+  - belongs_to: Account
+- name: Security
+  key: Symbol
+  alternate_keys:
+  - ISIN
+  - SEDOL
+  - RIC
+  - CUSIP
+  - BBG
+  resolved_by: MarketDataService.GetSymbolFromAlternateSymbology (GET /api/v1/security/symbol-from-alternate-symbology)
+  read_by:
+  - MarketDataService.GetSecurityData (GET /api/v1/security/security-data)
+  - MarketDataService.GetSymbolReferenceData (GET /api/v1/security/symbol-reference-data)
+  - MarketDataService.GetSymbolsFromCompanyName (GET /api/v1/security/symbols-from-company-name)
+  relationships:
+  - has_many: Quote
+    via: Symbol
+  - has_many: Bar
+    via: Symbol
+  - has_many: OptionContract
+    via: underlier Symbol
+- name: Quote
+  key: Symbol
+  read_by:
+  - MarketDataService.GetLevel1MarketData (GET /api/v1/security/level1-market-data)
+  - MarketDataService.SubscribeLevel1Ticks / SubscribeLevel2Ticks (server-streaming)
+  detail: Level1MarketDataRecord carries the ISO 10383 MIC of the reporting venue.
+- name: Bar
+  key: Symbol + interval + timestamp
+  read_by:
+  - MarketDataService.GetDailyWeeklyMonthlyBars (GET /api/v1/security/daily-weekly-monthly-bars)
+  - MarketDataService.GetIntradayBars (GET /api/v1/security/intraday-bars)
+  - MarketDataService.SubscribeIntradayBars (server-streaming)
+  schema: CommonBarsFields
+- name: OptionContract
+  key: option symbol
+  read_by:
+  - MarketDataService.GetOptionChainForUnderlier (GET /api/v1/security/option-chain-for-underlier)
+  - MarketDataService.GetOptionsAndGreekData (GET /api/v1/security/options-and-greek-data)
+  - MarketDataService.GetOptionSymbolFromDescription / GetDescriptionFromOptionSymbol
+  relationships:
+  - belongs_to: Security
+    via: underlier Symbol
+- name: Strategy
+  key: strategy name
+  created_by: UtilityServices.CreateStrategy (POST /api/v1/utility/create-strategy)
+  updated_by: UtilityServices.UpdateStrategy (PUT /api/v1/utility/update-strategy)
+  read_by:
+  - UtilityServices.GetStrategyList (GET /api/v1/utility/strategy-list)
+  - UtilityServices.GetStrategyData (GET /api/v1/utility/strategy-data)
+  schema: StrategyDataRow
+  note: No delete operation exists in the published contract.
+- name: Route
+  key: Route
+  read_by: UtilityServices.GetUserRoutes / GetUserRouteProps
+  schema: RoutePropsMap
+  detail: The destination a working order is sent to. Route values are provisioned by SS&C, not discoverable without a session.
+- name: Watchlist
+  key: UserToken-scoped symbol set
+  created_by: MarketDataService.AddSymbols (POST /api/v1/security/symbols, /api/v2/security/symbols)
+  destroyed_by: MarketDataService.RemoveSymbols (DELETE /api/v1/security/symbols)
+- name: Subscription
+  key: UserToken + stream type + symbol set
+  created_by: any Subscribe* RPC
+  destroyed_by: the matching UnSubscribe* RPC
+  detail: >-
+    Subscriptions are session-scoped and evaporate with the session; SubscribeHeartBeat is the
+    documented signal that the session and therefore every subscription has gone away.
+shared_value_objects:
+- ServerAcknowledgement — on almost every response; the application-level success signal
+- ExpirationType / ExpirationTypes — FIX tag 59 TimeInForce vocabulary
+- PriceTypeEnum / PriceTypesEnum — FIX tag 40 OrdType vocabulary
+- AllocationType / AllocationTypeTypesAllocation
+- Price, CommonBarsFields, SymbolData, BarUpdateKind
+- Google.Rpc.Status — the single error envelope

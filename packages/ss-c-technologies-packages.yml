@@ -1,0 +1,51 @@
+generated: '2026-09-13'
+method: searched
+source: >-
+  npm registry search (ssctech, ssnc, ezesoft, blackdiamond, eze-xapi), PyPI (ssc-eze, ssctech,
+  eze-xapi), and the SS&C Eze xAPI repository at https://github.com/ezesoft/xapi
+summary: >-
+  SS&C publishes no client library to any public package registry. The only first-party client
+  distribution is the SS&C Eze xAPI GitHub repository, which ships the proto3 contract plus
+  per-language sample-script archives; consumers generate their own stubs with protoc. There is no
+  tagged release and no semantic version on that distribution, so a consumer cannot pin it.
+package_count: 1
+registry_published_count: 0
+packages:
+- language: multi
+  registry: github
+  name: ezesoft/xapi
+  url: https://github.com/ezesoft/xapi
+  install: git clone https://github.com/ezesoft/xAPI.git
+  official: true
+  version: null
+  published: null
+  note: >-
+    Source distribution, not a package. The repository has zero releases and zero tags as of
+    2026-09-13; the only version signal is a comment at the top of each .proto file and the
+    OpenAPI info.version, both reading 2026.5.0. Most recent commit 2026-08-25. The repo carries
+    protos/ (three proto3 files), samplescripts/ (C#, Go, Java, Python zip archives) and tutorials/
+    (pre-generated Python _pb2 stubs). Because the distribution is a git clone of a moving default
+    branch with no tag, a consumer cannot pin a version — that is the finding, not a gap in this
+    probe.
+registries_checked:
+- registry: npm
+  queries:
+  - ssctech
+  - ssnc
+  - ezesoft
+  - blackdiamond
+  - eze-xapi
+  result: no first-party package
+- registry: pypi
+  queries:
+  - ssc-eze
+  - ssctech
+  - eze-xapi
+  result: 404 on every name
+  note: >-
+    The PyPI package named `xapi` exists but is the unrelated Experience API (xAPI/Tin Can)
+    library, not SS&C Eze EMS xAPI. Not recorded as first-party.
+sdk_pointer_emitted: false
+sdk_pointer_reason: >-
+  No registry-published, installable, first-party SDK was found, so no `SDKs` pointer is wired.
+  Generated protoc stubs are not an SDK SS&C ships.

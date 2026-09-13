@@ -1,0 +1,39 @@
+generated: '2026-09-13'
+method: generated
+source: >-
+  openapi/ss-c-technologies-eze-ems-xapi-openapi.json, grpc/ss-c-technologies-xapi-*.proto,
+  conventions/ss-c-technologies-conventions.yml, errors/ss-c-technologies-problem-types.yml,
+  https://github.com/ezesoft/xapi/blob/master/readme.md,
+  https://github.com/ezesoft/xapi/blob/master/faq.md
+provider_published_skills: false
+provider_published_skills_note: >-
+  SS&C publishes no Agent Skills, no AGENTS.md and no llms.txt. These three are authored by API
+  Evangelist from SS&C's own published contract and documentation.
+grounding_note: >-
+  The SS&C Eze EMS xAPI OpenAPI declares NO operationId on any of its 73 operations, so these skills
+  are grounded in method+path pairs and in the gRPC RPC names from the published .proto files. Every
+  path and every RPC named in these files was read out of the saved contract, not invented.
+applies_to: SS&C Eze EMS xAPI
+skills:
+- name: ss-c-technologies-place-and-track-an-order
+  file: ss-c-technologies-place-and-track-an-order.md
+  summary: >-
+    Session setup, entitlement discovery, order submission with an OrderTag, status tracking,
+    amendment and cancellation — and what to do when a submit times out on an API with no
+    idempotency key.
+  consequence: irreversible-money-movement
+  human_approval_required: true
+- name: ss-c-technologies-subscribe-to-market-data
+  file: ss-c-technologies-subscribe-to-market-data.md
+  summary: >-
+    Symbol resolution from ISIN/SEDOL/RIC/CUSIP/Bloomberg, Level 1 and Level 2 data, bars, ticks,
+    option chains and greeks, and paired subscribe/unsubscribe discipline for the streaming surface.
+  consequence: read
+  human_approval_required: false
+- name: ss-c-technologies-reconcile-positions-and-activity
+  file: ss-c-technologies-reconcile-positions-and-activity.md
+  summary: >-
+    Today's balances, net and broken-down positions and activity, joined back to submitted orders on
+    OrderTag, with explicit handling for rows that cannot be matched.
+  consequence: read
+  human_approval_required: false

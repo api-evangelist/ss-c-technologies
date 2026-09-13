@@ -64,4 +64,14 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-SS&C Technologies is a company surfaced via the API Evangelist harvest backlog (source: absent-parent) and added to the network as a stub for full-pipeline profiling.
+SS&C Technologies Holdings (NASDAQ: SSNC) is a global provider of financial-services and healthcare
+software and outsourcing, operating brands including SS&C Advent, SS&C Eze, SS&C GlobeOp, SS&C GIDS,
+SS&C Intralinks, SS&C Black Diamond, SS&C Algorithmics and SS&C Blue Prism.
+
+Most of SS&C's API surface is client-gated — the corporate SS&C APIM developer portal at
+developer.ssctech.com and the Black Diamond developer portal both require an account, and access is
+granted by a client relationship manager. The substantial public exception is **SS&C Eze EMS xAPI**,
+whose machine-readable contract SS&C Eze publishes openly at
+[github.com/ezesoft/xapi](https://github.com/ezesoft/xapi): three proto3 files carrying 64 gRPC RPCs
+across `MarketDataService`, `SubmitOrderService` and `UtilityServices`, plus a live OpenAPI 3.0.4
+document (73 operations, 123 schemas) describing the equivalent REST projection.

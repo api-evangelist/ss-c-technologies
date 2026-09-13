@@ -1,0 +1,41 @@
+generated: '2026-09-13'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: www.ssctech.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct 28 21:34:31 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+- host: emsuatxapi.taltrade.com
+  https: false
+  note: >-
+    The probe tests port 443, which this host does not serve. The published Eze EMS xAPI REST
+    endpoint is https://emsuatxapi.taltrade.com:9001 and a direct fetch of
+    https://emsuatxapi.taltrade.com:9001/swagger/v1/swagger.json completed a TLS handshake and
+    returned HTTP 200 on 2026-09-13, so `https: false` here means "nothing on 443", not "no TLS".
+- host: developer.ssctech.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Nov  4 11:56:05 2026 GMT
+  hsts: true
+  hsts_max_age: 15552000
+domains:
+- domain: ssctech.com
+  dnssec: false
+  caa:
+  - 0 issue "comodoca.com"
+  - 0 issue "digicert.com; cansignhttpexchanges=yes"
+  - 0 issue "entrust.net"
+  - 0 issue "letsencrypt.org"
+  - 0 issue "pki.goog; cansignhttpexchanges=yes"
+  - 0 issue "ssl.com"
+  spf: true
+  dmarc: true
+  dmarc_policy: reject
+- domain: taltrade.com
+  dnssec: false
+  caa: []
+  spf: false
+  dmarc: false

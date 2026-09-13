@@ -1,0 +1,65 @@
+generated: '2026-09-13'
+method: searched
+source: >-
+  https://github.com/ezesoft/xapi/blob/master/readme.md,
+  https://github.com/ezesoft/xapi/tree/master/tutorials,
+  probes of https://emsuatxapi.taltrade.com:9001 and https://uatwebxapi.realtick.com on 2026-09-13
+applies_to: SS&C Eze EMS xAPI
+self_serve: false
+test_credentials_published: false
+summary: >-
+  SS&C Eze publishes UAT endpoints for both xAPI transports and they answer anonymously, but the
+  environment is not a self-serve sandbox: there are no test credentials, no demo account and no
+  published test data. A client service representative provisions the server, port, user, domain and
+  route values, and every tutorial script ships with those five values as __SERVER__, __PORT__,
+  __USER__, __PASSWORD__ and __DOMAIN__ placeholders the reader must fill in. What a developer CAN
+  do without an account is read the complete contract and browse the live Swagger UI.
+environments:
+- name: UAT (REST)
+  url: https://emsuatxapi.taltrade.com:9001
+  reachable: true
+  http_status: 200
+  detail: >-
+    Serves the live OpenAPI 3.0.4 document at /swagger/v1/swagger.json and a Swagger UI at
+    /index.html. Both were readable anonymously on 2026-09-13; calling an operation requires a token.
+  source: https://github.com/ezesoft/xapi/blob/master/readme.md
+- name: UAT (gRPC)
+  url: https://uatwebxapi.realtick.com/
+  reachable: true
+  http_status: 200
+  detail: The UAT gRPC endpoint named in the SS&C Eze readme's integration-resources line.
+  source: https://github.com/ezesoft/xapi/blob/master/readme.md
+- name: Production
+  url: not published
+  detail: Server and port are supplied per client by an SS&C Eze representative.
+test_values:
+  published: false
+  note: >-
+    No test symbols, test accounts, test routes or magic identifiers are published. The tutorials
+    use a real ticker (TSLA) with placeholder Route and Account values that SS&C supplies. Nothing
+    here is a usable test fixture.
+key_prefixes:
+  test_vs_live: not applicable
+  note: >-
+    Credentials are username/domain/password producing a session UserToken, not prefixed API keys,
+    so there is no visual test-vs-live distinction a client can check before firing an order.
+tooling:
+- name: Swagger UI
+  url: https://emsuatxapi.taltrade.com:9001/index.html
+  auth_required_to_view: false
+- name: Postman collection
+  url: https://www.postman.com/ssnc-eze-ems-xapi/ems-xapi-rest/collection/jeebiq6/ss-c-eze-ems-xapi
+  auth_required_to_view: false
+  detail: Public Postman workspace published by SS&C Eze (ssnc-eze-ems-xapi) for the REST surface.
+- name: Sample scripts
+  url: https://github.com/ezesoft/xapi/tree/master/samplescripts
+  detail: C#, Go, Java and Python sample-script archives.
+- name: Python tutorials
+  url: https://github.com/ezesoft/xapi/tree/master/tutorials
+  detail: >-
+    Nine runnable scripts covering connect/disconnect, place order, order detail, execution detail,
+    cancel order, market data, net positions, basket order and SRP connect.
+time_simulation:
+  supported: false
+fixtures:
+  supported: false

@@ -1,0 +1,75 @@
+generated: '2026-09-13'
+method: probed
+source: https://ssoprod.ssnc.cloud/auth/realms/APIM/.well-known/openid-configuration
+docs: https://developer.ssctech.com/
+applies_to: SS&C APIM Developer Portal (developer.ssctech.com / apim.ssnc.cloud)
+note: >-
+  These are the scopes_supported values the SS&C APIM Keycloak realm advertises in its own OpenID
+  Connect discovery document, read anonymously on 2026-09-13. They are NOT derived from an OpenAPI:
+  the Eze EMS xAPI spec declares no oauth2 securityScheme, so there is no scope surface to derive
+  there. Most entries below are Keycloak built-ins; only events_enrichment_api_member and voucher
+  are realm-specific, and SS&C publishes no scope reference page describing what either grants —
+  the portal's own documentation is behind SSO.
+scope_count: 14
+provider_specific_scope_count: 2
+pkce_supported:
+- plain
+- S256
+scopes:
+- name: openid
+  description: OpenID Connect authentication request marker (standard).
+  standard: true
+- name: profile
+  description: Basic profile claims (standard OIDC claim set).
+  standard: true
+- name: email
+  description: Email address claims (standard OIDC claim set).
+  standard: true
+- name: address
+  description: Address claims (standard OIDC claim set).
+  standard: true
+- name: phone
+  description: Phone number claims (standard OIDC claim set).
+  standard: true
+- name: roles
+  description: Keycloak realm and client role claims.
+  standard: true
+- name: web-origins
+  description: Keycloak CORS allowed-origins claim.
+  standard: true
+- name: acr
+  description: Authentication context class reference (standard).
+  standard: true
+- name: basic
+  description: Keycloak basic claim set (sub, auth_time).
+  standard: true
+- name: microprofile-jwt
+  description: Eclipse MicroProfile JWT claim mapping (upn, groups).
+  standard: true
+- name: offline_access
+  description: Requests a refresh token usable while the user is offline (standard).
+  standard: true
+- name: service_account
+  description: Keycloak service-account client scope, used for client_credentials grants.
+  standard: true
+- name: events_enrichment_api_member
+  description: >-
+    Realm-specific scope. Its name binds it to an SS&C events-enrichment API product surfaced
+    through the APIM gateway. SS&C publishes no description of what it grants; recorded verbatim
+    from scopes_supported.
+  standard: false
+- name: voucher
+  description: >-
+    Realm-specific scope with no published description. Recorded verbatim from scopes_supported.
+  standard: false
+grant_types_supported:
+- authorization_code
+- client_credentials
+- implicit
+- password
+- refresh_token
+- urn:ietf:params:oauth:grant-type:device_code
+- urn:ietf:params:oauth:grant-type:jwt-bearer
+- urn:ietf:params:oauth:grant-type:token-exchange
+- urn:ietf:params:oauth:grant-type:uma-ticket
+- urn:openid:params:grant-type:ciba

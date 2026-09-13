@@ -1,0 +1,46 @@
+generated: '2026-09-13'
+method: searched
+source: https://www.ssctech.com/about/disclosures/security-addendum-schedule3
+trust_center_url: null
+note: >-
+  SS&C operates no trust centre in the usual sense — there is no trust.ssctech.com (DNS does not
+  resolve), no certifications page, no public compliance portal and no downloadable report index.
+  What exists is a contractual security addendum published on the corporate disclosures section,
+  which names one audit by name and makes it available on request under contract rather than
+  publicly. That is recorded below because it is a first-party, verifiable statement; everything
+  else attributed to SS&C in third-party write-ups (ISO 27001, SOC 2) could not be confirmed on an
+  SS&C page in this pass and is therefore NOT recorded as a certification.
+certifications:
+- name: SOC 1 Type 2
+  framework: SSAE 18
+  status: stated by SS&C, available on request
+  public_report: false
+  evidence_url: https://www.ssctech.com/about/disclosures/security-addendum-schedule3
+  evidence_status: 200
+  quote: >-
+    "the most recent relevant Service Organization Controls (SOC) 1, Type 2 Audit, issued under
+    SSAE 18, covering SS&C controls"
+commitments:
+- name: Information security policy executive summary
+  availability: on request
+  evidence_url: https://www.ssctech.com/about/disclosures/security-addendum-schedule3
+- name: Security review meeting
+  availability: on request
+  detail: The addendum offers "an opportunity to discuss SS&C's Information Security" programme.
+  evidence_url: https://www.ssctech.com/about/disclosures/security-addendum-schedule3
+unverified_claims:
+- claim: ISO/IEC 27001 certification
+  status: not found on any first-party SS&C page checked on 2026-09-13
+- claim: SOC 2 compliance
+  status: not found on any first-party SS&C page checked on 2026-09-13
+vulnerability_disclosure:
+  published: false
+  detail: >-
+    No security.txt on any SS&C host (see well-known/ss-c-technologies-well-known.yml), no
+    /security or /responsible-disclosure page, and no HackerOne, Bugcrowd or Intigriti program was
+    found. No Security pointer is wired, because no disclosure channel is published. A security
+    researcher's only route is the general contact form at https://www.ssctech.com/contact-us.
+related_disclosures:
+- https://www.ssctech.com/about/disclosures
+- https://www.ssctech.com/about/privacy
+- https://www.ssctech.com/about/disclaimer

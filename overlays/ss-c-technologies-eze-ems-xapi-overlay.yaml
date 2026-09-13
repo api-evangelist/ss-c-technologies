@@ -1,0 +1,127 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for SS&C Eze EMS xAPI
+  version: 1.0.0
+x-provenance:
+  generated: '2026-09-13'
+  method: generated
+  source: openapi/ss-c-technologies-eze-ems-xapi-openapi.json
+  extends: openapi/ss-c-technologies-eze-ems-xapi-openapi.json
+  note: >-
+    This overlay carries API Evangelist's additions only. It never mutates the original document,
+    which stays verbatim as fetched from https://emsuatxapi.taltrade.com:9001/swagger/v1/swagger.json
+    on 2026-09-13. Every action below adds metadata the published spec omits — a server block, a
+    contact, tag descriptions, and per-operation consequence markers on the writes. No operation's
+    parameters, schemas or responses are altered.
+actions:
+- target: $.info
+  description: >-
+    Name the publisher and point at the contract's real home. The published info block carries only
+    title and version.
+  update:
+    description: >-
+      Cross-platform execution-management API for Eze EMS. The gRPC contract at
+      https://github.com/ezesoft/xapi/tree/master/protos is the source of truth; this document is
+      its REST projection. Connect returns a UserToken that must be supplied on every subsequent
+      call. A 200 does not by itself indicate success — read ServerResponse and ServerAcknowledgement.
+    contact:
+      name: SS&C Eze
+      url: https://github.com/ezesoft/xapi
+    x-published-by: SS&C Technologies (SS&C Eze)
+    x-source-of-truth: grpc/ss-c-technologies-xapi-order.proto, grpc/ss-c-technologies-xapi-market-data.proto, grpc/ss-c-technologies-xapi-utilities.proto
+- target: $
+  description: >-
+    The published document declares no servers[] block at all, so a generated client has no host.
+    Add the UAT host SS&C Eze names in its own readme, marked as UAT; production host and port are
+    provisioned per client.
+  update:
+    servers:
+    - url: https://emsuatxapi.taltrade.com:9001
+      description: >-
+        UAT. The only host SS&C Eze publishes for the REST surface, named in the integration-resources
+        line of https://github.com/ezesoft/xapi/blob/master/readme.md. Production server and port are
+        supplied by an SS&C Eze client service representative.
+- target: $.tags
+  description: Tag descriptions. The published document declares tags on operations but defines none.
+  update:
+  - name: SubmitOrderService
+    description: >-
+      Order lifecycle — single, pair, basket, allocation, book-trade and trade-report submission,
+      amendment, cancellation, and order/execution detail retrieval. Projection of the
+      SubmitOrderService gRPC service (17 RPCs).
+  - name: MarketDataService
+    description: >-
+      Quotes, tick data, bars, option chains and greeks, symbol reference data and
+      alternate-symbology resolution across ISIN, SEDOL, RIC, CUSIP and Bloomberg identifiers.
+      Projection of the MarketDataService gRPC service (24 RPCs).
+  - name: UtilityServices
+    description: >-
+      Session management (connect, disconnect, SRP login, MFA, password change), today's balances,
+      net and broken-down positions and activity, strategies, routes and heartbeat. Projection of
+      the UtilityServices gRPC service (23 RPCs).
+  - name: UserServices
+    description: User entitlement lookup.
+  - name: XAPIServer
+    description: Server liveness and readiness probes. The only operations that require no session.
+- target: $.paths['/api/v1/order'].post
+  description: Mark the highest-consequence write in the contract.
+  update:
+    x-consequence: irreversible-money-movement
+    x-reversal: DELETE /api/v1/order (CancelSingleOrder), effective only while the order is working
+    x-reversal-window: not published
+    x-idempotency: none
+- target: $.paths['/api/v2/order'].post
+  description: Same marker on the v2 successor.
+  update:
+    x-consequence: irreversible-money-movement
+    x-reversal: DELETE /api/v1/order (CancelSingleOrder), effective only while the order is working
+    x-reversal-window: not published
+    x-idempotency: none
+- target: $.paths['/api/v1/orders'].post
+  description: Basket submission fans out into individually cancellable orders.
+  update:
+    x-consequence: irreversible-money-movement
+    x-reversal: cancel each resulting order individually via DELETE /api/v1/order
+    x-idempotency: none
+- target: $.paths['/api/v1/order/book-trade'].post
+  description: No reversal operation exists for a booked trade.
+  update:
+    x-consequence: irreversible-money-movement
+    x-reversal: none published
+    x-idempotency: none
+- target: $.paths['/api/v1/order/trade-report'].post
+  description: No reversal operation exists for a trade report.
+  update:
+    x-consequence: irreversible-money-movement
+    x-reversal: none published
+    x-idempotency: none
+- target: $.paths['/api/v1/order/allocation-order'].post
+  description: No reversal operation exists for an allocation.
+  update:
+    x-consequence: irreversible-money-movement
+    x-reversal: none published
+    x-idempotency: none
+- target: $.paths['/api/v1/authentication/connect'].get
+  description: >-
+    Flag the credential-in-query-string shape and the published lockout, both of which a client
+    must design around and neither of which the spec states.
+  update:
+    x-credentials-in-query: true
+    x-rate-limit: 3 login attempts per 60 seconds locks the account for 3 minutes, successful attempts included
+    x-rate-limit-source: https://github.com/ezesoft/xapi/blob/master/faq.md
+    x-returns: UserToken, required on every subsequent call
+- target: $.paths['/api/v1/authentication/change-password'].get
+  description: Same credential-transport note.
+  update:
+    x-credentials-in-query: true
+- target: $.components.schemas['Google.Rpc.Status']
+  description: >-
+    Name the standard this envelope comes from so a generated client can map code to a known
+    enumeration instead of treating it as an opaque integer.
+  update:
+    description: >-
+      The gRPC canonical error model (google.rpc.Status). `code` is a google.rpc.Code value
+      (0 OK … 16 UNAUTHENTICATED). `details` carries google.protobuf.Any payloads whose concrete
+      types are not declared in this document. This is the only error shape in the API; no 4xx or
+      5xx status code is declared on any operation.
+    x-standard: google.rpc.Status

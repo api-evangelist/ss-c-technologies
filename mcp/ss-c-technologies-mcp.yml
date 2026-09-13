@@ -1,0 +1,129 @@
+generated: '2026-09-13'
+method: derived
+status: candidate
+source: openapi/ss-c-technologies-eze-ems-xapi-openapi.json, grpc/ss-c-technologies-xapi-*.proto
+search_result: >-
+  No SS&C MCP server exists. Searched the web, the SS&C and SS&C Eze sites, the ezesoft GitHub
+  account (three public repos: xapi, cpp_redis, fix8 — none MCP), npm under @modelcontextprotocol
+  and vendor scopes, and probed every SS&C host for /.well-known/agent-card.json,
+  /.well-known/agent.json and /.well-known/ai-plugin.json on 2026-09-13. Nothing. SS&C ships no
+  hosted MCP endpoint and no stdio package.
+pointer_emitted: false
+pointer_reason: >-
+  No `MCPServer` pointer is wired into apis.yml. The tools below are a CANDIDATE list this pipeline
+  derived from SS&C's own contract to show what an MCP server over Eze EMS xAPI would expose; SS&C
+  publishes no server, and a pointer would assert an agent surface that does not exist.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: unknown
+  verified: derived
+agent_readiness_note: >-
+  Two properties of this API would have to be resolved before an agent should be pointed at it
+  unsupervised, and both are recorded elsewhere in this repo: there is no idempotency mechanism on
+  any of the 30 mutating operations (conventions/), and the reversal operations that do exist carry
+  no stated window (conventions/ reversibility). Order submission is a real-money write.
+tools:
+- name: connect
+  description: Authenticate a user and obtain the UserToken every other call requires.
+  source_operation: openapi/ss-c-technologies-eze-ems-xapi-openapi.json#/paths/~1api~1v1~1authentication~1connect/get
+  grpc: UtilityServices.Connect
+  consequence: read
+- name: disconnect
+  description: End the xAPI session and release its subscriptions.
+  source_operation: openapi/ss-c-technologies-eze-ems-xapi-openapi.json#/paths/~1api~1v1~1authentication~1disconnect/get
+  grpc: UtilityServices.Disconnect
+  consequence: read
+- name: submit_single_order
+  description: Submit a single order for a symbol, side, quantity, route and account.
+  source_operation: openapi/ss-c-technologies-eze-ems-xapi-openapi.json#/paths/~1api~1v1~1order/post
+  grpc: SubmitOrderService.SubmitSingleOrder
+  consequence: irreversible-money-movement
+  note: Reversible by cancel only while the order is still working; no window is published.
+- name: change_single_order
+  description: Amend a working order.
+  source_operation: openapi/ss-c-technologies-eze-ems-xapi-openapi.json#/paths/~1api~1v1~1order/put
+  grpc: SubmitOrderService.ChangeSingleOrder
+  consequence: write
+- name: cancel_single_order
+  description: Cancel a working order.
+  source_operation: openapi/ss-c-technologies-eze-ems-xapi-openapi.json#/paths/~1api~1v1~1order/delete
+  grpc: SubmitOrderService.CancelSingleOrder
+  consequence: write
+- name: get_order_detail_by_order_id
+  description: Retrieve the status and detail of one order by its xAPI OrderId.
+  source_operation: openapi/ss-c-technologies-eze-ems-xapi-openapi.json#/paths/~1api~1v1~1order~1order-detail-by-order-id/get
+  grpc: SubmitOrderService.GetOrderDetailByOrderId
+  consequence: read
+- name: get_order_detail_by_order_tag
+  description: Retrieve order detail by the client-supplied OrderTag.
+  source_operation: openapi/ss-c-technologies-eze-ems-xapi-openapi.json#/paths/~1api~1v1~1order~1order-detail-by-order-tag/get
+  grpc: SubmitOrderService.GetOrderDetailByOrderTag
+  consequence: read
+- name: get_todays_activity
+  description: Retrieve today's order and execution activity, filtered by include flags.
+  source_operation: openapi/ss-c-technologies-eze-ems-xapi-openapi.json#/paths/~1api~1v1~1utility~1todays-activity/get
+  grpc: UtilityServices.GetTodaysActivity
+  consequence: read
+- name: get_todays_net_positions
+  description: Retrieve today's net positions for the session's accounts.
+  source_operation: openapi/ss-c-technologies-eze-ems-xapi-openapi.json#/paths/~1api~1v1~1utility~1todays-net-positions/get
+  grpc: UtilityServices.GetTodaysNetPositions
+  consequence: read
+- name: get_todays_balances
+  description: Retrieve today's balances.
+  source_operation: openapi/ss-c-technologies-eze-ems-xapi-openapi.json#/paths/~1api~1v1~1utility~1todays-balances/get
+  grpc: UtilityServices.GetTodaysBalances
+  consequence: read
+- name: get_level1_market_data
+  description: Retrieve a Level 1 market-data snapshot for a symbol.
+  source_operation: openapi/ss-c-technologies-eze-ems-xapi-openapi.json#/paths/~1api~1v1~1security~1level1-market-data/get
+  grpc: MarketDataService.GetLevel1MarketData
+  consequence: read
+- name: get_security_data
+  description: Retrieve reference data for a security.
+  source_operation: openapi/ss-c-technologies-eze-ems-xapi-openapi.json#/paths/~1api~1v1~1security~1security-data/get
+  grpc: MarketDataService.GetSecurityData
+  consequence: read
+- name: resolve_symbol_from_alternate_symbology
+  description: Resolve an ISIN, SEDOL, RIC, CUSIP or Bloomberg identifier to an Eze symbol.
+  source_operation: openapi/ss-c-technologies-eze-ems-xapi-openapi.json#/paths/~1api~1v1~1security~1symbol-from-alternate-symbology/get
+  grpc: MarketDataService.GetSymbolFromAlternateSymbology
+  consequence: read
+- name: get_intraday_bars
+  description: Retrieve intraday OHLC bars for a symbol.
+  source_operation: openapi/ss-c-technologies-eze-ems-xapi-openapi.json#/paths/~1api~1v1~1security~1intraday-bars/get
+  grpc: MarketDataService.GetIntradayBars
+  consequence: read
+- name: get_option_chain_for_underlier
+  description: Retrieve the option chain for an underlying security.
+  source_operation: openapi/ss-c-technologies-eze-ems-xapi-openapi.json#/paths/~1api~1v1~1security~1option-chain-for-underlier/get
+  grpc: MarketDataService.GetOptionChainForUnderlier
+  consequence: read
+- name: get_user_accounts
+  description: List the accounts the authenticated user may trade.
+  source_operation: openapi/ss-c-technologies-eze-ems-xapi-openapi.json#/paths/~1api~1v1~1order~1user-accounts/get
+  grpc: SubmitOrderService.GetUserAccounts
+  consequence: read
+- name: get_user_routes
+  description: List the order-destination routes available to the user.
+  source_operation: openapi/ss-c-technologies-eze-ems-xapi-openapi.json#/paths/~1api~1v1~1utility~1user-routes/get
+  grpc: UtilityServices.GetUserRoutes
+  consequence: read
+streams_not_expressible_as_tools:
+- MarketDataService.SubscribeLevel1Ticks
+- MarketDataService.SubscribeLevel2Ticks
+- MarketDataService.SubscribeTickData
+- MarketDataService.SubscribeIntradayBars
+- MarketDataService.StreamMarketData
+- SubmitOrderService.SubscribeOrderInfo
+- SubmitOrderService.SubscribeOrderInfoJson
+- SubmitOrderService.GetOrderDetailByDateRange
+- UtilityServices.SubscribeTodaysNetPositions
+- UtilityServices.SubscribeHeartBeat
+streams_note: >-
+  These are server-streaming (and, for StreamMarketData, bidirectional-streaming) RPCs. They are the
+  most valuable part of the API and the part an MCP tool call cannot represent; a server would have
+  to buffer or poll. Recorded so the divergence is visible rather than quietly dropped.
