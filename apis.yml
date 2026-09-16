@@ -21,7 +21,7 @@ created: '2026-09-13'
 modified: '2026-09-13'
 position: Producing
 tags:
-- Financial Services
+- Financial-Services
 - Investment Management
 - Fund Administration
 - Wealth Management
@@ -43,74 +43,17 @@ tags_raw:
 - grpc
 - enterprise-software
 apis:
-- name: SS&C Eze EMS xAPI
-  description: >-
-    Cross-platform execution-management API for Eze EMS, published by SS&C Eze as a gRPC contract
-    (three proto3 files, 64 RPCs across MarketDataService, SubmitOrderService and UtilityServices)
-    with an equivalent REST projection described by OpenAPI 3.0.4 (73 operations, 123 schemas).
-    Covers connect/authenticate (including SRP and MFA), single, pair, basket, allocation and
-    book-trade order submission, amendment and cancellation, order and execution detail retrieval,
-    streaming order and market-data subscriptions, symbol reference data, option chains and greeks,
-    and today's balances, net positions and activity. Bearer JWT on REST; a UserToken returned by
-    Connect is carried on every subsequent call.
-  humanURL: https://github.com/ezesoft/xapi
-  baseURL: https://emsuatxapi.taltrade.com:9001
-  tags:
-  - Execution Management
-  - Order Management
-  - Market Data
-  - Trading
-  - gRPC
-  - Financial Services
-  tags_raw:
-  - execution-management
-  - order-management
-  - market-data
-  - trading
-  - grpc
-  - financial-services
-  properties:
-  - type: OpenAPI
-    url: openapi/ss-c-technologies-eze-ems-xapi-openapi.json
-  - type: Protobuf
-    url: grpc/ss-c-technologies-xapi-order.proto
-  - type: Protobuf
-    url: grpc/ss-c-technologies-xapi-market-data.proto
-  - type: Protobuf
-    url: grpc/ss-c-technologies-xapi-utilities.proto
-  - type: Documentation
-    url: https://github.com/ezesoft/xapi/blob/master/readme.md
-  - type: APIReference
-    url: https://emsuatxapi.taltrade.com:9001/index.html
-  - type: GettingStarted
-    url: https://github.com/ezesoft/xapi/blob/master/readme.md#how-do-i-get-started-with-xapi
-  - type: SourceCode
-    url: https://github.com/ezesoft/xapi
-  - type: Postman
-    url: https://www.postman.com/ssnc-eze-ems-xapi/ems-xapi-rest/collection/jeebiq6/ss-c-eze-ems-xapi
-  - type: Authentication
-    url: authentication/ss-c-technologies-authentication.yml
-  - type: Conventions
-    url: conventions/ss-c-technologies-conventions.yml
-  - type: ErrorCatalog
-    url: errors/ss-c-technologies-problem-types.yml
-  - type: DataModel
-    url: data-model/ss-c-technologies-data-model.yml
-  - type: Overlay
-    url: overlays/ss-c-technologies-eze-ems-xapi-overlay.yaml
-  - type: Sandbox
-    url: sandbox/ss-c-technologies-sandbox.yml
 - name: SS&C APIM Developer Portal
   description: >-
-    SS&C's corporate API management portal, where clients register applications, request access to
-    SS&C API products and manage consumers against a Kong gateway. The API catalog itself is behind
-    authentication — every catalog endpoint 302s to an SSO login — and access is granted by a client
-    relationship manager, so no machine-readable contract is reachable anonymously. The Keycloak
-    realm backing it serves a public OpenID Connect discovery document.
+    SS&C's corporate API management portal, where clients register applications, request access to SS&C
+    API products and manage consumers against a Kong gateway. The API catalog itself is behind authentication
+    — every catalog endpoint 302s to an SSO login — and access is granted by a client relationship manager,
+    so no machine-readable contract is reachable anonymously. The Keycloak realm backing it serves a public
+    OpenID Connect discovery document.
   humanURL: https://developer.ssctech.com/
   baseURL: https://apim.ssnc.cloud
   tags:
-  - Financial Services
+  - Financial-Services
   - API Management
   tags_raw:
   - financial-services
@@ -126,16 +69,16 @@ apis:
     url: scopes/ss-c-technologies-scopes.yml
 - name: SS&C Black Diamond Wealth Platform API
   description: >-
-    REST API and developer portal for the SS&C Advent Black Diamond wealth platform, covering
-    portfolio, account and client data exchange for advisors and integration partners. The portal
-    requires sign-in; new partners apply through a request form and existing clients request access
-    through their Black Diamond account, so the OpenAPI 3 specification SS&C describes in its product
-    material is not reachable without credentials.
+    REST API and developer portal for the SS&C Advent Black Diamond wealth platform, covering portfolio,
+    account and client data exchange for advisors and integration partners. The portal requires sign-in;
+    new partners apply through a request form and existing clients request access through their Black
+    Diamond account, so the OpenAPI 3 specification SS&C describes in its product material is not reachable
+    without credentials.
   humanURL: https://www.blackdiamondwealthplatform.com/
   baseURL: https://api.blackdiamondwealthplatform.com
   tags:
   - Wealth Management
-  - Financial Services
+  - Financial-Services
   tags_raw:
   - wealth-management
   - financial-services
@@ -146,12 +89,201 @@ apis:
     url: https://www.blackdiamondwealthplatform.com/signup
   - type: Login
     url: https://www.blackdiamondwealthplatform.com/signin
+- aid: ss-c-technologies:ss-c-technologies-marketdataservice-api
+  name: SS&C Technologies Market Data Service API
+  description: >-
+    The MarketDataService API from SS&C Technologies — 18 operation(s) for marketdataservice.
+  humanURL: https://github.com/ezesoft/xapi
+  baseURL: https://emsuatxapi.taltrade.com:9001
+  tags:
+  - MarketDataService
+  properties:
+  - type: OpenAPI
+    url: openapi/ss-c-technologies-marketdataservice-api-openapi.yml
+  - type: Protobuf
+    url: grpc/ss-c-technologies-xapi-order.proto
+  - type: Protobuf
+    url: grpc/ss-c-technologies-xapi-market-data.proto
+  - type: Protobuf
+    url: grpc/ss-c-technologies-xapi-utilities.proto
+  - type: Documentation
+    url: https://github.com/ezesoft/xapi/blob/master/readme.md
+  - type: APIReference
+    url: https://emsuatxapi.taltrade.com:9001/index.html
+  - type: GettingStarted
+    url: https://github.com/ezesoft/xapi/blob/master/readme.md#how-do-i-get-started-with-xapi
+  - type: SourceCode
+    url: https://github.com/ezesoft/xapi
+  - type: Postman
+    url: >-
+      https://www.postman.com/ssnc-eze-ems-xapi/ems-xapi-rest/collection/jeebiq6/ss-c-eze-ems-xapi
+  - type: Authentication
+    url: authentication/ss-c-technologies-authentication.yml
+  - type: Conventions
+    url: conventions/ss-c-technologies-conventions.yml
+  - type: ErrorCatalog
+    url: errors/ss-c-technologies-problem-types.yml
+  - type: DataModel
+    url: data-model/ss-c-technologies-data-model.yml
+  - type: Sandbox
+    url: sandbox/ss-c-technologies-sandbox.yml
+- aid: ss-c-technologies:ss-c-technologies-submitorderservice-api
+  name: SS&C Technologies Submit Order Service API
+  description: >-
+    The SubmitOrderService API from SS&C Technologies — 19 operation(s) for submitorderservice.
+  humanURL: https://github.com/ezesoft/xapi
+  baseURL: https://emsuatxapi.taltrade.com:9001
+  tags:
+  - SubmitOrderService
+  properties:
+  - type: OpenAPI
+    url: openapi/ss-c-technologies-submitorderservice-api-openapi.yml
+  - type: Protobuf
+    url: grpc/ss-c-technologies-xapi-order.proto
+  - type: Protobuf
+    url: grpc/ss-c-technologies-xapi-market-data.proto
+  - type: Protobuf
+    url: grpc/ss-c-technologies-xapi-utilities.proto
+  - type: Documentation
+    url: https://github.com/ezesoft/xapi/blob/master/readme.md
+  - type: APIReference
+    url: https://emsuatxapi.taltrade.com:9001/index.html
+  - type: GettingStarted
+    url: https://github.com/ezesoft/xapi/blob/master/readme.md#how-do-i-get-started-with-xapi
+  - type: SourceCode
+    url: https://github.com/ezesoft/xapi
+  - type: Postman
+    url: >-
+      https://www.postman.com/ssnc-eze-ems-xapi/ems-xapi-rest/collection/jeebiq6/ss-c-eze-ems-xapi
+  - type: Authentication
+    url: authentication/ss-c-technologies-authentication.yml
+  - type: Conventions
+    url: conventions/ss-c-technologies-conventions.yml
+  - type: ErrorCatalog
+    url: errors/ss-c-technologies-problem-types.yml
+  - type: DataModel
+    url: data-model/ss-c-technologies-data-model.yml
+  - type: Sandbox
+    url: sandbox/ss-c-technologies-sandbox.yml
+- aid: ss-c-technologies:ss-c-technologies-userservices-api
+  name: SS&C Technologies User Services API
+  description: The UserServices API from SS&C Technologies — 1 operation(s) for userservices.
+  humanURL: https://github.com/ezesoft/xapi
+  baseURL: https://emsuatxapi.taltrade.com:9001
+  tags:
+  - UserServices
+  properties:
+  - type: OpenAPI
+    url: openapi/ss-c-technologies-userservices-api-openapi.yml
+  - type: Protobuf
+    url: grpc/ss-c-technologies-xapi-order.proto
+  - type: Protobuf
+    url: grpc/ss-c-technologies-xapi-market-data.proto
+  - type: Protobuf
+    url: grpc/ss-c-technologies-xapi-utilities.proto
+  - type: Documentation
+    url: https://github.com/ezesoft/xapi/blob/master/readme.md
+  - type: APIReference
+    url: https://emsuatxapi.taltrade.com:9001/index.html
+  - type: GettingStarted
+    url: https://github.com/ezesoft/xapi/blob/master/readme.md#how-do-i-get-started-with-xapi
+  - type: SourceCode
+    url: https://github.com/ezesoft/xapi
+  - type: Postman
+    url: >-
+      https://www.postman.com/ssnc-eze-ems-xapi/ems-xapi-rest/collection/jeebiq6/ss-c-eze-ems-xapi
+  - type: Authentication
+    url: authentication/ss-c-technologies-authentication.yml
+  - type: Conventions
+    url: conventions/ss-c-technologies-conventions.yml
+  - type: ErrorCatalog
+    url: errors/ss-c-technologies-problem-types.yml
+  - type: DataModel
+    url: data-model/ss-c-technologies-data-model.yml
+  - type: Sandbox
+    url: sandbox/ss-c-technologies-sandbox.yml
+- aid: ss-c-technologies:ss-c-technologies-utilityservices-api
+  name: SS&C Technologies Utility Services API
+  description: The UtilityServices API from SS&C Technologies — 21 operation(s) for utilityservices.
+  humanURL: https://github.com/ezesoft/xapi
+  baseURL: https://emsuatxapi.taltrade.com:9001
+  tags:
+  - UtilityServices
+  properties:
+  - type: OpenAPI
+    url: openapi/ss-c-technologies-utilityservices-api-openapi.yml
+  - type: Protobuf
+    url: grpc/ss-c-technologies-xapi-order.proto
+  - type: Protobuf
+    url: grpc/ss-c-technologies-xapi-market-data.proto
+  - type: Protobuf
+    url: grpc/ss-c-technologies-xapi-utilities.proto
+  - type: Documentation
+    url: https://github.com/ezesoft/xapi/blob/master/readme.md
+  - type: APIReference
+    url: https://emsuatxapi.taltrade.com:9001/index.html
+  - type: GettingStarted
+    url: https://github.com/ezesoft/xapi/blob/master/readme.md#how-do-i-get-started-with-xapi
+  - type: SourceCode
+    url: https://github.com/ezesoft/xapi
+  - type: Postman
+    url: >-
+      https://www.postman.com/ssnc-eze-ems-xapi/ems-xapi-rest/collection/jeebiq6/ss-c-eze-ems-xapi
+  - type: Authentication
+    url: authentication/ss-c-technologies-authentication.yml
+  - type: Conventions
+    url: conventions/ss-c-technologies-conventions.yml
+  - type: ErrorCatalog
+    url: errors/ss-c-technologies-problem-types.yml
+  - type: DataModel
+    url: data-model/ss-c-technologies-data-model.yml
+  - type: Sandbox
+    url: sandbox/ss-c-technologies-sandbox.yml
+- aid: ss-c-technologies:ss-c-technologies-xapiserver-api
+  name: SS&C Technologies XAPI Server API
+  description: The XAPIServer API from SS&C Technologies — 2 operation(s) for xapiserver.
+  humanURL: https://github.com/ezesoft/xapi
+  baseURL: https://emsuatxapi.taltrade.com:9001
+  tags:
+  - XAPIServer
+  properties:
+  - type: OpenAPI
+    url: openapi/ss-c-technologies-xapiserver-api-openapi.yml
+  - type: Protobuf
+    url: grpc/ss-c-technologies-xapi-order.proto
+  - type: Protobuf
+    url: grpc/ss-c-technologies-xapi-market-data.proto
+  - type: Protobuf
+    url: grpc/ss-c-technologies-xapi-utilities.proto
+  - type: Documentation
+    url: https://github.com/ezesoft/xapi/blob/master/readme.md
+  - type: APIReference
+    url: https://emsuatxapi.taltrade.com:9001/index.html
+  - type: GettingStarted
+    url: https://github.com/ezesoft/xapi/blob/master/readme.md#how-do-i-get-started-with-xapi
+  - type: SourceCode
+    url: https://github.com/ezesoft/xapi
+  - type: Postman
+    url: >-
+      https://www.postman.com/ssnc-eze-ems-xapi/ems-xapi-rest/collection/jeebiq6/ss-c-eze-ems-xapi
+  - type: Authentication
+    url: authentication/ss-c-technologies-authentication.yml
+  - type: Conventions
+    url: conventions/ss-c-technologies-conventions.yml
+  - type: ErrorCatalog
+    url: errors/ss-c-technologies-problem-types.yml
+  - type: DataModel
+    url: data-model/ss-c-technologies-data-model.yml
+  - type: Sandbox
+    url: sandbox/ss-c-technologies-sandbox.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: Overlay
+  url: overlays/ss-c-technologies-eze-ems-xapi-overlay.yaml
 - type: Website
   url: https://www.ssctech.com/
 - type: DeveloperPortal
