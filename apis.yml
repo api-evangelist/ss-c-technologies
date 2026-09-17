@@ -202,16 +202,16 @@ apis:
     url: data-model/ss-c-technologies-data-model.yml
   - type: Sandbox
     url: sandbox/ss-c-technologies-sandbox.yml
-- aid: ss-c-technologies:ss-c-technologies-utilityservices-api
-  name: SS&C Technologies Utility Services API
-  description: The UtilityServices API from SS&C Technologies — 21 operation(s) for utilityservices.
+- aid: ss-c-technologies:ss-c-technologies-xapiserver-api
+  name: SS&C Technologies XAPI Server API
+  description: The XAPIServer API from SS&C Technologies — 2 operation(s) for xapiserver.
   humanURL: https://github.com/ezesoft/xapi
   baseURL: https://emsuatxapi.taltrade.com:9001
   tags:
-  - UtilityServices
+  - XAPIServer
   properties:
   - type: OpenAPI
-    url: openapi/ss-c-technologies-utilityservices-api-openapi.yml
+    url: openapi/ss-c-technologies-xapiserver-api-openapi.yml
   - type: Protobuf
     url: grpc/ss-c-technologies-xapi-order.proto
   - type: Protobuf
@@ -239,16 +239,16 @@ apis:
     url: data-model/ss-c-technologies-data-model.yml
   - type: Sandbox
     url: sandbox/ss-c-technologies-sandbox.yml
-- aid: ss-c-technologies:ss-c-technologies-xapiserver-api
-  name: SS&C Technologies XAPI Server API
-  description: The XAPIServer API from SS&C Technologies — 2 operation(s) for xapiserver.
-  humanURL: https://github.com/ezesoft/xapi
-  baseURL: https://emsuatxapi.taltrade.com:9001
+- aid: ss-c-technologies:ss-c-technologies-utility-services-api
+  name: SS&C Technologies Utility Services API
+  description: The Utility Services API from SS&C Technologies — 21 operation(s) for utility services.
+  humanURL: https://developer.ssctech.com/
+  baseURL: https://apim.ssnc.cloud
   tags:
-  - XAPIServer
+  - Utility Services
   properties:
   - type: OpenAPI
-    url: openapi/ss-c-technologies-xapiserver-api-openapi.yml
+    url: openapi/ss-c-technologies-utility-services-api-openapi.yml
   - type: Protobuf
     url: grpc/ss-c-technologies-xapi-order.proto
   - type: Protobuf
