@@ -1,0 +1,2160 @@
+openapi: 3.2.0
+info:
+  title: SS&C Eze EMS X Submit Order Service API
+  version: v2026.5.0
+security:
+- Bearer: []
+tags:
+- name: SubmitOrderService
+paths:
+  /api/v1/order:
+    post:
+      tags:
+      - SubmitOrderService
+      parameters:
+      - name: Symbol
+        in: query
+        schema:
+          type: string
+      - name: Side
+        in: query
+        schema:
+          type: string
+      - name: Quantity
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: Route
+        in: query
+        schema:
+          type: string
+      - name: Account
+        in: query
+        schema:
+          type: string
+      - name: OrderTag
+        in: query
+        schema:
+          type: string
+      - name: TicketId
+        in: query
+        schema:
+          type: string
+      - name: Staged
+        in: query
+        schema:
+          type: boolean
+      - name: ClaimRequire
+        in: query
+        schema:
+          type: boolean
+      - name: UserToken
+        in: query
+        schema:
+          type: string
+      - name: GoodFrom
+        in: query
+        schema:
+          type: string
+      - name: TimeInForce.Expiration
+        in: query
+        schema:
+          $ref: '#/components/schemas/ExpirationTypeTypesExpirationTypes'
+      - name: PriceType.PriceType
+        in: query
+        schema:
+          $ref: '#/components/schemas/PriceTypeEnumTypesPriceTypesEnum'
+      - name: Price
+        in: query
+        schema:
+          type: number
+          format: double
+      - name: StopPrice
+        in: query
+        schema:
+          type: number
+          format: double
+      - name: UserMessage
+        in: query
+        schema:
+          type: string
+      - name: ExpirationDate
+        in: query
+        schema:
+          type: string
+      - name: ReturnResult
+        in: query
+        schema:
+          type: boolean
+      - name: ReturnResultTimeOutInMs
+        in: query
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubmitSingleOrderResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Create api order
+      x-summary-source: derived
+      operationId: postApiV1Order
+      x-operation-id-source: derived
+    put:
+      tags:
+      - SubmitOrderService
+      parameters:
+      - name: OrderId
+        in: query
+        schema:
+          type: string
+      - name: Quantity
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: UserToken
+        in: query
+        schema:
+          type: string
+      - name: GoodFrom
+        in: query
+        schema:
+          type: string
+      - name: TimeInForce.Expiration
+        in: query
+        schema:
+          $ref: '#/components/schemas/ExpirationTypeTypesExpirationTypes'
+      - name: PriceType.PriceType
+        in: query
+        schema:
+          $ref: '#/components/schemas/PriceTypeEnumTypesPriceTypesEnum'
+      - name: Price
+        in: query
+        schema:
+          type: number
+          format: double
+      - name: StopPrice
+        in: query
+        schema:
+          type: number
+          format: double
+      - name: UserMessage
+        in: query
+        schema:
+          type: string
+      - name: ExpirationDate
+        in: query
+        schema:
+          type: string
+      - name: OrderTag
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChangeSingleOrderResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Replace api order
+      x-summary-source: derived
+      operationId: putApiV1Order
+      x-operation-id-source: derived
+    delete:
+      tags:
+      - SubmitOrderService
+      parameters:
+      - name: OrderId
+        in: query
+        schema:
+          type: string
+      - name: UserToken
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CancelSingleOrderResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Delete api order
+      x-summary-source: derived
+      operationId: deleteApiV1Order
+      x-operation-id-source: derived
+  /api/v2/order:
+    post:
+      tags:
+      - SubmitOrderService
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubmitSingleOrderRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubmitSingleOrderResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Create api order
+      x-summary-source: derived
+      operationId: postApiV2Order
+      x-operation-id-source: derived
+    put:
+      tags:
+      - SubmitOrderService
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangeSingleOrderRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChangeSingleOrderResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Replace api order
+      x-summary-source: derived
+      operationId: putApiV2Order
+      x-operation-id-source: derived
+  /api/v1/order/book-trade:
+    post:
+      tags:
+      - SubmitOrderService
+      parameters:
+      - name: OrderId
+        in: query
+        schema:
+          type: string
+      - name: SourceAccount
+        in: query
+        schema:
+          type: string
+      - name: UserToken
+        in: query
+        schema:
+          type: string
+      - name: OrderTag
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubmitBookTradeResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Create api order book trade
+      x-summary-source: derived
+      operationId: postApiV1OrderBookTrade
+      x-operation-id-source: derived
+  /api/v2/order/book-trade:
+    post:
+      tags:
+      - SubmitOrderService
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubmitBookTradeRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubmitBookTradeResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Create api order book trade
+      x-summary-source: derived
+      operationId: postApiV2OrderBookTrade
+      x-operation-id-source: derived
+  /api/v1/order/pair-order:
+    post:
+      tags:
+      - SubmitOrderService
+      parameters:
+      - name: Leg1Symbol
+        in: query
+        schema:
+          type: string
+      - name: Leg1Side
+        in: query
+        schema:
+          type: string
+      - name: Leg1Quantity
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: Route
+        in: query
+        schema:
+          type: string
+      - name: Leg2Symbol
+        in: query
+        schema:
+          type: string
+      - name: Leg2Side
+        in: query
+        schema:
+          type: string
+      - name: Leg2Quantity
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: Staged
+        in: query
+        schema:
+          type: boolean
+      - name: ClaimRequire
+        in: query
+        schema:
+          type: boolean
+      - name: Account
+        in: query
+        schema:
+          type: string
+      - name: UserToken
+        in: query
+        schema:
+          type: string
+      - name: OrderTag
+        in: query
+        schema:
+          type: string
+      - name: TicketId
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubmitPairOrderResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Create api order pair order
+      x-summary-source: derived
+      operationId: postApiV1OrderPairOrder
+      x-operation-id-source: derived
+    put:
+      tags:
+      - SubmitOrderService
+      parameters:
+      - name: PairOrderId
+        in: query
+        schema:
+          type: string
+      - name: Leg1OrderId
+        in: query
+        schema:
+          type: string
+      - name: Leg2OrderId
+        in: query
+        schema:
+          type: string
+      - name: Leg1Quantity
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: Leg2Quantity
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: UserToken
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChangePairOrderResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Replace api order pair order
+      x-summary-source: derived
+      operationId: putApiV1OrderPairOrder
+      x-operation-id-source: derived
+    delete:
+      tags:
+      - SubmitOrderService
+      parameters:
+      - name: OrderId
+        in: query
+        schema:
+          type: string
+      - name: UserToken
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CancelPairOrderResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Delete api order pair order
+      x-summary-source: derived
+      operationId: deleteApiV1OrderPairOrder
+      x-operation-id-source: derived
+  /api/v2/order/pair-order:
+    post:
+      tags:
+      - SubmitOrderService
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubmitPairOrderRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubmitPairOrderResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Create api order pair order
+      x-summary-source: derived
+      operationId: postApiV2OrderPairOrder
+      x-operation-id-source: derived
+    put:
+      tags:
+      - SubmitOrderService
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangePairOrderRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChangePairOrderResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Replace api order pair order
+      x-summary-source: derived
+      operationId: putApiV2OrderPairOrder
+      x-operation-id-source: derived
+  /api/v1/order/seed-data:
+    post:
+      tags:
+      - SubmitOrderService
+      parameters:
+      - name: Account
+        in: query
+        schema:
+          type: string
+      - name: Symbol
+        in: query
+        schema:
+          type: string
+      - name: UserToken
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubmitSeedDataResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Create api order seed data
+      x-summary-source: derived
+      operationId: postApiV1OrderSeedData
+      x-operation-id-source: derived
+  /api/v2/order/seed-data:
+    post:
+      tags:
+      - SubmitOrderService
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubmitSeedDataRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubmitSeedDataResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Create api order seed data
+      x-summary-source: derived
+      operationId: postApiV2OrderSeedData
+      x-operation-id-source: derived
+  /api/v1/order/user-accounts:
+    get:
+      tags:
+      - SubmitOrderService
+      parameters:
+      - name: UserToken
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserAccountsResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Get api order user accounts
+      x-summary-source: derived
+      operationId: getApiV1OrderUserAccounts
+      x-operation-id-source: derived
+  /api/v1/orders:
+    post:
+      tags:
+      - SubmitOrderService
+      parameters:
+      - name: UserToken
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BasketOrderResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Create api orders
+      x-summary-source: derived
+      operationId: postApiV1Orders
+      x-operation-id-source: derived
+  /api/v2/orders:
+    post:
+      tags:
+      - SubmitOrderService
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BasketOrderRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BasketOrderResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Create api orders
+      x-summary-source: derived
+      operationId: postApiV2Orders
+      x-operation-id-source: derived
+  /api/v1/order/subscribe:
+    get:
+      tags:
+      - SubmitOrderService
+      parameters:
+      - name: Level
+        in: query
+        schema:
+          $ref: '#/components/schemas/SubscribeOrderInfoRequestTypesSubscriptionLevel'
+      - name: UserToken
+        in: query
+        schema:
+          type: string
+      - name: IncludeUserSubmitOrder
+        in: query
+        schema:
+          type: boolean
+      - name: IncludeUserSubmitStagedOrder
+        in: query
+        schema:
+          type: boolean
+      - name: IncludeUserSubmitCompoundOrder
+        in: query
+        schema:
+          type: boolean
+      - name: IncludeForeignExecution
+        in: query
+        schema:
+          type: boolean
+      - name: IncludeUserSubmitChange
+        in: query
+        schema:
+          type: boolean
+      - name: IncludeUserSubmitCancel
+        in: query
+        schema:
+          type: boolean
+      - name: IncludeExchangeAcceptOrder
+        in: query
+        schema:
+          type: boolean
+      - name: IncludeExchangeTradeOrder
+        in: query
+        schema:
+          type: boolean
+      - name: IncludeUserSubmitTradeReport
+        in: query
+        schema:
+          type: boolean
+      - name: IncludeUserSubmitAllocation
+        in: query
+        schema:
+          type: boolean
+      - name: IncludeUserSubmitAllocationEx
+        in: query
+        schema:
+          type: boolean
+      - name: IncludeClerkReject
+        in: query
+        schema:
+          type: boolean
+      - name: ExcludeHistory
+        in: query
+        schema:
+          type: boolean
+      - name: FieldSelection.RequestedFields
+        in: query
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubscribeOrderFieldOptionsTypesFields'
+      - name: FieldSelection.RequestedExtendedFields
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscribeOrderInfoResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Get api order subscribe
+      x-summary-source: derived
+      operationId: getApiV1OrderSubscribe
+      x-operation-id-source: derived
+  /api/v1/order/allocation-order:
+    post:
+      tags:
+      - SubmitOrderService
+      parameters:
+      - name: OrderId
+        in: query
+        schema:
+          type: string
+      - name: Symbol
+        in: query
+        schema:
+          type: string
+      - name: Exchange
+        in: query
+        schema:
+          type: string
+      - name: SourceAccount
+        in: query
+        schema:
+          type: string
+      - name: TargetAccount
+        in: query
+        schema:
+          type: string
+      - name: TargetQuantity
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: TargetPrice
+        in: query
+        schema:
+          type: number
+          format: double
+      - name: UserToken
+        in: query
+        schema:
+          type: string
+      - name: TypeOfAllocation.AllocationOrAllocationEx
+        in: query
+        schema:
+          $ref: '#/components/schemas/AllocationTypeTypesAllocation'
+      - name: OrderTypes.TypeOfOrder
+        in: query
+        schema:
+          $ref: '#/components/schemas/OrderTypeTypesType'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubmitAllocationOrderResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Create api order allocation order
+      x-summary-source: derived
+      operationId: postApiV1OrderAllocationOrder
+      x-operation-id-source: derived
+  /api/v2/order/allocation-order:
+    post:
+      tags:
+      - SubmitOrderService
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubmitAllocationOrderRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubmitAllocationOrderResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Create api order allocation order
+      x-summary-source: derived
+      operationId: postApiV2OrderAllocationOrder
+      x-operation-id-source: derived
+  /api/v1/order/trade-report:
+    post:
+      tags:
+      - SubmitOrderService
+      parameters:
+      - name: Symbol
+        in: query
+        schema:
+          type: string
+      - name: Side
+        in: query
+        schema:
+          type: string
+      - name: Quantity
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        schema:
+          type: string
+      - name: OrderType.OrderTypes
+        in: query
+        schema:
+          $ref: '#/components/schemas/TradeTypeTypesTypeofOrder'
+      - name: Route
+        in: query
+        schema:
+          type: string
+      - name: UserToken
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubmitTradeReportResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Create api order trade report
+      x-summary-source: derived
+      operationId: postApiV1OrderTradeReport
+      x-operation-id-source: derived
+  /api/v2/order/trade-report:
+    post:
+      tags:
+      - SubmitOrderService
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubmitTradeReportRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubmitTradeReportResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Create api order trade report
+      x-summary-source: derived
+      operationId: postApiV2OrderTradeReport
+      x-operation-id-source: derived
+  /api/v1/order/get-order-detail-by-date-range:
+    get:
+      tags:
+      - SubmitOrderService
+      parameters:
+      - name: UserToken
+        in: query
+        schema:
+          type: string
+      - name: StartDate
+        in: query
+        schema:
+          type: string
+      - name: StartTime
+        in: query
+        schema:
+          type: string
+      - name: EndDate
+        in: query
+        schema:
+          type: string
+      - name: EndTime
+        in: query
+        schema:
+          type: string
+      - name: TimeoutInSeconds
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: Account
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderDetailByDateRangeResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Get api order get order detail by date range
+      x-summary-source: derived
+      operationId: getApiV1OrderGetOrderDetailByDateRange
+      x-operation-id-source: derived
+  /api/v1/order/order-detail-by-order-id:
+    get:
+      tags:
+      - SubmitOrderService
+      parameters:
+      - name: UserToken
+        in: query
+        schema:
+          type: string
+      - name: OrderId
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderDetailByOrderIdResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Get api order order detail by order id
+      x-summary-source: derived
+      operationId: getApiV1OrderOrderDetailByOrderId
+      x-operation-id-source: derived
+  /api/v1/order/order-detail-by-order-tag:
+    get:
+      tags:
+      - SubmitOrderService
+      parameters:
+      - name: UserToken
+        in: query
+        schema:
+          type: string
+      - name: OrderTags
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      - name: OrderEventType
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderDetailByOrderTagResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Get api order order detail by order tag
+      x-summary-source: derived
+      operationId: getApiV1OrderOrderDetailByOrderTag
+      x-operation-id-source: derived
+components:
+  schemas:
+    SubmitBookTradeRequest:
+      type: object
+      properties:
+        OrderId:
+          type: string
+        SourceAccount:
+          type: string
+        UserToken:
+          type: string
+        OrderTag:
+          type: string
+        AllocDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/AllocationDetails'
+      additionalProperties: false
+    CancelSingleOrderResponse:
+      type: object
+      properties:
+        ServerResponse:
+          type: string
+        OptionalFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    ChangePairOrderRequest:
+      type: object
+      properties:
+        PairOrderId:
+          type: string
+        Leg1OrderId:
+          type: string
+        Leg2OrderId:
+          type: string
+        Leg1Quantity:
+          type: integer
+          format: int32
+        Leg2Quantity:
+          type: integer
+          format: int32
+        Leg1ExtendedFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        Leg2ExtendedFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        OptionalFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        UserToken:
+          type: string
+      additionalProperties: false
+    SubmitTradeReportResponse:
+      type: object
+      properties:
+        ServerResponse:
+          type: string
+        OptionalFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    Google.Protobuf.WellKnownTypes.ValueKindOneofCase:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      type: integer
+      format: int32
+    OrderType:
+      type: object
+      properties:
+        TypeOfOrder:
+          $ref: '#/components/schemas/OrderTypeTypesType'
+      additionalProperties: false
+    SubmitTradeReportRequest:
+      type: object
+      properties:
+        Symbol:
+          type: string
+        Side:
+          type: string
+        Quantity:
+          type: integer
+          format: int32
+        Account:
+          type: string
+        ExtendedFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        OrderType:
+          $ref: '#/components/schemas/TradeType'
+        Route:
+          type: string
+        UserToken:
+          type: string
+      additionalProperties: false
+    UserAccountsResponse:
+      type: object
+      properties:
+        Accounts:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    AllocationTypeTypesAllocation:
+      enum:
+      - UserSubmitAllocation
+      - UserSubmitAllocationEx
+      type: string
+    SubmitPairOrderRequest:
+      type: object
+      properties:
+        Leg1Symbol:
+          type: string
+        Leg1Side:
+          type: string
+        Leg1Quantity:
+          type: integer
+          format: int32
+        Route:
+          type: string
+        Leg1ExtendedFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        Leg2Symbol:
+          type: string
+        Leg2Side:
+          type: string
+        Leg2Quantity:
+          type: integer
+          format: int32
+        Leg2ExtendedFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        OptionalFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        Staged:
+          type: boolean
+        ClaimRequire:
+          type: boolean
+        Account:
+          type: string
+        UserToken:
+          type: string
+        OrderTag:
+          type: string
+        TicketId:
+          type: string
+      additionalProperties: false
+    AllocationType:
+      type: object
+      properties:
+        AllocationOrAllocationEx:
+          $ref: '#/components/schemas/AllocationTypeTypesAllocation'
+      additionalProperties: false
+    SubscribeOrderInfoRequestTypesSubscriptionLevel:
+      enum:
+      - FILL
+      - STATUS
+      type: string
+    OrderDetailByOrderIdResponse:
+      type: object
+      properties:
+        OrderDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderDetailsResponse'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    SubmitSingleOrderRequest:
+      type: object
+      properties:
+        Symbol:
+          type: string
+        Side:
+          type: string
+        Quantity:
+          type: integer
+          format: int32
+        Route:
+          type: string
+        Account:
+          type: string
+        OrderTag:
+          type: string
+        TicketId:
+          type: string
+        ExtendedFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        Staged:
+          type: boolean
+        ClaimRequire:
+          type: boolean
+        UserToken:
+          type: string
+        GoodFrom:
+          type: string
+        TimeInForce:
+          $ref: '#/components/schemas/ExpirationType'
+        PriceType:
+          $ref: '#/components/schemas/PriceTypeEnum'
+        Price:
+          type: number
+          format: double
+        StopPrice:
+          type: number
+          format: double
+        UserMessage:
+          type: string
+        ExpirationDate:
+          type: string
+        ReturnResult:
+          type: boolean
+        ReturnResultTimeOutInMs:
+          type: integer
+          format: int32
+      additionalProperties: false
+    SubmitSeedDataResponse:
+      type: object
+      properties:
+        ServerResponse:
+          type: string
+        OptionalFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    OrderDetailByDateRangeResponse:
+      type: object
+      properties:
+        OrderDetail:
+          $ref: '#/components/schemas/OrderDetailsResponse'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    ChangePairOrderResponse:
+      type: object
+      properties:
+        ServerResponse:
+          type: string
+        OptionalFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    PriceTypeEnumTypesPriceTypesEnum:
+      enum:
+      - Market
+      - Limit
+      - StopMarket
+      - StopLimit
+      - Other
+      type: string
+    AllocationDetails:
+      type: object
+      properties:
+        TargetAccount:
+          type: string
+        TargetQuantity:
+          type: integer
+          format: int32
+        TargetPrice:
+          type: number
+          format: double
+        AllocationDestinationRoute:
+          type: string
+        CommissionRate:
+          type: number
+          format: double
+        CommissionRateType:
+          type: integer
+          format: int32
+        NetPrice:
+          type: number
+          format: double
+        GeneralMessage:
+          type: string
+      additionalProperties: false
+    ServerAcknowledgementTypesResponseCodesEnum:
+      enum:
+      - SUCCESS
+      - WARNING
+      - FAILED
+      - ERROR
+      - TIMED_OUT
+      - SESSION_NOT_FOUND
+      type: string
+    ChangeSingleOrderResponse:
+      type: object
+      properties:
+        ServerResponse:
+          type: string
+        OptionalFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    TradeType:
+      type: object
+      properties:
+        OrderTypes:
+          $ref: '#/components/schemas/TradeTypeTypesTypeofOrder'
+      additionalProperties: false
+    TradeTypeTypesTypeofOrder:
+      enum:
+      - UserSubmitTradeReport
+      - ForeignExecution
+      type: string
+    Google.Protobuf.WellKnownTypes.Any:
+      required:
+      - '@type'
+      type: object
+      properties:
+        '@type':
+          type: string
+      additionalProperties:
+        $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Value'
+    PriceTypeEnum:
+      type: object
+      properties:
+        PriceType:
+          $ref: '#/components/schemas/PriceTypeEnumTypesPriceTypesEnum'
+      additionalProperties: false
+    OrderDetailsResponse:
+      type: object
+      properties:
+        OrderId:
+          type: string
+        RefersToId:
+          type: string
+        Symbol:
+          type: string
+        Type:
+          type: string
+        CurrentStatus:
+          type: string
+        Volume:
+          type: integer
+          format: int32
+        Price:
+          type: number
+          format: double
+        PriceType:
+          $ref: '#/components/schemas/PriceTypeEnum'
+        Buyorsell:
+          type: string
+        ExtendedFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        OrderTag:
+          type: string
+        VolumeTraded:
+          type: integer
+          format: int32
+        OriginalOrderId:
+          type: string
+        submitTime:
+          type: string
+        LinkedOrderId:
+          type: string
+        TicketId:
+          type: string
+        TraderId:
+          type: string
+        ClaimedByClerk:
+          type: string
+        PairSpreadType:
+          type: string
+        Reason:
+          type: string
+        TimeStamp:
+          type: string
+        GoodFrom:
+          type: string
+        TimeInForce:
+          $ref: '#/components/schemas/ExpirationType'
+        StopPrice:
+          type: number
+          format: double
+        UserMessage:
+          type: string
+        ExpirationDate:
+          type: string
+        Side:
+          type: string
+        Route:
+          type: string
+        Account:
+          type: string
+      additionalProperties: false
+    Google.Protobuf.WellKnownTypes.Struct:
+      type: object
+      properties:
+        fields:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Value'
+          readOnly: true
+      additionalProperties: false
+    Google.Protobuf.WellKnownTypes.ListValue:
+      type: object
+      properties:
+        values:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Value'
+          readOnly: true
+      additionalProperties: false
+    ChangeSingleOrderRequest:
+      type: object
+      properties:
+        OrderId:
+          type: string
+        Quantity:
+          type: integer
+          format: int32
+        ExtendedFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        UserToken:
+          type: string
+        GoodFrom:
+          type: string
+        TimeInForce:
+          $ref: '#/components/schemas/ExpirationType'
+        PriceType:
+          $ref: '#/components/schemas/PriceTypeEnum'
+        Price:
+          type: number
+          format: double
+        StopPrice:
+          type: number
+          format: double
+        UserMessage:
+          type: string
+        ExpirationDate:
+          type: string
+        OrderTag:
+          type: string
+      additionalProperties: false
+    ExpirationType:
+      type: object
+      properties:
+        Expiration:
+          $ref: '#/components/schemas/ExpirationTypeTypesExpirationTypes'
+      additionalProperties: false
+    Google.Protobuf.WellKnownTypes.NullValue:
+      enum:
+      - 0
+      type: integer
+      format: int32
+    OrderDetailByOrderTagResponse:
+      type: object
+      properties:
+        OrderDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderDetailsResponse'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    OrderTypeTypesType:
+      enum:
+      - UserSubmitOrder
+      - ForeignExecution
+      type: string
+    ExpirationTypeTypesExpirationTypes:
+      enum:
+      - DAY
+      - GTC
+      - GTX
+      - CLO
+      - OPG
+      - IOC
+      - GTD
+      - OTHER
+      type: string
+    Google.Rpc.Status:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Any'
+      additionalProperties: false
+    SubmitAllocationOrderResponse:
+      type: object
+      properties:
+        ServerResponse:
+          type: string
+        OptionalFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    SubmitPairOrderResponse:
+      type: object
+      properties:
+        ServerResponse:
+          type: string
+        OptionalFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    Google.Protobuf.WellKnownTypes.Value:
+      type: object
+      properties:
+        nullValue:
+          $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.NullValue'
+        hasNullValue:
+          type: boolean
+          readOnly: true
+        numberValue:
+          type: number
+          format: double
+        hasNumberValue:
+          type: boolean
+          readOnly: true
+        stringValue:
+          type:
+          - string
+          - 'null'
+        hasStringValue:
+          type: boolean
+          readOnly: true
+        boolValue:
+          type: boolean
+        hasBoolValue:
+          type: boolean
+          readOnly: true
+        structValue:
+          $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Struct'
+        listValue:
+          $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.ListValue'
+        kindCase:
+          $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.ValueKindOneofCase'
+      additionalProperties: false
+    OrderRow:
+      type: object
+      properties:
+        ExpirDate:
+          type: string
+        NewsDate:
+          type: string
+        AllocatedValue:
+          type: number
+          format: double
+        AvgPrice:
+          type: number
+          format: double
+        Basisvalue:
+          type: number
+          format: double
+        Commission:
+          type: number
+          format: double
+        CommissionRate:
+          type: number
+          format: double
+        EcnFee:
+          type: number
+          format: double
+        Latency3:
+          type: number
+          format: double
+        Latency6:
+          type: number
+          format: double
+        PairCash:
+          type: number
+          format: double
+        PairImbalanceLimit:
+          type: number
+          format: double
+        PairLeg1Benchmark:
+          type: number
+          format: double
+        PairLeg2Benchmark:
+          type: number
+          format: double
+        PairRatio:
+          type: number
+          format: double
+        PairSpread:
+          type: number
+          format: double
+        PairTarget:
+          type: number
+          format: double
+        SpreadClip:
+          type: number
+          format: double
+        AcctType:
+          type: integer
+          format: int32
+        BookId:
+          type: integer
+          format: int32
+        CommissionRateType:
+          type: integer
+          format: int32
+        CrossFlag:
+          type: integer
+          format: int32
+        DateIndex:
+          type: integer
+          format: int32
+        ExecutionState:
+          type: integer
+          format: int32
+        ExtendedStateFlags:
+          type: integer
+          format: int32
+        ExtendedStateFlags2:
+          type: integer
+          format: int32
+        ExternalAcceptanceFlag:
+          type: integer
+          format: int32
+        FornexSourceFlags:
+          type: integer
+          format: int32
+        GwBookSeqNo:
+          type: integer
+          format: int32
+        LinkedOrderCancellation:
+          type: integer
+          format: int32
+        LinkedOrderRelationship:
+          type: integer
+          format: int32
+        Minmove:
+          type: integer
+          format: int32
+        OmsClientType:
+          type: integer
+          format: int32
+        OrderFlags:
+          type: integer
+          format: int32
+        OrderFlags2:
+          type: integer
+          format: int32
+        OrderResidual:
+          type: integer
+          format: int32
+        OriginalVolume:
+          type: integer
+          format: int32
+        PairImbalanceLimitType:
+          type: integer
+          format: int32
+        PairLeg1BenchmarkType:
+          type: integer
+          format: int32
+        PairLeg2BenchmarkType:
+          type: integer
+          format: int32
+        PairSpreadType:
+          type: integer
+          format: int32
+        Rank:
+          type: integer
+          format: int32
+        RemainingVolume:
+          type: integer
+          format: int32
+        SharesAllocated:
+          type: integer
+          format: int32
+        SpreadClipType:
+          type: integer
+          format: int32
+        SpreadLegCount:
+          type: integer
+          format: int32
+        SpreadLegLeanPriority:
+          type: integer
+          format: int32
+        SpreadLegNumber:
+          type: integer
+          format: int32
+        SpreadLegPriceType:
+          type: integer
+          format: int32
+        SpreadNumLegs:
+          type: integer
+          format: int32
+        Styp:
+          type: integer
+          format: int32
+        TboAccountId:
+          type: integer
+          format: int32
+        UtcOffset:
+          type: integer
+          format: int32
+        Volume:
+          type: integer
+          format: int32
+        VolumeTraded:
+          type: integer
+          format: int32
+        WorkingQty:
+          type: integer
+          format: int32
+        Ask:
+          type: string
+        Bid:
+          type: string
+        OriginalPrice:
+          type: string
+        Price:
+          type: string
+        StopPrice:
+          type: string
+        StrikePrc:
+          type: string
+        Bank:
+          type: string
+        Branch:
+          type: string
+        Buyorsell:
+          type: string
+        ClaimedByClerk:
+          type: string
+        ClientOrderId:
+          type: string
+        CommissionCode:
+          type: string
+        Currency:
+          type: string
+        CurrentStatus:
+          type: string
+        Customer:
+          type: string
+        Deposit:
+          type: string
+        DispName:
+          type: string
+        Exchange:
+          type: string
+        Route:
+          type: string
+        FixTraderId:
+          type: string
+        GoodFrom:
+          type: string
+        GoodUntil:
+          type: string
+        LinkedOrderId:
+          type: string
+        NewRemoteId:
+          type: string
+        OppositeParty:
+          type: string
+        OrderId:
+          type: string
+        OrderTag:
+          type: string
+        OriginalOrderId:
+          type: string
+        OriginalTraderId:
+          type: string
+        PriceType:
+          type: string
+        Putcallind:
+          type: string
+        Reason:
+          type: string
+        RefersToId:
+          type: string
+        RemoteId:
+          type: string
+        ShortLocateId:
+          type: string
+        Table:
+          type: string
+        TicketId:
+          type: string
+        TimeStamp:
+          type: string
+        TraderCapacity:
+          type: string
+        TraderId:
+          type: string
+        Type:
+          type: string
+        Undersym:
+          type: string
+        UserMessage:
+          type: string
+        VolumeType:
+          type: string
+        NewsTime:
+          type: string
+        TrdTime:
+          type: string
+        ExtendedFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+      additionalProperties: false
+    SubmitBookTradeResponse:
+      type: object
+      properties:
+        ServerResponse:
+          type: string
+        OptionalFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    ServerAcknowledgement:
+      type: object
+      properties:
+        ServerResponse:
+          type: string
+        OptionalFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        Message:
+          type: string
+        ResponseCode:
+          $ref: '#/components/schemas/ServerAcknowledgementTypesResponseCodesEnum'
+      additionalProperties: false
+    SubscribeOrderInfoResponse:
+      type: object
+      properties:
+        submitTime:
+          type: string
+        OrderId:
+          type: string
+        LinkedOrderId:
+          type: string
+        RefersToId:
+          type: string
+        TicketId:
+          type: string
+        OriginalOrderId:
+          type: string
+        Symbol:
+          type: string
+        Type:
+          type: string
+        CurrentStatus:
+          type: string
+        TraderId:
+          type: string
+        ClaimedByClerk:
+          type: string
+        Volume:
+          type: integer
+          format: int32
+        Price:
+          type: number
+          format: double
+        PriceType:
+          $ref: '#/components/schemas/PriceTypeEnum'
+        Buyorsell:
+          type: string
+        PairSpreadType:
+          type: string
+        Reason:
+          type: string
+        TimeStamp:
+          type: string
+        ExtendedFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        GoodFrom:
+          type: string
+        TimeInForce:
+          $ref: '#/components/schemas/ExpirationType'
+        StopPrice:
+          type: number
+          format: double
+        UserMessage:
+          type: string
+        ExpirationDate:
+          type: string
+        Side:
+          type: string
+        Route:
+          type: string
+        Account:
+          type: string
+        OrderTag:
+          type: string
+        VolumeTraded:
+          type: integer
+          format: int32
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    SubmitSeedDataRequest:
+      type: object
+      properties:
+        Account:
+          type: string
+        Symbol:
+          type: string
+        UserToken:
+          type: string
+      additionalProperties: false
+    BasketOrderRequest:
+      type: object
+      properties:
+        UserToken:
+          type: string
+        Orders:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderRow'
+      additionalProperties: false
+    SubmitSingleOrderResponse:
+      type: object
+      properties:
+        ServerResponse:
+          type: string
+        OrderDetails:
+          $ref: '#/components/schemas/OrderDetailsResponse'
+        OptionalFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    SubscribeOrderFieldOptionsTypesFields:
+      enum:
+      - SUBMIT_TIME
+      - ORDER_ID
+      - LINKED_ORDER_ID
+      - REFERS_TO_ID
+      - TICKET_ID
+      - ORIGINAL_ORDER_ID
+      - SYMBOL
+      - TYPE
+      - CURRENT_STATUS
+      - TRADER_ID
+      - CLAIMED_BY_CLERK
+      - VOLUME
+      - PRICE
+      - PRICE_TYPE
+      - BUYORSELL
+      - PAIR_SPREAD_TYPE
+      - REASON
+      - TIME_STAMP
+      - EXTENDED_FIELDS
+      - GOOD_FROM
+      - TIME_IN_FORCE
+      - STOP_PRICE
+      - USER_MESSAGE
+      - EXPIRATION_DATE
+      - SIDE
+      - ROUTE
+      - ACCOUNT
+      - ORDER_TAG
+      - VOLUME_TRADED
+      type: string
+    CancelPairOrderResponse:
+      type: object
+      properties:
+        ServerResponse:
+          type: string
+        OptionalFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    SubmitAllocationOrderRequest:
+      type: object
+      properties:
+        OrderId:
+          type: string
+        Symbol:
+          type: string
+        Exchange:
+          type: string
+        SourceAccount:
+          type: string
+        TargetAccount:
+          type: string
+        TargetQuantity:
+          type: integer
+          format: int32
+        TargetPrice:
+          type: number
+          format: double
+        UserToken:
+          type: string
+        TypeOfAllocation:
+          $ref: '#/components/schemas/AllocationType'
+        OrderTypes:
+          $ref: '#/components/schemas/OrderType'
+      additionalProperties: false
+    BasketOrderResponse:
+      type: object
+      properties:
+        ServerResponse:
+          type: string
+        OptionalFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+  securitySchemes:
+    Bearer:
+      type: http
+      description: 'Please enter a valid token : '
+      scheme: Bearer
+      bearerFormat: JWT

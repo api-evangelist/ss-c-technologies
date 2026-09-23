@@ -1,0 +1,1952 @@
+openapi: 3.2.0
+info:
+  title: SS&C Eze EMS X Market Data Service API
+  version: v2026.5.0
+security:
+- Bearer: []
+tags:
+- name: MarketDataService
+paths:
+  /api/v1/security/daily-weekly-monthly-bars:
+    get:
+      tags:
+      - MarketDataService
+      parameters:
+      - name: UserToken
+        in: query
+        schema:
+          type: string
+      - name: Symbol
+        in: query
+        schema:
+          type: string
+      - name: Interim.BarIntervalOption
+        in: query
+        schema:
+          $ref: '#/components/schemas/IntervalTypesOptions'
+      - name: StopDate
+        in: query
+        schema:
+          type: string
+      - name: DaysBack
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: RequestId
+        in: query
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DailyWeeklyMonthlyBarsResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Get api security daily weekly monthly bars
+      x-summary-source: derived
+      operationId: getApiV1SecurityDailyWeeklyMonthlyBars
+      x-operation-id-source: derived
+  /api/v1/security/intraday-bars:
+    get:
+      tags:
+      - MarketDataService
+      parameters:
+      - name: UserToken
+        in: query
+        schema:
+          type: string
+      - name: Symbol
+        in: query
+        schema:
+          type: string
+      - name: BarInterval
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: DaysBack
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: StartAtMidnight
+        in: query
+        schema:
+          type: boolean
+      - name: Date
+        in: query
+        schema:
+          type: string
+      - name: StartTime
+        in: query
+        schema:
+          type: string
+      - name: StopTime
+        in: query
+        schema:
+          type: string
+      - name: requestId
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: ShowPrePostMarket
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IntradayBarsResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Get api security intraday bars
+      x-summary-source: derived
+      operationId: getApiV1SecurityIntradayBars
+      x-operation-id-source: derived
+  /api/v1/security/option-chain-for-underlier:
+    get:
+      tags:
+      - MarketDataService
+      parameters:
+      - name: UserToken
+        in: query
+        schema:
+          type: string
+      - name: SymbolRoot
+        in: query
+        schema:
+          type: string
+      - name: RequestId
+        in: query
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OptionChainResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Get api security option chain for underlier
+      x-summary-source: derived
+      operationId: getApiV1SecurityOptionChainForUnderlier
+      x-operation-id-source: derived
+  /api/v1/security/symbol-reference-data:
+    get:
+      tags:
+      - MarketDataService
+      parameters:
+      - name: UserToken
+        in: query
+        schema:
+          type: string
+      - name: Symbol
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SymbolReferenceDataResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Get api security symbol reference data
+      x-summary-source: derived
+      operationId: getApiV1SecuritySymbolReferenceData
+      x-operation-id-source: derived
+  /api/v1/security/tick-data:
+    get:
+      tags:
+      - MarketDataService
+      parameters:
+      - name: UserToken
+        in: query
+        schema:
+          type: string
+      - name: Symbol
+        in: query
+        schema:
+          type: string
+      - name: Date
+        in: query
+        schema:
+          type: string
+      - name: StartTime
+        in: query
+        schema:
+          type: string
+      - name: StopTime
+        in: query
+        schema:
+          type: string
+      - name: RequestId
+        in: query
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TickDataResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Get api security tick data
+      x-summary-source: derived
+      operationId: getApiV1SecurityTickData
+      x-operation-id-source: derived
+  /api/v1/security/options-and-greek-data:
+    get:
+      tags:
+      - MarketDataService
+      parameters:
+      - name: UserToken
+        in: query
+        schema:
+          type: string
+      - name: Symbols
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OptionsAndGreekDataResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Get api security options and greek data
+      x-summary-source: derived
+      operationId: getApiV1SecurityOptionsAndGreekData
+      x-operation-id-source: derived
+  /api/v1/security/security-data:
+    get:
+      tags:
+      - MarketDataService
+      parameters:
+      - name: UserToken
+        in: query
+        schema:
+          type: string
+      - name: Symbol
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SecurityDataResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Get api security security data
+      x-summary-source: derived
+      operationId: getApiV1SecuritySecurityData
+      x-operation-id-source: derived
+  /api/v1/security/option-symbol-from-description:
+    get:
+      tags:
+      - MarketDataService
+      parameters:
+      - name: UserToken
+        in: query
+        schema:
+          type: string
+      - name: Root
+        in: query
+        schema:
+          type: string
+      - name: Expiration
+        in: query
+        schema:
+          type: string
+      - name: OptionType.CallOrPut
+        in: query
+        schema:
+          $ref: '#/components/schemas/OptionTypesTypesOptions'
+      - name: StrikePrice
+        in: query
+        schema:
+          type: number
+          format: double
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OptionSymbolFromDescriptionResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Get api security option symbol from description
+      x-summary-source: derived
+      operationId: getApiV1SecurityOptionSymbolFromDescription
+      x-operation-id-source: derived
+  /api/v1/security/description-from-option-symbol:
+    get:
+      tags:
+      - MarketDataService
+      parameters:
+      - name: UserToken
+        in: query
+        schema:
+          type: string
+      - name: Symbol
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DescriptionFromOptionSymbolResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Get api security description from option symbol
+      x-summary-source: derived
+      operationId: getApiV1SecurityDescriptionFromOptionSymbol
+      x-operation-id-source: derived
+  /api/v1/security/subscribe-symbols:
+    get:
+      tags:
+      - MarketDataService
+      parameters:
+      - name: UserToken
+        in: query
+        schema:
+          type: string
+      - name: Symbols
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      - name: RegionalExchangeIds
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      - name: Request
+        in: query
+        schema:
+          type: boolean
+      - name: Advise
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Level1MarketDataResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Get api security subscribe symbols
+      x-summary-source: derived
+      operationId: getApiV1SecuritySubscribeSymbols
+      x-operation-id-source: derived
+    delete:
+      tags:
+      - MarketDataService
+      parameters:
+      - name: UserToken
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnSubscribeLevel1DataResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Delete api security subscribe symbols
+      x-summary-source: derived
+      operationId: deleteApiV1SecuritySubscribeSymbols
+      x-operation-id-source: derived
+  /api/v1/security/subscribe-symbols-level2:
+    get:
+      tags:
+      - MarketDataService
+      parameters:
+      - name: UserToken
+        in: query
+        schema:
+          type: string
+      - name: Symbols
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      - name: RequestId
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: MarketSource
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      - name: Request
+        in: query
+        schema:
+          type: boolean
+      - name: Advise
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Level2MarketDataResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Get api security subscribe symbols level2
+      x-summary-source: derived
+      operationId: getApiV1SecuritySubscribeSymbolsLevel2
+      x-operation-id-source: derived
+    delete:
+      tags:
+      - MarketDataService
+      parameters:
+      - name: UserToken
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnSubscribeLevel2DataResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Delete api security subscribe symbols level2
+      x-summary-source: derived
+      operationId: deleteApiV1SecuritySubscribeSymbolsLevel2
+      x-operation-id-source: derived
+  /api/v1/security/symbols:
+    post:
+      tags:
+      - MarketDataService
+      parameters:
+      - name: UserToken
+        in: query
+        schema:
+          type: string
+      - name: Symbols
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      - name: MarketDataLevel
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddSymbolsResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Create api security symbols
+      x-summary-source: derived
+      operationId: postApiV1SecuritySymbols
+      x-operation-id-source: derived
+    delete:
+      tags:
+      - MarketDataService
+      parameters:
+      - name: UserToken
+        in: query
+        schema:
+          type: string
+      - name: Symbols
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      - name: MarketDataLevel
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RemoveSymbolsResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Delete api security symbols
+      x-summary-source: derived
+      operationId: deleteApiV1SecuritySymbols
+      x-operation-id-source: derived
+  /api/v2/security/symbols:
+    post:
+      tags:
+      - MarketDataService
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddSymbolsRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddSymbolsResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Create api security symbols
+      x-summary-source: derived
+      operationId: postApiV2SecuritySymbols
+      x-operation-id-source: derived
+  /api/v1/security/symbols-from-company-name:
+    get:
+      tags:
+      - MarketDataService
+      parameters:
+      - name: UserToken
+        in: query
+        schema:
+          type: string
+      - name: CompanyName
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SymbolsFromCompanyNameResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Get api security symbols from company name
+      x-summary-source: derived
+      operationId: getApiV1SecuritySymbolsFromCompanyName
+      x-operation-id-source: derived
+  /api/v1/security/symbol-from-alternate-symbology:
+    get:
+      tags:
+      - MarketDataService
+      parameters:
+      - name: UserToken
+        in: query
+        schema:
+          type: string
+      - name: Symbol
+        in: query
+        schema:
+          type: string
+      - name: SymbolInfo.SymbolOption
+        in: query
+        schema:
+          $ref: '#/components/schemas/AlternateSymbologyTypesSymbology'
+      - name: Symbols
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SymbolFromAlternateSymbologyResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Get api security symbol from alternate symbology
+      x-summary-source: derived
+      operationId: getApiV1SecuritySymbolFromAlternateSymbology
+      x-operation-id-source: derived
+  /api/v1/security/level1-market-data:
+    get:
+      tags:
+      - MarketDataService
+      parameters:
+      - name: UserToken
+        in: query
+        schema:
+          type: string
+      - name: Symbols
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      - name: RegionalExchangeIds
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      - name: FieldSelection.RequestedFields
+        in: query
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/Level1FieldOptionsTypesFields'
+      - name: FieldSelection.RequestedExtendedFields
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Level1MarketDataRecordResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Get api security level1 market data
+      x-summary-source: derived
+      operationId: getApiV1SecurityLevel1MarketData
+      x-operation-id-source: derived
+  /api/v1/security/subscribe-tick-data:
+    get:
+      tags:
+      - MarketDataService
+      parameters:
+      - name: UserToken
+        in: query
+        schema:
+          type: string
+      - name: Symbol
+        in: query
+        schema:
+          type: string
+      - name: Request
+        in: query
+        schema:
+          type: boolean
+      - name: Date
+        in: query
+        schema:
+          type: string
+      - name: StartTime
+        in: query
+        schema:
+          type: string
+      - name: StopTime
+        in: query
+        schema:
+          type: string
+      - name: RequestId
+        in: query
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscribeTickDataResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Get api security subscribe tick data
+      x-summary-source: derived
+      operationId: getApiV1SecuritySubscribeTickData
+      x-operation-id-source: derived
+    delete:
+      tags:
+      - MarketDataService
+      parameters:
+      - name: UserToken
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnSubscribeTickDataResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Delete api security subscribe tick data
+      x-summary-source: derived
+      operationId: deleteApiV1SecuritySubscribeTickData
+      x-operation-id-source: derived
+  /api/v1/security/subscribe-intraday-bars:
+    get:
+      tags:
+      - MarketDataService
+      parameters:
+      - name: UserToken
+        in: query
+        schema:
+          type: string
+      - name: Symbols
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      - name: BarInterval
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: StartAtMidnight
+        in: query
+        schema:
+          type: boolean
+      - name: ShowPrePostMarket
+        in: query
+        schema:
+          type: boolean
+      - name: DaysBack
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: RequestId
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: EmitPartialBars
+        in: query
+        schema:
+          type: boolean
+      - name: PartialIntervalSeconds
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: SinceTimestamp
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscribeIntradayBarsResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Get api security subscribe intraday bars
+      x-summary-source: derived
+      operationId: getApiV1SecuritySubscribeIntradayBars
+      x-operation-id-source: derived
+    delete:
+      tags:
+      - MarketDataService
+      parameters:
+      - name: UserToken
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnSubscribeIntradayBarsResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Delete api security subscribe intraday bars
+      x-summary-source: derived
+      operationId: deleteApiV1SecuritySubscribeIntradayBars
+      x-operation-id-source: derived
+components:
+  schemas:
+    UnSubscribeLevel1DataResponse:
+      type: object
+      properties:
+        ServerResponse:
+          type: string
+        OptionalFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    DescriptionFromOptionSymbolResponse:
+      type: object
+      properties:
+        Root:
+          type: string
+        Expiration:
+          type: string
+        OptionType:
+          $ref: '#/components/schemas/OptionTypes'
+        StrikePrice:
+          type: number
+          format: double
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    CommonBarsFields:
+      type: object
+      properties:
+        AcVol1:
+          type: array
+          items:
+            type: integer
+            format: int32
+        Count:
+          type: integer
+          format: int32
+        High1:
+          type: array
+          items:
+            $ref: '#/components/schemas/Price'
+        Low1:
+          type: array
+          items:
+            $ref: '#/components/schemas/Price'
+        OpenPrc:
+          type: array
+          items:
+            $ref: '#/components/schemas/Price'
+        Settle:
+          type: array
+          items:
+            $ref: '#/components/schemas/Price'
+        TrdDate:
+          type: array
+          items:
+            type: string
+      additionalProperties: false
+    Google.Protobuf.WellKnownTypes.ValueKindOneofCase:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      type: integer
+      format: int32
+    SymbolFromAlternateSymbologyResponse:
+      type: object
+      properties:
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+        SymbolInfolist:
+          type: array
+          items:
+            $ref: '#/components/schemas/SymbolData'
+        Results:
+          type: array
+          items:
+            $ref: '#/components/schemas/SymbolLookupResult'
+        SuccessCount:
+          type: integer
+          format: int32
+        FailureCount:
+          type: integer
+          format: int32
+        TotalCount:
+          type: integer
+          format: int32
+      additionalProperties: false
+    SymbolData:
+      type: object
+      properties:
+        DispName:
+          type: string
+        ExchName:
+          type: string
+        Styp:
+          type: integer
+          format: int32
+        SymbolDesc:
+          type: string
+        IsinNo:
+          type: string
+        Country:
+          type: string
+        CommodityName:
+          type: string
+        BloombergCode:
+          type: string
+        BloombergCodeFull:
+          type: string
+        BloombergCodeComposite:
+          type: string
+        RicCode:
+          type: string
+        Sedol:
+          type: string
+        GicsSector:
+          type: string
+        GicsIndustry:
+          type: string
+        GicsSubindustry:
+          type: string
+        Cusip:
+          type: string
+      additionalProperties: false
+    SymInfoResponse:
+      type: object
+      properties:
+        Styp:
+          type: integer
+          format: int32
+        DispName:
+          type: string
+        BloombergCode:
+          type: string
+        BloombergCodeFull:
+          type: string
+        BloombergCodeComposite:
+          type: string
+        ExchName:
+          type: string
+        SymbolDesc:
+          type: string
+      additionalProperties: false
+    Level1MarketDataResponse:
+      type: object
+      properties:
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+        DispName:
+          type: string
+        Trdprc1:
+          $ref: '#/components/schemas/Price'
+        Trdtim1:
+          type: string
+        SymbolDesc:
+          type: string
+        CompanyName:
+          type: string
+        ArcaImbalanceVolume:
+          type: integer
+          format: int32
+        ArcaMatchVolume:
+          type: integer
+          format: int32
+        SaleConditionVolume:
+          type: integer
+          format: int32
+        IntradayHighCount:
+          type: integer
+          format: int32
+        VwapVol:
+          type: integer
+          format: int32
+        Vwap:
+          type: number
+          format: double
+        Bid:
+          $ref: '#/components/schemas/Price'
+        Ask:
+          $ref: '#/components/schemas/Price'
+        ChangeLast:
+          $ref: '#/components/schemas/Price'
+        High1:
+          $ref: '#/components/schemas/Price'
+        High52:
+          $ref: '#/components/schemas/Price'
+        Low1:
+          $ref: '#/components/schemas/Price'
+        Low52:
+          $ref: '#/components/schemas/Price'
+        ExtendedFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+      additionalProperties: false
+    Price:
+      type: object
+      properties:
+        DecimalValue:
+          type: number
+          format: double
+        Denominator:
+          type: integer
+          format: int32
+        Numerator:
+          type: integer
+          format: int32
+        Base:
+          type: integer
+          format: int32
+        Int:
+          type: integer
+          format: int32
+        BaseCode:
+          type: integer
+          format: int32
+        IntegerValue:
+          type: integer
+          format: int32
+        Isnull:
+          type: boolean
+      additionalProperties: false
+    TicksResponse:
+      type: object
+      properties:
+        TrdPrc1:
+          type: array
+          items:
+            $ref: '#/components/schemas/Price'
+        TrdDate:
+          type: array
+          items:
+            type: string
+        TickType:
+          type: array
+          items:
+            type: integer
+            format: int32
+        TrdXid1:
+          type: array
+          items:
+            type: string
+        TrdVol1:
+          type: array
+          items:
+            type: integer
+            format: int32
+        TrdTim1:
+          type: array
+          items:
+            type: string
+        DispName:
+          type: array
+          items:
+            type: string
+        Count:
+          type: integer
+          format: int32
+      additionalProperties: false
+    TickDataResponse:
+      type: object
+      properties:
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+        TickInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/TicksResponse'
+      additionalProperties: false
+    SecurityDataResponse:
+      type: object
+      properties:
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+        SecurityInfoList:
+          type: array
+          items:
+            $ref: '#/components/schemas/SecurityData'
+      additionalProperties: false
+    Level1MarketDataRecordResponse:
+      type: object
+      properties:
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+        DataRecord:
+          type: array
+          items:
+            $ref: '#/components/schemas/Level1MarketDataRecord'
+      additionalProperties: false
+    OptionSymbolFromDescriptionResponse:
+      type: object
+      properties:
+        Symbol:
+          type: string
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    AddSymbolsResponse:
+      type: object
+      properties:
+        ServerResponse:
+          type: string
+        OptionalFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    Level1FieldOptionsTypesFields:
+      enum:
+      - DISP_NAME
+      - TRDPRC1
+      - TRDTIM1
+      - SYMBOL_DESC
+      - COMPANY_NAME
+      - ARCA_IMBALANCE_VOLUME
+      - ARCA_MATCH_VOLUME
+      - SALE_CONDITION_VOLUME
+      - INTRADAY_HIGH_COUNT
+      - VWAP_VOL
+      - VWAP
+      - BID
+      - ASK
+      - CHANGE_LAST
+      - HIGH1
+      - HIGH52
+      - LOW1
+      - LOW52
+      - EXTENDED_FIELDS
+      type: string
+    UnSubscribeLevel2DataResponse:
+      type: object
+      properties:
+        ServerResponse:
+          type: string
+        OptionalFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    IntervalTypesOptions:
+      enum:
+      - DAILY
+      - WEEKLY
+      - MONTHLY
+      type: string
+    ServerAcknowledgementTypesResponseCodesEnum:
+      enum:
+      - SUCCESS
+      - WARNING
+      - FAILED
+      - ERROR
+      - TIMED_OUT
+      - SESSION_NOT_FOUND
+      type: string
+    Google.Protobuf.WellKnownTypes.Any:
+      required:
+      - '@type'
+      type: object
+      properties:
+        '@type':
+          type: string
+      additionalProperties:
+        $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Value'
+    Google.Protobuf.WellKnownTypes.Struct:
+      type: object
+      properties:
+        fields:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Value'
+          readOnly: true
+      additionalProperties: false
+    Google.Protobuf.WellKnownTypes.ListValue:
+      type: object
+      properties:
+        values:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Value'
+          readOnly: true
+      additionalProperties: false
+    AlternateSymbologyTypesSymbology:
+      enum:
+      - ISIN
+      - SEDOL
+      - RIC
+      - CUSIP
+      - BBG
+      type: string
+    Level2MarketDataResponse:
+      type: object
+      properties:
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+        MktSource:
+          type: string
+        MktMkrId:
+          type: string
+        DispName:
+          type: string
+        MktMkrStatus:
+          type: string
+        ExchName:
+          type: string
+        MktMkrDisplay:
+          type: string
+        MktMkrBidsize:
+          type: integer
+          format: int32
+        MktMkrAsksize:
+          type: integer
+          format: int32
+        SymbolId:
+          type: integer
+          format: int32
+        SymbolError:
+          type: integer
+          format: int32
+        TableId:
+          type: integer
+          format: int32
+        Styp:
+          type: integer
+          format: int32
+        QuoteUpdateType:
+          type: integer
+          format: int32
+        MktMkrDate:
+          type: string
+        MktMkrBidTime:
+          type: string
+        MktMkrAskTime:
+          type: string
+        MktMkrBid:
+          $ref: '#/components/schemas/Price'
+        MktMkrChangeLastAsk:
+          $ref: '#/components/schemas/Price'
+        MktMkrAsk:
+          $ref: '#/components/schemas/Price'
+      additionalProperties: false
+    SymbolLookupResult:
+      type: object
+      properties:
+        RequestedSymbol:
+          type: string
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+        SymbolInfolist:
+          type: array
+          items:
+            $ref: '#/components/schemas/SymbolData'
+      additionalProperties: false
+    IntradayBarsResponse:
+      type: object
+      properties:
+        Bars:
+          $ref: '#/components/schemas/CommonBarsFields'
+        TrdTim1:
+          type: array
+          items:
+            type: string
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    QuoteChainResponse:
+      type: object
+      properties:
+        DispName:
+          type: string
+        ExchName:
+          type: string
+        SymbolDesc:
+          type: string
+        TrdUnits:
+          type: string
+        CommodityName:
+          type: string
+        Styp:
+          type: integer
+          format: int32
+        Session:
+          type: integer
+          format: int32
+        Minmove:
+          type: integer
+          format: int32
+        Basisvalue:
+          type: number
+          format: double
+        ExpirDate:
+          type: string
+        StrikePrice:
+          $ref: '#/components/schemas/Price'
+        PutCallInd:
+          type: string
+      additionalProperties: false
+    IntradayBarUpdate:
+      type: object
+      properties:
+        OpenTime:
+          type: string
+        TrdTim1:
+          type: string
+        OpenPrc:
+          $ref: '#/components/schemas/Price'
+        High1:
+          $ref: '#/components/schemas/Price'
+        Low1:
+          $ref: '#/components/schemas/Price'
+        Settle:
+          $ref: '#/components/schemas/Price'
+        AcVol1:
+          type: integer
+          format: int32
+        TickCount:
+          type: integer
+          format: int32
+        Vwap:
+          type: number
+          format: double
+        Kind:
+          $ref: '#/components/schemas/BarUpdateKind'
+        Symbol:
+          type: string
+      additionalProperties: false
+    OptionTypesTypesOptions:
+      enum:
+      - CALL
+      - PUT
+      type: string
+    Google.Rpc.Status:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Any'
+      additionalProperties: false
+    SubscribeIntradayBarsResponse:
+      type: object
+      properties:
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+        DispName:
+          type: string
+        BarInterval:
+          type: integer
+          format: int32
+        Bars:
+          type: array
+          items:
+            $ref: '#/components/schemas/IntradayBarUpdate'
+      additionalProperties: false
+    OptionChainResponse:
+      type: object
+      properties:
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+        Derivative:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuoteChainResponse'
+      additionalProperties: false
+    SymbolsFromCompanyNameResponse:
+      type: object
+      properties:
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+        SymbolDatalist:
+          type: array
+          items:
+            $ref: '#/components/schemas/SymbolData'
+      additionalProperties: false
+    OptionsAndGreekDataResponse:
+      type: object
+      properties:
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+        OptionsList:
+          type: array
+          items:
+            $ref: '#/components/schemas/OptionCalculationResponse'
+      additionalProperties: false
+    DailyWeeklyMonthlyBarsResponse:
+      type: object
+      properties:
+        BarFields:
+          $ref: '#/components/schemas/CommonBarsFields'
+        DispName:
+          type: string
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    SecurityData:
+      type: object
+      properties:
+        Divpaydate:
+          type: string
+        Exdivdate:
+          type: string
+        High52Date:
+          type: string
+        Low52Date:
+          type: string
+        ProcDate:
+          type: string
+        SplitDate1:
+          type: string
+        Adx14d1d:
+          type: number
+          format: double
+        BollingerLower21d1d:
+          type: number
+          format: double
+        BollingerUpper21d1d:
+          type: number
+          format: double
+        Close10davg1d:
+          type: number
+          format: double
+        Close200davg1d:
+          type: number
+          format: double
+        Close20davg1d:
+          type: number
+          format: double
+        Close50davg1d:
+          type: number
+          format: double
+        Close5davg1d:
+          type: number
+          format: double
+        High15dmax1d:
+          type: number
+          format: double
+        Hlvolatility10d1d:
+          type: number
+          format: double
+        Low15dmin1d:
+          type: number
+          format: double
+        Minusdi14d1d:
+          type: number
+          format: double
+        Plusdi14d1d:
+          type: number
+          format: double
+        Rsi14d1d:
+          type: number
+          format: double
+        Rsi25d1d:
+          type: number
+          format: double
+        Rsi9d1d:
+          type: number
+          format: double
+        SplitFactor1:
+          type: number
+          format: double
+        Volume10davg1d:
+          type: number
+          format: double
+        Volume200davg1d:
+          type: number
+          format: double
+        Volume20davg1d:
+          type: number
+          format: double
+        Volume50davg1d:
+          type: number
+          format: double
+        Volume5davg1d:
+          type: number
+          format: double
+        DividendFreqN:
+          type: integer
+          format: int32
+        SecurityCategory:
+          type: integer
+          format: int32
+        SharesOut:
+          type: integer
+          format: int32
+        Beta:
+          $ref: '#/components/schemas/Price'
+        Dividend:
+          $ref: '#/components/schemas/Price'
+        DividendRate:
+          $ref: '#/components/schemas/Price'
+        DividendYield:
+          $ref: '#/components/schemas/Price'
+        Earnings:
+          $ref: '#/components/schemas/Price'
+        High52:
+          $ref: '#/components/schemas/Price'
+        Low52:
+          $ref: '#/components/schemas/Price'
+        MgSicm:
+          $ref: '#/components/schemas/Price'
+        MktCap:
+          $ref: '#/components/schemas/Price'
+        Peratio:
+          $ref: '#/components/schemas/Price'
+        BloombergCode:
+          type: string
+        BloombergCodeComposite:
+          type: string
+        CompanyName:
+          type: string
+        Country:
+          type: string
+        Cusip:
+          type: string
+        DispName:
+          type: string
+        GicsIndustry:
+          type: string
+        GicsSector:
+          type: string
+        GicsSubindustry:
+          type: string
+        IsinNo:
+          type: string
+        IssuersSectorStr:
+          type: string
+        PrimaryExchange:
+          type: string
+        RicCode:
+          type: string
+        Sedol:
+          type: string
+        MIC:
+          type: string
+      additionalProperties: false
+    Google.Protobuf.WellKnownTypes.Value:
+      type: object
+      properties:
+        nullValue:
+          $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.NullValue'
+        hasNullValue:
+          type: boolean
+          readOnly: true
+        numberValue:
+          type: number
+          format: double
+        hasNumberValue:
+          type: boolean
+          readOnly: true
+        stringValue:
+          type:
+          - string
+          - 'null'
+        hasStringValue:
+          type: boolean
+          readOnly: true
+        boolValue:
+          type: boolean
+        hasBoolValue:
+          type: boolean
+          readOnly: true
+        structValue:
+          $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Struct'
+        listValue:
+          $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.ListValue'
+        kindCase:
+          $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.ValueKindOneofCase'
+      additionalProperties: false
+    UnSubscribeTickDataResponse:
+      type: object
+      properties:
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    Level1MarketDataRecord:
+      type: object
+      properties:
+        DispName:
+          type: string
+        Trdprc1:
+          $ref: '#/components/schemas/Price'
+        Trdtim1:
+          type: string
+        SymbolDesc:
+          type: string
+        CompanyName:
+          type: string
+        ArcaImbalanceVolume:
+          type: integer
+          format: int32
+        ArcaMatchVolume:
+          type: integer
+          format: int32
+        SaleConditionVolume:
+          type: integer
+          format: int32
+        IntradayHighCount:
+          type: integer
+          format: int32
+        VwapVol:
+          type: integer
+          format: int32
+        Vwap:
+          type: number
+          format: double
+        Bid:
+          $ref: '#/components/schemas/Price'
+        Ask:
+          $ref: '#/components/schemas/Price'
+        ChangeLast:
+          $ref: '#/components/schemas/Price'
+        High1:
+          $ref: '#/components/schemas/Price'
+        High52:
+          $ref: '#/components/schemas/Price'
+        Low1:
+          $ref: '#/components/schemas/Price'
+        Low52:
+          $ref: '#/components/schemas/Price'
+        ExtendedFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+      additionalProperties: false
+    UnSubscribeIntradayBarsResponse:
+      type: object
+      properties:
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    ServerAcknowledgement:
+      type: object
+      properties:
+        ServerResponse:
+          type: string
+        OptionalFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        Message:
+          type: string
+        ResponseCode:
+          $ref: '#/components/schemas/ServerAcknowledgementTypesResponseCodesEnum'
+      additionalProperties: false
+    SubscribeTickDataResponse:
+      type: object
+      properties:
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+        TrdPrc1:
+          type: array
+          items:
+            $ref: '#/components/schemas/Price'
+        TrdDate:
+          type: array
+          items:
+            type: string
+        TickType:
+          type: array
+          items:
+            type: integer
+            format: int32
+        TrdXid1:
+          type: array
+          items:
+            type: string
+        TrdVol1:
+          type: array
+          items:
+            type: integer
+            format: int32
+        TrdTim1:
+          type: array
+          items:
+            type: string
+        DispName:
+          type: array
+          items:
+            type: string
+        Count:
+          type: integer
+          format: int32
+      additionalProperties: false
+    OptionTypes:
+      type: object
+      properties:
+        CallOrPut:
+          $ref: '#/components/schemas/OptionTypesTypesOptions'
+      additionalProperties: false
+    RemoveSymbolsResponse:
+      type: object
+      properties:
+        ServerResponse:
+          type: string
+        OptionalFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    Google.Protobuf.WellKnownTypes.NullValue:
+      enum:
+      - 0
+      type: integer
+      format: int32
+    OptionCalculationResponse:
+      type: object
+      properties:
+        Model:
+          type: integer
+          format: int32
+        Theta:
+          type: number
+          format: double
+        Gamma:
+          type: number
+          format: double
+        Vega:
+          type: number
+          format: double
+        Delta:
+          type: number
+          format: double
+        Premium:
+          type: number
+          format: double
+        ImpliedVol:
+          type: number
+          format: double
+        DividendAmout6:
+          type: number
+          format: double
+        DividendAmout5:
+          type: number
+          format: double
+        DividendAmout4:
+          type: number
+          format: double
+        DividendAmout3:
+          type: number
+          format: double
+        DividendAmout2:
+          type: number
+          format: double
+        DividendAmout1:
+          type: number
+          format: double
+        Rate:
+          type: number
+          format: double
+        TimeToExpire:
+          type: number
+          format: double
+        UnderlierPrice:
+          $ref: '#/components/schemas/Price'
+        OriginalPrice:
+          $ref: '#/components/schemas/Price'
+        StrikePrice:
+          $ref: '#/components/schemas/Price'
+        DividendDate6:
+          type: string
+        DividendDate5:
+          type: string
+        DividendDate4:
+          type: string
+        DividendDate3:
+          type: string
+        DividendDate2:
+          type: string
+        DividendDate1:
+          type: string
+        PutCallId:
+          type: string
+        DispName:
+          type: string
+        UnderSym:
+          type: string
+        OptionRoot:
+          type: string
+      additionalProperties: false
+    BarUpdateKind:
+      enum:
+      - BAR_KIND_UNSPECIFIED
+      - BAR_KIND_HISTORICAL
+      - BAR_KIND_PARTIAL
+      - BAR_KIND_CLOSED
+      type: string
+    SymbolReferenceDataResponse:
+      type: object
+      properties:
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+        SymInfoList:
+          type: array
+          items:
+            $ref: '#/components/schemas/SymInfoResponse'
+      additionalProperties: false
+    AddSymbolsRequest:
+      type: object
+      properties:
+        UserToken:
+          type: string
+        Symbols:
+          type: array
+          items:
+            type: string
+        MarketDataLevel:
+          type: string
+      additionalProperties: false
+  securitySchemes:
+    Bearer:
+      type: http
+      description: 'Please enter a valid token : '
+      scheme: Bearer
+      bearerFormat: JWT

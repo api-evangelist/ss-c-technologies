@@ -1,0 +1,38 @@
+{
+  "provider": "ss-c-technologies",
+  "sources": [
+    "_original/ss-c-technologies-eze-ems-xapi-openapi.json"
+  ],
+  "outputs": [
+    "ss-c-technologies-marketdataservice-api-openapi.yml",
+    "ss-c-technologies-submitorderservice-api-openapi.yml",
+    "ss-c-technologies-userservices-api-openapi.yml",
+    "ss-c-technologies-utilityservices-api-openapi.yml",
+    "ss-c-technologies-xapiserver-api-openapi.yml"
+  ],
+  "archived": [
+    "deleted 1 superseded output(s) from the previous generation"
+  ],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "1 archived document(s) dropped as subsets of other archived documents",
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "ss-c-technologies-eze-ems-xapi-openapi.json: upgraded openapi 3.0.4 -> OpenAPI 3.2.0",
+    "ss-c-technologies-eze-ems-xapi-openapi.json: declared missing tag: MarketDataService",
+    "ss-c-technologies-eze-ems-xapi-openapi.json: declared missing tag: SubmitOrderService",
+    "ss-c-technologies-eze-ems-xapi-openapi.json: declared missing tag: UserServices",
+    "ss-c-technologies-eze-ems-xapi-openapi.json: declared missing tag: UtilityServices",
+    "ss-c-technologies-eze-ems-xapi-openapi.json: declared missing tag: XAPIServer",
+    "superseded outputs removed: ss-c-technologies-utility-services-api-openapi.yml",
+    "apis.yml register: written (+1 apis, 7 total)"
+  ],
+  "skipped": [
+    "_original/ss-c-technologies-eze-ems-xapi-openapi_2.json: archived document superseded by a larger archived document",
+    "ss-c-technologies-marketdataservice-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "ss-c-technologies-submitorderservice-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "ss-c-technologies-userservices-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "ss-c-technologies-utility-services-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "ss-c-technologies-xapiserver-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
+}

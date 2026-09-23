@@ -1,0 +1,1611 @@
+openapi: 3.2.0
+info:
+  title: SS&C Eze EMS X Utility Services API
+  version: v2026.5.0
+security:
+- Bearer: []
+tags:
+- name: Utility Services
+paths:
+  /api/v1/utility/todays-balances:
+    get:
+      tags:
+      - Utility Services
+      parameters:
+      - name: UserToken
+        in: query
+        schema:
+          type: string
+      - name: TimeoutInSeconds
+        in: query
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TodaysBalancesResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Get api utility todays balances
+      x-summary-source: derived
+      operationId: getApiV1UtilityTodaysBalances
+      x-operation-id-source: derived
+  /api/v1/utility/todays-activity:
+    get:
+      tags:
+      - Utility Services
+      parameters:
+      - name: UserToken
+        in: query
+        schema:
+          type: string
+      - name: TimeoutInSeconds
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: IncludeUserSubmitOrder
+        in: query
+        schema:
+          type: boolean
+      - name: IncludeUserSubmitStagedOrder
+        in: query
+        schema:
+          type: boolean
+      - name: IncludeUserSubmitCompoundOrder
+        in: query
+        schema:
+          type: boolean
+      - name: IncludeForeignExecution
+        in: query
+        schema:
+          type: boolean
+      - name: IncludeUserSubmitChange
+        in: query
+        schema:
+          type: boolean
+      - name: IncludeUserSubmitCancel
+        in: query
+        schema:
+          type: boolean
+      - name: IncludeExchangeAcceptOrder
+        in: query
+        schema:
+          type: boolean
+      - name: IncludeExchangeTradeOrder
+        in: query
+        schema:
+          type: boolean
+      - name: IncludeUserSubmitTradeReport
+        in: query
+        schema:
+          type: boolean
+      - name: IncludeUserSubmitAllocation
+        in: query
+        schema:
+          type: boolean
+      - name: IncludeUserSubmitAllocationEx
+        in: query
+        schema:
+          type: boolean
+      - name: IncludeClerkReject
+        in: query
+        schema:
+          type: boolean
+      - name: IncludeOnlyCompleted
+        in: query
+        schema:
+          type: boolean
+      - name: UserSubmitStagedOrderFullInfo
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TodaysActivityResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Get api utility todays activity
+      x-summary-source: derived
+      operationId: getApiV1UtilityTodaysActivity
+      x-operation-id-source: derived
+  /api/v1/utility/todays-breakdown-positions:
+    get:
+      tags:
+      - Utility Services
+      parameters:
+      - name: UserToken
+        in: query
+        schema:
+          type: string
+      - name: TimeoutInSeconds
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: BBCDFilter
+        in: query
+        schema:
+          type: string
+      - name: TickerFilter
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TodaysBrokenDownPositionsResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Get api utility todays breakdown positions
+      x-summary-source: derived
+      operationId: getApiV1UtilityTodaysBreakdownPositions
+      x-operation-id-source: derived
+  /api/v1/utility/todays-net-positions:
+    get:
+      tags:
+      - Utility Services
+      parameters:
+      - name: UserToken
+        in: query
+        schema:
+          type: string
+      - name: TimeoutInSeconds
+        in: query
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TodaysNetPositionsResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Get api utility todays net positions
+      x-summary-source: derived
+      operationId: getApiV1UtilityTodaysNetPositions
+      x-operation-id-source: derived
+  /api/v1/utility/todays-net-positions/subscribe:
+    get:
+      tags:
+      - Utility Services
+      parameters:
+      - name: UserToken
+        in: query
+        schema:
+          type: string
+      - name: TimeoutInSeconds
+        in: query
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscribeNetPositionsResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Get api utility todays net positions subscribe
+      x-summary-source: derived
+      operationId: getApiV1UtilityTodaysNetPositionsSubscribe
+      x-operation-id-source: derived
+    delete:
+      tags:
+      - Utility Services
+      parameters:
+      - name: UserToken
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnSubscribeNetPositionsResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Delete api utility todays net positions subscribe
+      x-summary-source: derived
+      operationId: deleteApiV1UtilityTodaysNetPositionsSubscribe
+      x-operation-id-source: derived
+  /api/v1/authentication/connect:
+    get:
+      tags:
+      - Utility Services
+      parameters:
+      - name: UserName
+        in: query
+        schema:
+          type: string
+      - name: Domain
+        in: query
+        schema:
+          type: string
+      - name: Password
+        in: query
+        schema:
+          type: string
+      - name: Locale
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConnectResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Get api authentication connect
+      x-summary-source: derived
+      operationId: getApiV1AuthenticationConnect
+      x-operation-id-source: derived
+  /api/v1/utility/heartbeat-subscribe:
+    get:
+      tags:
+      - Utility Services
+      parameters:
+      - name: UserToken
+        in: query
+        schema:
+          type: string
+      - name: TimeoutInSeconds
+        in: query
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscribeHeartBeatResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Get api utility heartbeat subscribe
+      x-summary-source: derived
+      operationId: getApiV1UtilityHeartbeatSubscribe
+      x-operation-id-source: derived
+  /api/v1/authentication/disconnect:
+    get:
+      tags:
+      - Utility Services
+      parameters:
+      - name: UserToken
+        in: query
+        schema:
+          type: string
+      - name: TimeoutInSeconds
+        in: query
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DisconnectResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Get api authentication disconnect
+      x-summary-source: derived
+      operationId: getApiV1AuthenticationDisconnect
+      x-operation-id-source: derived
+  /api/v1/authentication/start-login-srp:
+    get:
+      tags:
+      - Utility Services
+      parameters:
+      - name: UserName
+        in: query
+        schema:
+          type: string
+      - name: Domain
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StartLoginSrpResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Get api authentication start login srp
+      x-summary-source: derived
+      operationId: getApiV1AuthenticationStartLoginSrp
+      x-operation-id-source: derived
+  /api/v1/authentication/complete-login-srp:
+    get:
+      tags:
+      - Utility Services
+      parameters:
+      - name: Identity
+        in: query
+        schema:
+          type: string
+      - name: srpTransactId
+        in: query
+        schema:
+          type: string
+      - name: strEphA
+        in: query
+        schema:
+          type: string
+      - name: strMc
+        in: query
+        schema:
+          type: string
+      - name: UserName
+        in: query
+        schema:
+          type: string
+      - name: Domain
+        in: query
+        schema:
+          type: string
+      - name: Locale
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompleteLoginSrpResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Get api authentication complete login srp
+      x-summary-source: derived
+      operationId: getApiV1AuthenticationCompleteLoginSrp
+      x-operation-id-source: derived
+  /api/v1/authentication/multi-factor-authentication:
+    get:
+      tags:
+      - Utility Services
+      parameters:
+      - name: VerificationCode
+        in: query
+        schema:
+          type: string
+      - name: MFASecurityCode
+        in: query
+        schema:
+          type: string
+      - name: UserName
+        in: query
+        schema:
+          type: string
+      - name: Domain
+        in: query
+        schema:
+          type: string
+      - name: Locale
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MultiFactorAuthenticationResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Get api authentication multi factor authentication
+      x-summary-source: derived
+      operationId: getApiV1AuthenticationMultiFactorAuthentication
+      x-operation-id-source: derived
+  /api/v1/authentication/change-password-srp:
+    get:
+      tags:
+      - Utility Services
+      parameters:
+      - name: TransactId
+        in: query
+        schema:
+          type: string
+      - name: UserName
+        in: query
+        schema:
+          type: string
+      - name: Domain
+        in: query
+        schema:
+          type: string
+      - name: OldPassword
+        in: query
+        schema:
+          type: string
+      - name: NewPassword
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChangePasswordSRPResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Get api authentication change password srp
+      x-summary-source: derived
+      operationId: getApiV1AuthenticationChangePasswordSrp
+      x-operation-id-source: derived
+  /api/v1/authentication/change-password:
+    get:
+      tags:
+      - Utility Services
+      parameters:
+      - name: UserName
+        in: query
+        schema:
+          type: string
+      - name: Domain
+        in: query
+        schema:
+          type: string
+      - name: OldPassword
+        in: query
+        schema:
+          type: string
+      - name: NewPassword
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChangePasswordResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Get api authentication change password
+      x-summary-source: derived
+      operationId: getApiV1AuthenticationChangePassword
+      x-operation-id-source: derived
+  /api/v1/utility/strategy-list:
+    get:
+      tags:
+      - Utility Services
+      parameters:
+      - name: UserToken
+        in: query
+        schema:
+          type: string
+      - name: FirmName
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StrategyListResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Get api utility strategy list
+      x-summary-source: derived
+      operationId: getApiV1UtilityStrategyList
+      x-operation-id-source: derived
+  /api/v1/utility/firm-name:
+    get:
+      tags:
+      - Utility Services
+      parameters:
+      - name: UserToken
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetFirmNameResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Get api utility firm name
+      x-summary-source: derived
+      operationId: getApiV1UtilityFirmName
+      x-operation-id-source: derived
+  /api/v1/utility/user-exists:
+    get:
+      tags:
+      - Utility Services
+      parameters:
+      - name: UserToken
+        in: query
+        schema:
+          type: string
+      - name: FirmName
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserExistsResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Get api utility user exists
+      x-summary-source: derived
+      operationId: getApiV1UtilityUserExists
+      x-operation-id-source: derived
+  /api/v1/utility/strategy-data:
+    get:
+      tags:
+      - Utility Services
+      parameters:
+      - name: UserToken
+        in: query
+        schema:
+          type: string
+      - name: FirmName
+        in: query
+        schema:
+          type: string
+      - name: AlgoName
+        in: query
+        schema:
+          type: string
+      - name: StrategyName
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetStrategyDataResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Get api utility strategy data
+      x-summary-source: derived
+      operationId: getApiV1UtilityStrategyData
+      x-operation-id-source: derived
+  /api/v1/utility/create-strategy:
+    post:
+      tags:
+      - Utility Services
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateStrategyRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateStrategyResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Create api utility create strategy
+      x-summary-source: derived
+      operationId: postApiV1UtilityCreateStrategy
+      x-operation-id-source: derived
+  /api/v1/utility/update-strategy:
+    put:
+      tags:
+      - Utility Services
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateStrategyRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateStrategyResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Replace api utility update strategy
+      x-summary-source: derived
+      operationId: putApiV1UtilityUpdateStrategy
+      x-operation-id-source: derived
+  /api/v1/utility/user-routes:
+    get:
+      tags:
+      - Utility Services
+      parameters:
+      - name: UserToken
+        in: query
+        schema:
+          type: string
+      - name: AccountList
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetUserRoutesResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Get api utility user routes
+      x-summary-source: derived
+      operationId: getApiV1UtilityUserRoutes
+      x-operation-id-source: derived
+  /api/v1/utility/user-route-props:
+    get:
+      tags:
+      - Utility Services
+      parameters:
+      - name: UserToken
+        in: query
+        schema:
+          type: string
+      - name: FilterRoutesList
+        in: query
+        schema:
+          type: string
+      - name: FilterRoutePropsList
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetUserRoutePropsResponse'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Google.Rpc.Status'
+      summary: Get api utility user route props
+      x-summary-source: derived
+      operationId: getApiV1UtilityUserRouteProps
+      x-operation-id-source: derived
+components:
+  schemas:
+    ConnectResponse:
+      type: object
+      properties:
+        UserToken:
+          type: string
+        Response:
+          type: string
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+        DPermStatusCode:
+          type: string
+        MFASecurityCode:
+          type: string
+        MFAtotpPreference:
+          type: string
+        MFAtotpValue:
+          type: string
+      additionalProperties: false
+    TodaysNetPositionsResponse:
+      type: object
+      properties:
+        AggregatePositionsList:
+          type: array
+          items:
+            $ref: '#/components/schemas/AggregatePositionRecord'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    GetFirmNameResponse:
+      type: object
+      properties:
+        FirmName:
+          type: string
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    TodaysActivityResponse:
+      type: object
+      properties:
+        OrderRecordList:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderResponse'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    SubscribeHeartBeatResponseTypesHeartBeatStatus:
+      enum:
+      - LIVE
+      - DEAD
+      - UNKNOWN
+      type: string
+    Google.Protobuf.WellKnownTypes.ValueKindOneofCase:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      type: integer
+      format: int32
+    UserExistsResponse:
+      type: object
+      properties:
+        UserExists:
+          type: boolean
+        FirmName:
+          type: string
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    UnSubscribeNetPositionsResponse:
+      type: object
+      properties:
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    GetUserRoutesResponse:
+      type: object
+      properties:
+        UserRoutes:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    TodaysBrokenDownPositionsResponse:
+      type: object
+      properties:
+        PositionRecords:
+          type: array
+          items:
+            $ref: '#/components/schemas/Position'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    Position:
+      type: object
+      properties:
+        AverageShort0:
+          type: number
+          format: double
+        HistShortPrc0:
+          type: number
+          format: double
+        Shortpos0:
+          type: number
+          format: double
+        OrigShortpos0:
+          type: number
+          format: double
+        ScalpedProfit:
+          type: number
+          format: double
+        Mmr:
+          type: number
+          format: double
+        BoughtQty:
+          type: number
+          format: double
+        SoldQty:
+          type: number
+          format: double
+        SoldShortQty:
+          type: number
+          format: double
+        BoughtAvgPrc:
+          type: number
+          format: double
+        SoldAvgPrc:
+          type: number
+          format: double
+        SoldShortAvgPrc:
+          type: number
+          format: double
+        Commission:
+          type: number
+          format: double
+        Shortpos:
+          type: number
+          format: double
+        AverageShort:
+          type: number
+          format: double
+        OrigLongpos0:
+          type: number
+          format: double
+        Longpos0:
+          type: number
+          format: double
+        AverageLong:
+          type: number
+          format: double
+        Longpos:
+          type: number
+          format: double
+        AverageLong0:
+          type: number
+          format: double
+        HistLongPrc0:
+          type: number
+          format: double
+        NetFees:
+          type: number
+          format: double
+        HistScalpedProfit:
+          type: number
+          format: double
+        Table:
+          type: string
+        Bank:
+          type: string
+        Branch:
+          type: string
+        Customer:
+          type: string
+        Deposit:
+          type: string
+        Currency:
+          type: string
+        DispName:
+          type: string
+        Undersym:
+          type: string
+        AcctType:
+          type: integer
+          format: int32
+        TboAccountId:
+          type: integer
+          format: int32
+        Rank:
+          type: integer
+          format: int32
+        Styp:
+          type: integer
+          format: int32
+      additionalProperties: false
+    TodaysBalancesResponse:
+      type: object
+      properties:
+        DepositList:
+          type: array
+          items:
+            $ref: '#/components/schemas/DepositRow'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    OrderResponse:
+      type: object
+      properties:
+        submitTime:
+          type: string
+        OrderId:
+          type: string
+        LinkedOrderId:
+          type: string
+        RefersToId:
+          type: string
+        TicketId:
+          type: string
+        OriginalOrderId:
+          type: string
+        Symbol:
+          type: string
+        Type:
+          type: string
+        CurrentStatus:
+          type: string
+        TraderId:
+          type: string
+        ClaimedByClerk:
+          type: string
+        Volume:
+          type: integer
+          format: int32
+        Price:
+          type: number
+          format: double
+        PriceType:
+          $ref: '#/components/schemas/PriceTypeEnum'
+        Buyorsell:
+          type: string
+        PairSpreadType:
+          type: string
+        Reason:
+          type: string
+        TimeStamp:
+          type: string
+        ExtendedFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        GoodFrom:
+          type: string
+        TimeInForce:
+          $ref: '#/components/schemas/ExpirationType'
+        StopPrice:
+          type: number
+          format: double
+        UserMessage:
+          type: string
+        ExpirationDate:
+          type: string
+        Side:
+          type: string
+        Route:
+          type: string
+        Account:
+          type: string
+        OrderTag:
+          type: string
+        VolumeTraded:
+          type: integer
+          format: int32
+      additionalProperties: false
+    UpdateStrategyResponse:
+      type: object
+      properties:
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    ChangePasswordResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    StrategyListRow:
+      type: object
+      properties:
+        FirmName:
+          type: string
+        UserName:
+          type: string
+        AlgoName:
+          type: string
+        StrategyName:
+          type: string
+        StratCreateDate:
+          type: string
+      additionalProperties: false
+    RoutePropsMap:
+      type: object
+      properties:
+        Properties:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+      additionalProperties: false
+    ChangePasswordSRPResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    SubscribeHeartBeatResponse:
+      type: object
+      properties:
+        Status:
+          $ref: '#/components/schemas/SubscribeHeartBeatResponseTypesHeartBeatStatus'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    PriceTypeEnumTypesPriceTypesEnum:
+      enum:
+      - Market
+      - Limit
+      - StopMarket
+      - StopLimit
+      - Other
+      type: string
+    ServerAcknowledgementTypesResponseCodesEnum:
+      enum:
+      - SUCCESS
+      - WARNING
+      - FAILED
+      - ERROR
+      - TIMED_OUT
+      - SESSION_NOT_FOUND
+      type: string
+    StrategyDataRow:
+      type: object
+      properties:
+        FirmName:
+          type: string
+        UserName:
+          type: string
+        AlgoName:
+          type: string
+        StrategyName:
+          type: string
+        Version:
+          type: integer
+          format: int32
+        StratParams:
+          type: string
+        StratCreateDate:
+          type: string
+        StratUpdateDate:
+          type: string
+      additionalProperties: false
+    Google.Protobuf.WellKnownTypes.Any:
+      required:
+      - '@type'
+      type: object
+      properties:
+        '@type':
+          type: string
+      additionalProperties:
+        $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Value'
+    PriceTypeEnum:
+      type: object
+      properties:
+        PriceType:
+          $ref: '#/components/schemas/PriceTypeEnumTypesPriceTypesEnum'
+      additionalProperties: false
+    GetUserRoutePropsResponse:
+      type: object
+      properties:
+        UserRouteProps:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/RoutePropsMap'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    Google.Protobuf.WellKnownTypes.Struct:
+      type: object
+      properties:
+        fields:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Value'
+          readOnly: true
+      additionalProperties: false
+    Google.Protobuf.WellKnownTypes.ListValue:
+      type: object
+      properties:
+        values:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Value'
+          readOnly: true
+      additionalProperties: false
+    ExpirationType:
+      type: object
+      properties:
+        Expiration:
+          $ref: '#/components/schemas/ExpirationTypeTypesExpirationTypes'
+      additionalProperties: false
+    MultiFactorAuthenticationResponse:
+      type: object
+      properties:
+        UserToken:
+          type: string
+        Response:
+          type: string
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    UpdateStrategyRequest:
+      type: object
+      properties:
+        UserToken:
+          type: string
+        FirmName:
+          type: string
+        AlgoName:
+          type: string
+        StrategyName:
+          type: string
+        Version:
+          type: integer
+          format: int32
+        StratParams:
+          type: string
+      additionalProperties: false
+    StrategyListResponse:
+      type: object
+      properties:
+        StrategyList:
+          type: array
+          items:
+            $ref: '#/components/schemas/StrategyListRow'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    GetStrategyDataResponse:
+      type: object
+      properties:
+        StrategyData:
+          $ref: '#/components/schemas/StrategyDataRow'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    AggregatePositionRecord:
+      type: object
+      properties:
+        SoldShortQty:
+          type: number
+          format: double
+        SoldQty:
+          type: number
+          format: double
+        BoughtAvgPrc:
+          type: number
+          format: double
+        BoughtQty:
+          type: number
+          format: double
+        IntradayShortAvgPrc:
+          type: number
+          format: double
+        IntradayShortPos:
+          type: number
+          format: double
+        ShortAvgPrc:
+          type: number
+          format: double
+        ShortPos:
+          type: number
+          format: double
+        IntradayLongAvgPrc:
+          type: number
+          format: double
+        IntradayLongPos:
+          type: number
+          format: double
+        LongAvgPrc:
+          type: number
+          format: double
+        LongPos:
+          type: number
+          format: double
+        IntradayAvgPrc:
+          type: number
+          format: double
+        IntradayPos:
+          type: number
+          format: double
+        TotalAvgPrc:
+          type: number
+          format: double
+        TotalPos:
+          type: number
+          format: double
+        SoldAvgPrc:
+          type: number
+          format: double
+        SoldShortAvgPrc:
+          type: number
+          format: double
+        DispName:
+          type: string
+        Deposit:
+          type: string
+        Customer:
+          type: string
+        Branch:
+          type: string
+        Bank:
+          type: string
+        ExtendedFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+      additionalProperties: false
+    Google.Rpc.Status:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Any'
+      additionalProperties: false
+    ExpirationTypeTypesExpirationTypes:
+      enum:
+      - DAY
+      - GTC
+      - GTX
+      - CLO
+      - OPG
+      - IOC
+      - GTD
+      - OTHER
+      type: string
+    StartLoginSrpResponse:
+      type: object
+      properties:
+        Status:
+          type: string
+        srpTransactId:
+          type: string
+        srpSalt:
+          type: string
+        srpN:
+          type: string
+        srpg:
+          type: string
+        srpb:
+          type: string
+        Response:
+          type: string
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    CompleteLoginSrpResponse:
+      type: object
+      properties:
+        UserToken:
+          type: string
+        Response:
+          type: string
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    Google.Protobuf.WellKnownTypes.Value:
+      type: object
+      properties:
+        nullValue:
+          $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.NullValue'
+        hasNullValue:
+          type: boolean
+          readOnly: true
+        numberValue:
+          type: number
+          format: double
+        hasNumberValue:
+          type: boolean
+          readOnly: true
+        stringValue:
+          type:
+          - string
+          - 'null'
+        hasStringValue:
+          type: boolean
+          readOnly: true
+        boolValue:
+          type: boolean
+        hasBoolValue:
+          type: boolean
+          readOnly: true
+        structValue:
+          $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Struct'
+        listValue:
+          $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.ListValue'
+        kindCase:
+          $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.ValueKindOneofCase'
+      additionalProperties: false
+    CreateStrategyRequest:
+      type: object
+      properties:
+        UserToken:
+          type: string
+        FirmName:
+          type: string
+        AlgoName:
+          type: string
+        StrategyName:
+          type: string
+        StratParams:
+          type: string
+      additionalProperties: false
+    CreateStrategyResponse:
+      type: object
+      properties:
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    ServerAcknowledgement:
+      type: object
+      properties:
+        ServerResponse:
+          type: string
+        OptionalFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        Message:
+          type: string
+        ResponseCode:
+          $ref: '#/components/schemas/ServerAcknowledgementTypesResponseCodesEnum'
+      additionalProperties: false
+    DepositRow:
+      type: object
+      properties:
+        Mmr0Adj:
+          type: number
+          format: double
+        Sma0:
+          type: number
+          format: double
+        Sma0Adj:
+          type: number
+          format: double
+        HouseExcess0:
+          type: number
+          format: double
+        Orq0:
+          type: number
+          format: double
+        Cost:
+          type: number
+          format: double
+        Mmr0NonDaytradeAdj:
+          type: number
+          format: double
+        SrvPendingMargin:
+          type: number
+          format: double
+        Commission:
+          type: number
+          format: double
+        NetFees:
+          type: number
+          format: double
+        HistScalpedProfit:
+          type: number
+          format: double
+        CashBalanceAdj:
+          type: number
+          format: double
+        ScalpedProfit:
+          type: number
+          format: double
+        Mmr:
+          type: number
+          format: double
+        Mmr0:
+          type: number
+          format: double
+        Marketvalue0:
+          type: number
+          format: double
+        CashBalance:
+          type: number
+          format: double
+        EquityBalance:
+          type: number
+          format: double
+        ExtraCbp:
+          type: number
+          format: double
+        MinBalance:
+          type: number
+          format: double
+        MaxOrderSize:
+          type: number
+          format: double
+        ExcessEq0:
+          type: number
+          format: double
+        ExcessEq:
+          type: number
+          format: double
+        PendingMargin:
+          type: number
+          format: double
+        CbpRemaining:
+          type: number
+          format: double
+        CalcTime:
+          type: string
+        Table:
+          type: string
+        Bank:
+          type: string
+        Branch:
+          type: string
+        Customer:
+          type: string
+        Deposit:
+          type: string
+        Currency:
+          type: string
+        TboAccountId:
+          type: integer
+          format: int32
+        DaysBack:
+          type: integer
+          format: int32
+        Rank:
+          type: integer
+          format: int32
+        ExtendedFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+      additionalProperties: false
+    DisconnectResponse:
+      type: object
+      properties:
+        ServerResponse:
+          type: string
+        OptionalFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    Google.Protobuf.WellKnownTypes.NullValue:
+      enum:
+      - 0
+      type: integer
+      format: int32
+    SubscribeNetPositionsResponse:
+      type: object
+      properties:
+        AggregatePositions:
+          $ref: '#/components/schemas/AggregatePositionRecord'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+  securitySchemes:
+    Bearer:
+      type: http
+      description: 'Please enter a valid token : '
+      scheme: Bearer
+      bearerFormat: JWT
