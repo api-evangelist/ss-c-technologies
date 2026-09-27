@@ -12,6 +12,22 @@ description: >-
   projection described by a live OpenAPI 3.0.4 document with 73 operations covering order submission and
   amendment, pair and basket orders, allocations and trade reports, real-time and historical market data,
   and intraday balances, positions and activity.
+deliveryModel:
+  model: saas
+  license_evidence:
+    not_product:
+    - ezesoft/xapi
+  open_source: unknown
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: low
+  source:
+  - openapi
+  - pricing
+  - repository-not-product
+  generated: '2026-09-25'
+  method: derived
 image: https://www.ssctech.com/hubfs/website/logos/ssc_logo_1200x630.png
 url: https://raw.githubusercontent.com/api-evangelist/ss-c-technologies/refs/heads/main/apis.yml
 x-type: company
@@ -21,7 +37,7 @@ created: '2026-09-13'
 modified: '2026-09-13'
 position: Producing
 tags:
-- Financial-Services
+- Financial Services
 - Investment Management
 - Fund Administration
 - Wealth Management
@@ -42,6 +58,7 @@ tags_raw:
 - trading
 - grpc
 - enterprise-software
+- Financial-Services
 apis:
 - name: SS&C APIM Developer Portal
   description: >-
@@ -53,11 +70,12 @@ apis:
   humanURL: https://developer.ssctech.com/
   baseURL: https://apim.ssnc.cloud
   tags:
-  - Financial-Services
+  - Financial Services
   - API Management
   tags_raw:
   - financial-services
   - api-management
+  - Financial-Services
   properties:
   - type: DeveloperPortal
     url: https://developer.ssctech.com/
@@ -78,10 +96,11 @@ apis:
   baseURL: https://api.blackdiamondwealthplatform.com
   tags:
   - Wealth Management
-  - Financial-Services
+  - Financial Services
   tags_raw:
   - wealth-management
   - financial-services
+  - Financial-Services
   properties:
   - type: DeveloperPortal
     url: https://www.blackdiamondwealthplatform.com/

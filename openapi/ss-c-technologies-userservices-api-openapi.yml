@@ -35,6 +35,30 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    Google.Rpc.Status:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Any'
+      additionalProperties: false
+    Google.Protobuf.WellKnownTypes.Struct:
+      type: object
+      properties:
+        fields:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Value'
+          readOnly: true
+      additionalProperties: false
     Google.Protobuf.WellKnownTypes.Value:
       type: object
       properties:
@@ -68,27 +92,31 @@ components:
         kindCase:
           $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.ValueKindOneofCase'
       additionalProperties: false
-    Google.Protobuf.WellKnownTypes.ListValue:
+    GetUserPermissionsResponse:
       type: object
       properties:
-        values:
-          type:
-          - array
-          - 'null'
+        Permissions:
+          type: array
           items:
-            $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Value'
-          readOnly: true
+            $ref: '#/components/schemas/UserPermissionRecord'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
       additionalProperties: false
-    Google.Protobuf.WellKnownTypes.Struct:
+    ServerAcknowledgement:
       type: object
       properties:
-        fields:
-          type:
-          - object
-          - 'null'
+        ServerResponse:
+          type: string
+        OptionalFields:
+          type: object
           additionalProperties:
-            $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Value'
-          readOnly: true
+            type:
+            - string
+            - 'null'
+        Message:
+          type: string
+        ResponseCode:
+          $ref: '#/components/schemas/ServerAcknowledgementTypesResponseCodesEnum'
       additionalProperties: false
     UserPermissionRecord:
       type: object
@@ -126,31 +154,16 @@ components:
       - 6
       type: integer
       format: int32
-    ServerAcknowledgement:
+    Google.Protobuf.WellKnownTypes.ListValue:
       type: object
       properties:
-        ServerResponse:
-          type: string
-        OptionalFields:
-          type: object
-          additionalProperties:
-            type:
-            - string
-            - 'null'
-        Message:
-          type: string
-        ResponseCode:
-          $ref: '#/components/schemas/ServerAcknowledgementTypesResponseCodesEnum'
-      additionalProperties: false
-    GetUserPermissionsResponse:
-      type: object
-      properties:
-        Permissions:
-          type: array
+        values:
+          type:
+          - array
+          - 'null'
           items:
-            $ref: '#/components/schemas/UserPermissionRecord'
-        Acknowledgement:
-          $ref: '#/components/schemas/ServerAcknowledgement'
+            $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Value'
+          readOnly: true
       additionalProperties: false
     ServerAcknowledgementTypesResponseCodesEnum:
       enum:
@@ -161,19 +174,6 @@ components:
       - TIMED_OUT
       - SESSION_NOT_FOUND
       type: string
-    Google.Rpc.Status:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int32
-        message:
-          type: string
-        details:
-          type: array
-          items:
-            $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Any'
-      additionalProperties: false
     Google.Protobuf.WellKnownTypes.NullValue:
       enum:
       - 0
