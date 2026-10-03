@@ -35,6 +35,16 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    GetUserPermissionsResponse:
+      type: object
+      properties:
+        Permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserPermissionRecord'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
     Google.Rpc.Status:
       type: object
       properties:
@@ -48,17 +58,11 @@ components:
           items:
             $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Any'
       additionalProperties: false
-    Google.Protobuf.WellKnownTypes.Struct:
-      type: object
-      properties:
-        fields:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Value'
-          readOnly: true
-      additionalProperties: false
+    Google.Protobuf.WellKnownTypes.NullValue:
+      enum:
+      - 0
+      type: integer
+      format: int32
     Google.Protobuf.WellKnownTypes.Value:
       type: object
       properties:
@@ -92,15 +96,27 @@ components:
         kindCase:
           $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.ValueKindOneofCase'
       additionalProperties: false
-    GetUserPermissionsResponse:
+    Google.Protobuf.WellKnownTypes.ListValue:
       type: object
       properties:
-        Permissions:
-          type: array
+        values:
+          type:
+          - array
+          - 'null'
           items:
-            $ref: '#/components/schemas/UserPermissionRecord'
-        Acknowledgement:
-          $ref: '#/components/schemas/ServerAcknowledgement'
+            $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Value'
+          readOnly: true
+      additionalProperties: false
+    Google.Protobuf.WellKnownTypes.Struct:
+      type: object
+      properties:
+        fields:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Value'
+          readOnly: true
       additionalProperties: false
     ServerAcknowledgement:
       type: object
@@ -118,6 +134,35 @@ components:
         ResponseCode:
           $ref: '#/components/schemas/ServerAcknowledgementTypesResponseCodesEnum'
       additionalProperties: false
+    ServerAcknowledgementTypesResponseCodesEnum:
+      enum:
+      - SUCCESS
+      - WARNING
+      - FAILED
+      - ERROR
+      - TIMED_OUT
+      - SESSION_NOT_FOUND
+      type: string
+    Google.Protobuf.WellKnownTypes.ValueKindOneofCase:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      type: integer
+      format: int32
+    Google.Protobuf.WellKnownTypes.Any:
+      required:
+      - '@type'
+      type: object
+      properties:
+        '@type':
+          type: string
+      additionalProperties:
+        $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Value'
     UserPermissionRecord:
       type: object
       properties:
@@ -143,51 +188,6 @@ components:
         AcctDesc:
           type: string
       additionalProperties: false
-    Google.Protobuf.WellKnownTypes.ValueKindOneofCase:
-      enum:
-      - 0
-      - 1
-      - 2
-      - 3
-      - 4
-      - 5
-      - 6
-      type: integer
-      format: int32
-    Google.Protobuf.WellKnownTypes.ListValue:
-      type: object
-      properties:
-        values:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Value'
-          readOnly: true
-      additionalProperties: false
-    ServerAcknowledgementTypesResponseCodesEnum:
-      enum:
-      - SUCCESS
-      - WARNING
-      - FAILED
-      - ERROR
-      - TIMED_OUT
-      - SESSION_NOT_FOUND
-      type: string
-    Google.Protobuf.WellKnownTypes.NullValue:
-      enum:
-      - 0
-      type: integer
-      format: int32
-    Google.Protobuf.WellKnownTypes.Any:
-      required:
-      - '@type'
-      type: object
-      properties:
-        '@type':
-          type: string
-      additionalProperties:
-        $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Value'
   securitySchemes:
     Bearer:
       type: http
