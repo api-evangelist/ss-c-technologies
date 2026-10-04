@@ -35,34 +35,56 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    GetUserPermissionsResponse:
+    UserPermissionRecord:
       type: object
       properties:
-        Permissions:
-          type: array
-          items:
-            $ref: '#/components/schemas/UserPermissionRecord'
-        Acknowledgement:
-          $ref: '#/components/schemas/ServerAcknowledgement'
-      additionalProperties: false
-    Google.Rpc.Status:
-      type: object
-      properties:
-        code:
+        Bank:
+          type: string
+        Branch:
+          type: string
+        Customer:
+          type: string
+        Deposit:
+          type: string
+        AcctType:
           type: integer
           format: int32
-        message:
+        MarginSource:
+          type: integer
+          format: int32
+        MarginRulesetId:
+          type: integer
+          format: int32
+        MarginRulesetName:
           type: string
-        details:
-          type: array
-          items:
-            $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Any'
+        AcctDesc:
+          type: string
       additionalProperties: false
-    Google.Protobuf.WellKnownTypes.NullValue:
-      enum:
-      - 0
-      type: integer
-      format: int32
+    ServerAcknowledgement:
+      type: object
+      properties:
+        ServerResponse:
+          type: string
+        OptionalFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        Message:
+          type: string
+        ResponseCode:
+          $ref: '#/components/schemas/ServerAcknowledgementTypesResponseCodesEnum'
+      additionalProperties: false
+    Google.Protobuf.WellKnownTypes.Any:
+      required:
+      - '@type'
+      type: object
+      properties:
+        '@type':
+          type: string
+      additionalProperties:
+        $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Value'
     Google.Protobuf.WellKnownTypes.Value:
       type: object
       properties:
@@ -107,33 +129,11 @@ components:
             $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Value'
           readOnly: true
       additionalProperties: false
-    Google.Protobuf.WellKnownTypes.Struct:
-      type: object
-      properties:
-        fields:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Value'
-          readOnly: true
-      additionalProperties: false
-    ServerAcknowledgement:
-      type: object
-      properties:
-        ServerResponse:
-          type: string
-        OptionalFields:
-          type: object
-          additionalProperties:
-            type:
-            - string
-            - 'null'
-        Message:
-          type: string
-        ResponseCode:
-          $ref: '#/components/schemas/ServerAcknowledgementTypesResponseCodesEnum'
-      additionalProperties: false
+    Google.Protobuf.WellKnownTypes.NullValue:
+      enum:
+      - 0
+      type: integer
+      format: int32
     ServerAcknowledgementTypesResponseCodesEnum:
       enum:
       - SUCCESS
@@ -154,39 +154,39 @@ components:
       - 6
       type: integer
       format: int32
-    Google.Protobuf.WellKnownTypes.Any:
-      required:
-      - '@type'
+    GetUserPermissionsResponse:
       type: object
       properties:
-        '@type':
-          type: string
-      additionalProperties:
-        $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Value'
-    UserPermissionRecord:
+        Permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserPermissionRecord'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    Google.Rpc.Status:
       type: object
       properties:
-        Bank:
-          type: string
-        Branch:
-          type: string
-        Customer:
-          type: string
-        Deposit:
-          type: string
-        AcctType:
+        code:
           type: integer
           format: int32
-        MarginSource:
-          type: integer
-          format: int32
-        MarginRulesetId:
-          type: integer
-          format: int32
-        MarginRulesetName:
+        message:
           type: string
-        AcctDesc:
-          type: string
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Any'
+      additionalProperties: false
+    Google.Protobuf.WellKnownTypes.Struct:
+      type: object
+      properties:
+        fields:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Value'
+          readOnly: true
       additionalProperties: false
   securitySchemes:
     Bearer:

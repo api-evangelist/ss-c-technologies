@@ -1042,32 +1042,130 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    SubmitAllocationOrderRequest:
+    SubmitTradeReportRequest:
       type: object
       properties:
-        OrderId:
-          type: string
         Symbol:
           type: string
-        Exchange:
+        Side:
           type: string
-        SourceAccount:
-          type: string
-        TargetAccount:
-          type: string
-        TargetQuantity:
+        Quantity:
           type: integer
           format: int32
-        TargetPrice:
-          type: number
-          format: double
+        Account:
+          type: string
+        ExtendedFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        OrderType:
+          $ref: '#/components/schemas/TradeType'
+        Route:
+          type: string
         UserToken:
           type: string
-        TypeOfAllocation:
-          $ref: '#/components/schemas/AllocationType'
-        OrderTypes:
-          $ref: '#/components/schemas/OrderType'
       additionalProperties: false
+    CancelSingleOrderResponse:
+      type: object
+      properties:
+        ServerResponse:
+          type: string
+        OptionalFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    ChangeSingleOrderResponse:
+      type: object
+      properties:
+        ServerResponse:
+          type: string
+        OptionalFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    ChangePairOrderResponse:
+      type: object
+      properties:
+        ServerResponse:
+          type: string
+        OptionalFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    SubmitTradeReportResponse:
+      type: object
+      properties:
+        ServerResponse:
+          type: string
+        OptionalFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    Google.Protobuf.WellKnownTypes.Value:
+      type: object
+      properties:
+        nullValue:
+          $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.NullValue'
+        hasNullValue:
+          type: boolean
+          readOnly: true
+        numberValue:
+          type: number
+          format: double
+        hasNumberValue:
+          type: boolean
+          readOnly: true
+        stringValue:
+          type:
+          - string
+          - 'null'
+        hasStringValue:
+          type: boolean
+          readOnly: true
+        boolValue:
+          type: boolean
+        hasBoolValue:
+          type: boolean
+          readOnly: true
+        structValue:
+          $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Struct'
+        listValue:
+          $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.ListValue'
+        kindCase:
+          $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.ValueKindOneofCase'
+      additionalProperties: false
+    AllocationTypeTypesAllocation:
+      enum:
+      - UserSubmitAllocation
+      - UserSubmitAllocationEx
+      type: string
+    SubscribeOrderInfoRequestTypesSubscriptionLevel:
+      enum:
+      - FILL
+      - STATUS
+      type: string
     SubmitBookTradeResponse:
       type: object
       properties:
@@ -1082,12 +1180,53 @@ components:
         Acknowledgement:
           $ref: '#/components/schemas/ServerAcknowledgement'
       additionalProperties: false
-    Google.Protobuf.WellKnownTypes.NullValue:
-      enum:
-      - 0
-      type: integer
-      format: int32
-    SubmitTradeReportResponse:
+    OrderDetailByDateRangeResponse:
+      type: object
+      properties:
+        OrderDetail:
+          $ref: '#/components/schemas/OrderDetailsResponse'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    AllocationDetails:
+      type: object
+      properties:
+        TargetAccount:
+          type: string
+        TargetQuantity:
+          type: integer
+          format: int32
+        TargetPrice:
+          type: number
+          format: double
+        AllocationDestinationRoute:
+          type: string
+        CommissionRate:
+          type: number
+          format: double
+        CommissionRateType:
+          type: integer
+          format: int32
+        NetPrice:
+          type: number
+          format: double
+        GeneralMessage:
+          type: string
+      additionalProperties: false
+    Google.Rpc.Status:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Any'
+      additionalProperties: false
+    BasketOrderResponse:
       type: object
       properties:
         ServerResponse:
@@ -1100,6 +1239,16 @@ components:
             - 'null'
         Acknowledgement:
           $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    BasketOrderRequest:
+      type: object
+      properties:
+        UserToken:
+          type: string
+        Orders:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderRow'
       additionalProperties: false
     ChangePairOrderRequest:
       type: object
@@ -1137,252 +1286,26 @@ components:
         UserToken:
           type: string
       additionalProperties: false
-    OrderTypeTypesType:
-      enum:
-      - UserSubmitOrder
-      - ForeignExecution
-      type: string
-    SubmitPairOrderRequest:
+    OrderDetailByOrderIdResponse:
       type: object
       properties:
-        Leg1Symbol:
-          type: string
-        Leg1Side:
-          type: string
-        Leg1Quantity:
-          type: integer
-          format: int32
-        Route:
-          type: string
-        Leg1ExtendedFields:
-          type: object
-          additionalProperties:
-            type:
-            - string
-            - 'null'
-        Leg2Symbol:
-          type: string
-        Leg2Side:
-          type: string
-        Leg2Quantity:
-          type: integer
-          format: int32
-        Leg2ExtendedFields:
-          type: object
-          additionalProperties:
-            type:
-            - string
-            - 'null'
-        OptionalFields:
-          type: object
-          additionalProperties:
-            type:
-            - string
-            - 'null'
-        Staged:
-          type: boolean
-        ClaimRequire:
-          type: boolean
-        Account:
-          type: string
-        UserToken:
-          type: string
-        OrderTag:
-          type: string
-        TicketId:
-          type: string
-      additionalProperties: false
-    CancelSingleOrderResponse:
-      type: object
-      properties:
-        ServerResponse:
-          type: string
-        OptionalFields:
-          type: object
-          additionalProperties:
-            type:
-            - string
-            - 'null'
+        OrderDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderDetailsResponse'
         Acknowledgement:
           $ref: '#/components/schemas/ServerAcknowledgement'
       additionalProperties: false
-    Google.Protobuf.WellKnownTypes.ValueKindOneofCase:
-      enum:
-      - 0
-      - 1
-      - 2
-      - 3
-      - 4
-      - 5
-      - 6
-      type: integer
-      format: int32
-    AllocationDetails:
+    SubmitSeedDataRequest:
       type: object
       properties:
-        TargetAccount:
+        Account:
           type: string
-        TargetQuantity:
-          type: integer
-          format: int32
-        TargetPrice:
-          type: number
-          format: double
-        AllocationDestinationRoute:
-          type: string
-        CommissionRate:
-          type: number
-          format: double
-        CommissionRateType:
-          type: integer
-          format: int32
-        NetPrice:
-          type: number
-          format: double
-        GeneralMessage:
-          type: string
-      additionalProperties: false
-    SubscribeOrderInfoRequestTypesSubscriptionLevel:
-      enum:
-      - FILL
-      - STATUS
-      type: string
-    SubmitSingleOrderRequest:
-      type: object
-      properties:
         Symbol:
           type: string
-        Side:
-          type: string
-        Quantity:
-          type: integer
-          format: int32
-        Route:
-          type: string
-        Account:
-          type: string
-        OrderTag:
-          type: string
-        TicketId:
-          type: string
-        ExtendedFields:
-          type: object
-          additionalProperties:
-            type:
-            - string
-            - 'null'
-        Staged:
-          type: boolean
-        ClaimRequire:
-          type: boolean
         UserToken:
           type: string
-        GoodFrom:
-          type: string
-        TimeInForce:
-          $ref: '#/components/schemas/ExpirationType'
-        PriceType:
-          $ref: '#/components/schemas/PriceTypeEnum'
-        Price:
-          type: number
-          format: double
-        StopPrice:
-          type: number
-          format: double
-        UserMessage:
-          type: string
-        ExpirationDate:
-          type: string
-        ReturnResult:
-          type: boolean
-        ReturnResultTimeOutInMs:
-          type: integer
-          format: int32
       additionalProperties: false
-    CancelPairOrderResponse:
-      type: object
-      properties:
-        ServerResponse:
-          type: string
-        OptionalFields:
-          type: object
-          additionalProperties:
-            type:
-            - string
-            - 'null'
-        Acknowledgement:
-          $ref: '#/components/schemas/ServerAcknowledgement'
-      additionalProperties: false
-    ExpirationType:
-      type: object
-      properties:
-        Expiration:
-          $ref: '#/components/schemas/ExpirationTypeTypesExpirationTypes'
-      additionalProperties: false
-    Google.Protobuf.WellKnownTypes.ListValue:
-      type: object
-      properties:
-        values:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Value'
-          readOnly: true
-      additionalProperties: false
-    OrderType:
-      type: object
-      properties:
-        TypeOfOrder:
-          $ref: '#/components/schemas/OrderTypeTypesType'
-      additionalProperties: false
-    BasketOrderResponse:
-      type: object
-      properties:
-        ServerResponse:
-          type: string
-        OptionalFields:
-          type: object
-          additionalProperties:
-            type:
-            - string
-            - 'null'
-        Acknowledgement:
-          $ref: '#/components/schemas/ServerAcknowledgement'
-      additionalProperties: false
-    ServerAcknowledgementTypesResponseCodesEnum:
-      enum:
-      - SUCCESS
-      - WARNING
-      - FAILED
-      - ERROR
-      - TIMED_OUT
-      - SESSION_NOT_FOUND
-      type: string
-    PriceTypeEnumTypesPriceTypesEnum:
-      enum:
-      - Market
-      - Limit
-      - StopMarket
-      - StopLimit
-      - Other
-      type: string
-    TradeTypeTypesTypeofOrder:
-      enum:
-      - UserSubmitTradeReport
-      - ForeignExecution
-      type: string
-    ExpirationTypeTypesExpirationTypes:
-      enum:
-      - DAY
-      - GTC
-      - GTX
-      - CLO
-      - OPG
-      - IOC
-      - GTD
-      - OTHER
-      type: string
     SubscribeOrderFieldOptionsTypesFields:
       enum:
       - SUBMIT_TIME
@@ -1415,54 +1338,18 @@ components:
       - ORDER_TAG
       - VOLUME_TRADED
       type: string
-    UserAccountsResponse:
+    AllocationType:
       type: object
       properties:
-        Accounts:
-          type: object
-          additionalProperties:
-            type:
-            - string
-            - 'null'
-        Acknowledgement:
-          $ref: '#/components/schemas/ServerAcknowledgement'
+        AllocationOrAllocationEx:
+          $ref: '#/components/schemas/AllocationTypeTypesAllocation'
       additionalProperties: false
-    ChangeSingleOrderRequest:
-      type: object
-      properties:
-        OrderId:
-          type: string
-        Quantity:
-          type: integer
-          format: int32
-        ExtendedFields:
-          type: object
-          additionalProperties:
-            type:
-            - string
-            - 'null'
-        UserToken:
-          type: string
-        GoodFrom:
-          type: string
-        TimeInForce:
-          $ref: '#/components/schemas/ExpirationType'
-        PriceType:
-          $ref: '#/components/schemas/PriceTypeEnum'
-        Price:
-          type: number
-          format: double
-        StopPrice:
-          type: number
-          format: double
-        UserMessage:
-          type: string
-        ExpirationDate:
-          type: string
-        OrderTag:
-          type: string
-      additionalProperties: false
-    ChangePairOrderResponse:
+    OrderTypeTypesType:
+      enum:
+      - UserSubmitOrder
+      - ForeignExecution
+      type: string
+    SubmitSeedDataResponse:
       type: object
       properties:
         ServerResponse:
@@ -1476,11 +1363,34 @@ components:
         Acknowledgement:
           $ref: '#/components/schemas/ServerAcknowledgement'
       additionalProperties: false
-    SubmitPairOrderResponse:
+    ExpirationType:
+      type: object
+      properties:
+        Expiration:
+          $ref: '#/components/schemas/ExpirationTypeTypesExpirationTypes'
+      additionalProperties: false
+    ServerAcknowledgementTypesResponseCodesEnum:
+      enum:
+      - SUCCESS
+      - WARNING
+      - FAILED
+      - ERROR
+      - TIMED_OUT
+      - SESSION_NOT_FOUND
+      type: string
+    PriceTypeEnum:
+      type: object
+      properties:
+        PriceType:
+          $ref: '#/components/schemas/PriceTypeEnumTypesPriceTypesEnum'
+      additionalProperties: false
+    SubmitSingleOrderResponse:
       type: object
       properties:
         ServerResponse:
           type: string
+        OrderDetails:
+          $ref: '#/components/schemas/OrderDetailsResponse'
         OptionalFields:
           type: object
           additionalProperties:
@@ -1490,76 +1400,17 @@ components:
         Acknowledgement:
           $ref: '#/components/schemas/ServerAcknowledgement'
       additionalProperties: false
-    OrderDetailsResponse:
-      type: object
-      properties:
-        OrderId:
-          type: string
-        RefersToId:
-          type: string
-        Symbol:
-          type: string
-        Type:
-          type: string
-        CurrentStatus:
-          type: string
-        Volume:
-          type: integer
-          format: int32
-        Price:
-          type: number
-          format: double
-        PriceType:
-          $ref: '#/components/schemas/PriceTypeEnum'
-        Buyorsell:
-          type: string
-        ExtendedFields:
-          type: object
-          additionalProperties:
-            type:
-            - string
-            - 'null'
-        OrderTag:
-          type: string
-        VolumeTraded:
-          type: integer
-          format: int32
-        OriginalOrderId:
-          type: string
-        submitTime:
-          type: string
-        LinkedOrderId:
-          type: string
-        TicketId:
-          type: string
-        TraderId:
-          type: string
-        ClaimedByClerk:
-          type: string
-        PairSpreadType:
-          type: string
-        Reason:
-          type: string
-        TimeStamp:
-          type: string
-        GoodFrom:
-          type: string
-        TimeInForce:
-          $ref: '#/components/schemas/ExpirationType'
-        StopPrice:
-          type: number
-          format: double
-        UserMessage:
-          type: string
-        ExpirationDate:
-          type: string
-        Side:
-          type: string
-        Route:
-          type: string
-        Account:
-          type: string
-      additionalProperties: false
+    Google.Protobuf.WellKnownTypes.ValueKindOneofCase:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      type: integer
+      format: int32
     SubscribeOrderInfoResponse:
       type: object
       properties:
@@ -1632,187 +1483,89 @@ components:
         Acknowledgement:
           $ref: '#/components/schemas/ServerAcknowledgement'
       additionalProperties: false
-    SubmitAllocationOrderResponse:
+    OrderType:
       type: object
       properties:
-        ServerResponse:
-          type: string
-        OptionalFields:
-          type: object
-          additionalProperties:
-            type:
-            - string
-            - 'null'
-        Acknowledgement:
-          $ref: '#/components/schemas/ServerAcknowledgement'
+        TypeOfOrder:
+          $ref: '#/components/schemas/OrderTypeTypesType'
       additionalProperties: false
-    SubmitSeedDataRequest:
-      type: object
-      properties:
-        Account:
-          type: string
-        Symbol:
-          type: string
-        UserToken:
-          type: string
-      additionalProperties: false
-    PriceTypeEnum:
-      type: object
-      properties:
-        PriceType:
-          $ref: '#/components/schemas/PriceTypeEnumTypesPriceTypesEnum'
-      additionalProperties: false
-    BasketOrderRequest:
-      type: object
-      properties:
-        UserToken:
-          type: string
-        Orders:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderRow'
-      additionalProperties: false
-    SubmitSingleOrderResponse:
-      type: object
-      properties:
-        ServerResponse:
-          type: string
-        OrderDetails:
-          $ref: '#/components/schemas/OrderDetailsResponse'
-        OptionalFields:
-          type: object
-          additionalProperties:
-            type:
-            - string
-            - 'null'
-        Acknowledgement:
-          $ref: '#/components/schemas/ServerAcknowledgement'
-      additionalProperties: false
-    OrderDetailByOrderIdResponse:
-      type: object
-      properties:
-        OrderDetails:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderDetailsResponse'
-        Acknowledgement:
-          $ref: '#/components/schemas/ServerAcknowledgement'
-      additionalProperties: false
-    SubmitBookTradeRequest:
+    PriceTypeEnumTypesPriceTypesEnum:
+      enum:
+      - Market
+      - Limit
+      - StopMarket
+      - StopLimit
+      - Other
+      type: string
+    OrderDetailsResponse:
       type: object
       properties:
         OrderId:
           type: string
-        SourceAccount:
+        RefersToId:
           type: string
-        UserToken:
+        Symbol:
           type: string
-        OrderTag:
+        Type:
           type: string
-        AllocDetails:
-          type: array
-          items:
-            $ref: '#/components/schemas/AllocationDetails'
-      additionalProperties: false
-    AllocationTypeTypesAllocation:
-      enum:
-      - UserSubmitAllocation
-      - UserSubmitAllocationEx
-      type: string
-    Google.Rpc.Status:
-      type: object
-      properties:
-        code:
+        CurrentStatus:
+          type: string
+        Volume:
           type: integer
           format: int32
-        message:
+        Price:
+          type: number
+          format: double
+        PriceType:
+          $ref: '#/components/schemas/PriceTypeEnum'
+        Buyorsell:
           type: string
-        details:
-          type: array
-          items:
-            $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Any'
-      additionalProperties: false
-    ChangeSingleOrderResponse:
-      type: object
-      properties:
-        ServerResponse:
-          type: string
-        OptionalFields:
+        ExtendedFields:
           type: object
           additionalProperties:
             type:
             - string
             - 'null'
-        Acknowledgement:
-          $ref: '#/components/schemas/ServerAcknowledgement'
-      additionalProperties: false
-    Google.Protobuf.WellKnownTypes.Value:
-      type: object
-      properties:
-        nullValue:
-          $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.NullValue'
-        hasNullValue:
-          type: boolean
-          readOnly: true
-        numberValue:
+        OrderTag:
+          type: string
+        VolumeTraded:
+          type: integer
+          format: int32
+        OriginalOrderId:
+          type: string
+        submitTime:
+          type: string
+        LinkedOrderId:
+          type: string
+        TicketId:
+          type: string
+        TraderId:
+          type: string
+        ClaimedByClerk:
+          type: string
+        PairSpreadType:
+          type: string
+        Reason:
+          type: string
+        TimeStamp:
+          type: string
+        GoodFrom:
+          type: string
+        TimeInForce:
+          $ref: '#/components/schemas/ExpirationType'
+        StopPrice:
           type: number
           format: double
-        hasNumberValue:
-          type: boolean
-          readOnly: true
-        stringValue:
-          type:
-          - string
-          - 'null'
-        hasStringValue:
-          type: boolean
-          readOnly: true
-        boolValue:
-          type: boolean
-        hasBoolValue:
-          type: boolean
-          readOnly: true
-        structValue:
-          $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Struct'
-        listValue:
-          $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.ListValue'
-        kindCase:
-          $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.ValueKindOneofCase'
-      additionalProperties: false
-    AllocationType:
-      type: object
-      properties:
-        AllocationOrAllocationEx:
-          $ref: '#/components/schemas/AllocationTypeTypesAllocation'
-      additionalProperties: false
-    OrderDetailByDateRangeResponse:
-      type: object
-      properties:
-        OrderDetail:
-          $ref: '#/components/schemas/OrderDetailsResponse'
-        Acknowledgement:
-          $ref: '#/components/schemas/ServerAcknowledgement'
-      additionalProperties: false
-    Google.Protobuf.WellKnownTypes.Struct:
-      type: object
-      properties:
-        fields:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Value'
-          readOnly: true
-      additionalProperties: false
-    OrderDetailByOrderTagResponse:
-      type: object
-      properties:
-        OrderDetails:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderDetailsResponse'
-        Acknowledgement:
-          $ref: '#/components/schemas/ServerAcknowledgement'
+        UserMessage:
+          type: string
+        ExpirationDate:
+          type: string
+        Side:
+          type: string
+        Route:
+          type: string
+        Account:
+          type: string
       additionalProperties: false
     ServerAcknowledgement:
       type: object
@@ -1830,41 +1583,7 @@ components:
         ResponseCode:
           $ref: '#/components/schemas/ServerAcknowledgementTypesResponseCodesEnum'
       additionalProperties: false
-    SubmitTradeReportRequest:
-      type: object
-      properties:
-        Symbol:
-          type: string
-        Side:
-          type: string
-        Quantity:
-          type: integer
-          format: int32
-        Account:
-          type: string
-        ExtendedFields:
-          type: object
-          additionalProperties:
-            type:
-            - string
-            - 'null'
-        OrderType:
-          $ref: '#/components/schemas/TradeType'
-        Route:
-          type: string
-        UserToken:
-          type: string
-      additionalProperties: false
-    Google.Protobuf.WellKnownTypes.Any:
-      required:
-      - '@type'
-      type: object
-      properties:
-        '@type':
-          type: string
-      additionalProperties:
-        $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Value'
-    SubmitSeedDataResponse:
+    SubmitAllocationOrderResponse:
       type: object
       properties:
         ServerResponse:
@@ -1877,12 +1596,6 @@ components:
             - 'null'
         Acknowledgement:
           $ref: '#/components/schemas/ServerAcknowledgement'
-      additionalProperties: false
-    TradeType:
-      type: object
-      properties:
-        OrderTypes:
-          $ref: '#/components/schemas/TradeTypeTypesTypeofOrder'
       additionalProperties: false
     OrderRow:
       type: object
@@ -2152,6 +1865,293 @@ components:
             - string
             - 'null'
       additionalProperties: false
+    Google.Protobuf.WellKnownTypes.NullValue:
+      enum:
+      - 0
+      type: integer
+      format: int32
+    CancelPairOrderResponse:
+      type: object
+      properties:
+        ServerResponse:
+          type: string
+        OptionalFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    Google.Protobuf.WellKnownTypes.ListValue:
+      type: object
+      properties:
+        values:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Value'
+          readOnly: true
+      additionalProperties: false
+    UserAccountsResponse:
+      type: object
+      properties:
+        Accounts:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    Google.Protobuf.WellKnownTypes.Struct:
+      type: object
+      properties:
+        fields:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Value'
+          readOnly: true
+      additionalProperties: false
+    SubmitSingleOrderRequest:
+      type: object
+      properties:
+        Symbol:
+          type: string
+        Side:
+          type: string
+        Quantity:
+          type: integer
+          format: int32
+        Route:
+          type: string
+        Account:
+          type: string
+        OrderTag:
+          type: string
+        TicketId:
+          type: string
+        ExtendedFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        Staged:
+          type: boolean
+        ClaimRequire:
+          type: boolean
+        UserToken:
+          type: string
+        GoodFrom:
+          type: string
+        TimeInForce:
+          $ref: '#/components/schemas/ExpirationType'
+        PriceType:
+          $ref: '#/components/schemas/PriceTypeEnum'
+        Price:
+          type: number
+          format: double
+        StopPrice:
+          type: number
+          format: double
+        UserMessage:
+          type: string
+        ExpirationDate:
+          type: string
+        ReturnResult:
+          type: boolean
+        ReturnResultTimeOutInMs:
+          type: integer
+          format: int32
+      additionalProperties: false
+    Google.Protobuf.WellKnownTypes.Any:
+      required:
+      - '@type'
+      type: object
+      properties:
+        '@type':
+          type: string
+      additionalProperties:
+        $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Value'
+    OrderDetailByOrderTagResponse:
+      type: object
+      properties:
+        OrderDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderDetailsResponse'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    TradeTypeTypesTypeofOrder:
+      enum:
+      - UserSubmitTradeReport
+      - ForeignExecution
+      type: string
+    SubmitPairOrderResponse:
+      type: object
+      properties:
+        ServerResponse:
+          type: string
+        OptionalFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    SubmitPairOrderRequest:
+      type: object
+      properties:
+        Leg1Symbol:
+          type: string
+        Leg1Side:
+          type: string
+        Leg1Quantity:
+          type: integer
+          format: int32
+        Route:
+          type: string
+        Leg1ExtendedFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        Leg2Symbol:
+          type: string
+        Leg2Side:
+          type: string
+        Leg2Quantity:
+          type: integer
+          format: int32
+        Leg2ExtendedFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        OptionalFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        Staged:
+          type: boolean
+        ClaimRequire:
+          type: boolean
+        Account:
+          type: string
+        UserToken:
+          type: string
+        OrderTag:
+          type: string
+        TicketId:
+          type: string
+      additionalProperties: false
+    TradeType:
+      type: object
+      properties:
+        OrderTypes:
+          $ref: '#/components/schemas/TradeTypeTypesTypeofOrder'
+      additionalProperties: false
+    ChangeSingleOrderRequest:
+      type: object
+      properties:
+        OrderId:
+          type: string
+        Quantity:
+          type: integer
+          format: int32
+        ExtendedFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        UserToken:
+          type: string
+        GoodFrom:
+          type: string
+        TimeInForce:
+          $ref: '#/components/schemas/ExpirationType'
+        PriceType:
+          $ref: '#/components/schemas/PriceTypeEnum'
+        Price:
+          type: number
+          format: double
+        StopPrice:
+          type: number
+          format: double
+        UserMessage:
+          type: string
+        ExpirationDate:
+          type: string
+        OrderTag:
+          type: string
+      additionalProperties: false
+    SubmitAllocationOrderRequest:
+      type: object
+      properties:
+        OrderId:
+          type: string
+        Symbol:
+          type: string
+        Exchange:
+          type: string
+        SourceAccount:
+          type: string
+        TargetAccount:
+          type: string
+        TargetQuantity:
+          type: integer
+          format: int32
+        TargetPrice:
+          type: number
+          format: double
+        UserToken:
+          type: string
+        TypeOfAllocation:
+          $ref: '#/components/schemas/AllocationType'
+        OrderTypes:
+          $ref: '#/components/schemas/OrderType'
+      additionalProperties: false
+    SubmitBookTradeRequest:
+      type: object
+      properties:
+        OrderId:
+          type: string
+        SourceAccount:
+          type: string
+        UserToken:
+          type: string
+        OrderTag:
+          type: string
+        AllocDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/AllocationDetails'
+      additionalProperties: false
+    ExpirationTypeTypesExpirationTypes:
+      enum:
+      - DAY
+      - GTC
+      - GTX
+      - CLO
+      - OPG
+      - IOC
+      - GTD
+      - OTHER
+      type: string
   securitySchemes:
     Bearer:
       type: http

@@ -902,6 +902,601 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    SymbolsFromCompanyNameResponse:
+      type: object
+      properties:
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+        SymbolDatalist:
+          type: array
+          items:
+            $ref: '#/components/schemas/SymbolData'
+      additionalProperties: false
+    Level2MarketDataResponse:
+      type: object
+      properties:
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+        MktSource:
+          type: string
+        MktMkrId:
+          type: string
+        DispName:
+          type: string
+        MktMkrStatus:
+          type: string
+        ExchName:
+          type: string
+        MktMkrDisplay:
+          type: string
+        MktMkrBidsize:
+          type: integer
+          format: int32
+        MktMkrAsksize:
+          type: integer
+          format: int32
+        SymbolId:
+          type: integer
+          format: int32
+        SymbolError:
+          type: integer
+          format: int32
+        TableId:
+          type: integer
+          format: int32
+        Styp:
+          type: integer
+          format: int32
+        QuoteUpdateType:
+          type: integer
+          format: int32
+        MktMkrDate:
+          type: string
+        MktMkrBidTime:
+          type: string
+        MktMkrAskTime:
+          type: string
+        MktMkrBid:
+          $ref: '#/components/schemas/Price'
+        MktMkrChangeLastAsk:
+          $ref: '#/components/schemas/Price'
+        MktMkrAsk:
+          $ref: '#/components/schemas/Price'
+      additionalProperties: false
+    UnSubscribeTickDataResponse:
+      type: object
+      properties:
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    Level1FieldOptionsTypesFields:
+      enum:
+      - DISP_NAME
+      - TRDPRC1
+      - TRDTIM1
+      - SYMBOL_DESC
+      - COMPANY_NAME
+      - ARCA_IMBALANCE_VOLUME
+      - ARCA_MATCH_VOLUME
+      - SALE_CONDITION_VOLUME
+      - INTRADAY_HIGH_COUNT
+      - VWAP_VOL
+      - VWAP
+      - BID
+      - ASK
+      - CHANGE_LAST
+      - HIGH1
+      - HIGH52
+      - LOW1
+      - LOW52
+      - EXTENDED_FIELDS
+      type: string
+    Google.Protobuf.WellKnownTypes.Value:
+      type: object
+      properties:
+        nullValue:
+          $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.NullValue'
+        hasNullValue:
+          type: boolean
+          readOnly: true
+        numberValue:
+          type: number
+          format: double
+        hasNumberValue:
+          type: boolean
+          readOnly: true
+        stringValue:
+          type:
+          - string
+          - 'null'
+        hasStringValue:
+          type: boolean
+          readOnly: true
+        boolValue:
+          type: boolean
+        hasBoolValue:
+          type: boolean
+          readOnly: true
+        structValue:
+          $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Struct'
+        listValue:
+          $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.ListValue'
+        kindCase:
+          $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.ValueKindOneofCase'
+      additionalProperties: false
+    AddSymbolsRequest:
+      type: object
+      properties:
+        UserToken:
+          type: string
+        Symbols:
+          type: array
+          items:
+            type: string
+        MarketDataLevel:
+          type: string
+      additionalProperties: false
+    SubscribeTickDataResponse:
+      type: object
+      properties:
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+        TrdPrc1:
+          type: array
+          items:
+            $ref: '#/components/schemas/Price'
+        TrdDate:
+          type: array
+          items:
+            type: string
+        TickType:
+          type: array
+          items:
+            type: integer
+            format: int32
+        TrdXid1:
+          type: array
+          items:
+            type: string
+        TrdVol1:
+          type: array
+          items:
+            type: integer
+            format: int32
+        TrdTim1:
+          type: array
+          items:
+            type: string
+        DispName:
+          type: array
+          items:
+            type: string
+        Count:
+          type: integer
+          format: int32
+      additionalProperties: false
+    SecurityDataResponse:
+      type: object
+      properties:
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+        SecurityInfoList:
+          type: array
+          items:
+            $ref: '#/components/schemas/SecurityData'
+      additionalProperties: false
+    Price:
+      type: object
+      properties:
+        DecimalValue:
+          type: number
+          format: double
+        Denominator:
+          type: integer
+          format: int32
+        Numerator:
+          type: integer
+          format: int32
+        Base:
+          type: integer
+          format: int32
+        Int:
+          type: integer
+          format: int32
+        BaseCode:
+          type: integer
+          format: int32
+        IntegerValue:
+          type: integer
+          format: int32
+        Isnull:
+          type: boolean
+      additionalProperties: false
+    Google.Rpc.Status:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Any'
+      additionalProperties: false
+    SymbolFromAlternateSymbologyResponse:
+      type: object
+      properties:
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+        SymbolInfolist:
+          type: array
+          items:
+            $ref: '#/components/schemas/SymbolData'
+        Results:
+          type: array
+          items:
+            $ref: '#/components/schemas/SymbolLookupResult'
+        SuccessCount:
+          type: integer
+          format: int32
+        FailureCount:
+          type: integer
+          format: int32
+        TotalCount:
+          type: integer
+          format: int32
+      additionalProperties: false
+    TickDataResponse:
+      type: object
+      properties:
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+        TickInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/TicksResponse'
+      additionalProperties: false
+    SymbolReferenceDataResponse:
+      type: object
+      properties:
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+        SymInfoList:
+          type: array
+          items:
+            $ref: '#/components/schemas/SymInfoResponse'
+      additionalProperties: false
+    UnSubscribeLevel1DataResponse:
+      type: object
+      properties:
+        ServerResponse:
+          type: string
+        OptionalFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    DailyWeeklyMonthlyBarsResponse:
+      type: object
+      properties:
+        BarFields:
+          $ref: '#/components/schemas/CommonBarsFields'
+        DispName:
+          type: string
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    OptionTypes:
+      type: object
+      properties:
+        CallOrPut:
+          $ref: '#/components/schemas/OptionTypesTypesOptions'
+      additionalProperties: false
+    UnSubscribeIntradayBarsResponse:
+      type: object
+      properties:
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    Level1MarketDataRecordResponse:
+      type: object
+      properties:
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+        DataRecord:
+          type: array
+          items:
+            $ref: '#/components/schemas/Level1MarketDataRecord'
+      additionalProperties: false
+    DescriptionFromOptionSymbolResponse:
+      type: object
+      properties:
+        Root:
+          type: string
+        Expiration:
+          type: string
+        OptionType:
+          $ref: '#/components/schemas/OptionTypes'
+        StrikePrice:
+          type: number
+          format: double
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    SymInfoResponse:
+      type: object
+      properties:
+        Styp:
+          type: integer
+          format: int32
+        DispName:
+          type: string
+        BloombergCode:
+          type: string
+        BloombergCodeFull:
+          type: string
+        BloombergCodeComposite:
+          type: string
+        ExchName:
+          type: string
+        SymbolDesc:
+          type: string
+      additionalProperties: false
+    TicksResponse:
+      type: object
+      properties:
+        TrdPrc1:
+          type: array
+          items:
+            $ref: '#/components/schemas/Price'
+        TrdDate:
+          type: array
+          items:
+            type: string
+        TickType:
+          type: array
+          items:
+            type: integer
+            format: int32
+        TrdXid1:
+          type: array
+          items:
+            type: string
+        TrdVol1:
+          type: array
+          items:
+            type: integer
+            format: int32
+        TrdTim1:
+          type: array
+          items:
+            type: string
+        DispName:
+          type: array
+          items:
+            type: string
+        Count:
+          type: integer
+          format: int32
+      additionalProperties: false
+    OptionSymbolFromDescriptionResponse:
+      type: object
+      properties:
+        Symbol:
+          type: string
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    ServerAcknowledgementTypesResponseCodesEnum:
+      enum:
+      - SUCCESS
+      - WARNING
+      - FAILED
+      - ERROR
+      - TIMED_OUT
+      - SESSION_NOT_FOUND
+      type: string
+    Google.Protobuf.WellKnownTypes.ValueKindOneofCase:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      type: integer
+      format: int32
+    ServerAcknowledgement:
+      type: object
+      properties:
+        ServerResponse:
+          type: string
+        OptionalFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        Message:
+          type: string
+        ResponseCode:
+          $ref: '#/components/schemas/ServerAcknowledgementTypesResponseCodesEnum'
+      additionalProperties: false
+    QuoteChainResponse:
+      type: object
+      properties:
+        DispName:
+          type: string
+        ExchName:
+          type: string
+        SymbolDesc:
+          type: string
+        TrdUnits:
+          type: string
+        CommodityName:
+          type: string
+        Styp:
+          type: integer
+          format: int32
+        Session:
+          type: integer
+          format: int32
+        Minmove:
+          type: integer
+          format: int32
+        Basisvalue:
+          type: number
+          format: double
+        ExpirDate:
+          type: string
+        StrikePrice:
+          $ref: '#/components/schemas/Price'
+        PutCallInd:
+          type: string
+      additionalProperties: false
+    OptionChainResponse:
+      type: object
+      properties:
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+        Derivative:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuoteChainResponse'
+      additionalProperties: false
+    IntradayBarUpdate:
+      type: object
+      properties:
+        OpenTime:
+          type: string
+        TrdTim1:
+          type: string
+        OpenPrc:
+          $ref: '#/components/schemas/Price'
+        High1:
+          $ref: '#/components/schemas/Price'
+        Low1:
+          $ref: '#/components/schemas/Price'
+        Settle:
+          $ref: '#/components/schemas/Price'
+        AcVol1:
+          type: integer
+          format: int32
+        TickCount:
+          type: integer
+          format: int32
+        Vwap:
+          type: number
+          format: double
+        Kind:
+          $ref: '#/components/schemas/BarUpdateKind'
+        Symbol:
+          type: string
+      additionalProperties: false
+    AddSymbolsResponse:
+      type: object
+      properties:
+        ServerResponse:
+          type: string
+        OptionalFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    BarUpdateKind:
+      enum:
+      - BAR_KIND_UNSPECIFIED
+      - BAR_KIND_HISTORICAL
+      - BAR_KIND_PARTIAL
+      - BAR_KIND_CLOSED
+      type: string
+    Level1MarketDataResponse:
+      type: object
+      properties:
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+        DispName:
+          type: string
+        Trdprc1:
+          $ref: '#/components/schemas/Price'
+        Trdtim1:
+          type: string
+        SymbolDesc:
+          type: string
+        CompanyName:
+          type: string
+        ArcaImbalanceVolume:
+          type: integer
+          format: int32
+        ArcaMatchVolume:
+          type: integer
+          format: int32
+        SaleConditionVolume:
+          type: integer
+          format: int32
+        IntradayHighCount:
+          type: integer
+          format: int32
+        VwapVol:
+          type: integer
+          format: int32
+        Vwap:
+          type: number
+          format: double
+        Bid:
+          $ref: '#/components/schemas/Price'
+        Ask:
+          $ref: '#/components/schemas/Price'
+        ChangeLast:
+          $ref: '#/components/schemas/Price'
+        High1:
+          $ref: '#/components/schemas/Price'
+        High52:
+          $ref: '#/components/schemas/Price'
+        Low1:
+          $ref: '#/components/schemas/Price'
+        Low52:
+          $ref: '#/components/schemas/Price'
+        ExtendedFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+      additionalProperties: false
+    Google.Protobuf.WellKnownTypes.NullValue:
+      enum:
+      - 0
+      type: integer
+      format: int32
+    IntervalTypesOptions:
+      enum:
+      - DAILY
+      - WEEKLY
+      - MONTHLY
+      type: string
+    Google.Protobuf.WellKnownTypes.ListValue:
+      type: object
+      properties:
+        values:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Value'
+          readOnly: true
+      additionalProperties: false
     UnSubscribeLevel2DataResponse:
       type: object
       properties:
@@ -916,40 +1511,16 @@ components:
         Acknowledgement:
           $ref: '#/components/schemas/ServerAcknowledgement'
       additionalProperties: false
-    Google.Protobuf.WellKnownTypes.NullValue:
-      enum:
-      - 0
-      type: integer
-      format: int32
-    OptionsAndGreekDataResponse:
+    Google.Protobuf.WellKnownTypes.Struct:
       type: object
       properties:
-        Acknowledgement:
-          $ref: '#/components/schemas/ServerAcknowledgement'
-        OptionsList:
-          type: array
-          items:
-            $ref: '#/components/schemas/OptionCalculationResponse'
-      additionalProperties: false
-    Level1MarketDataRecordResponse:
-      type: object
-      properties:
-        Acknowledgement:
-          $ref: '#/components/schemas/ServerAcknowledgement'
-        DataRecord:
-          type: array
-          items:
-            $ref: '#/components/schemas/Level1MarketDataRecord'
-      additionalProperties: false
-    DailyWeeklyMonthlyBarsResponse:
-      type: object
-      properties:
-        BarFields:
-          $ref: '#/components/schemas/CommonBarsFields'
-        DispName:
-          type: string
-        Acknowledgement:
-          $ref: '#/components/schemas/ServerAcknowledgement'
+        fields:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Value'
+          readOnly: true
       additionalProperties: false
     SecurityData:
       type: object
@@ -1092,6 +1663,49 @@ components:
         MIC:
           type: string
       additionalProperties: false
+    AlternateSymbologyTypesSymbology:
+      enum:
+      - ISIN
+      - SEDOL
+      - RIC
+      - CUSIP
+      - BBG
+      type: string
+    RemoveSymbolsResponse:
+      type: object
+      properties:
+        ServerResponse:
+          type: string
+        OptionalFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    Google.Protobuf.WellKnownTypes.Any:
+      required:
+      - '@type'
+      type: object
+      properties:
+        '@type':
+          type: string
+      additionalProperties:
+        $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Value'
+    IntradayBarsResponse:
+      type: object
+      properties:
+        Bars:
+          $ref: '#/components/schemas/CommonBarsFields'
+        TrdTim1:
+          type: array
+          items:
+            type: string
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
     CommonBarsFields:
       type: object
       properties:
@@ -1124,283 +1738,6 @@ components:
           items:
             type: string
       additionalProperties: false
-    Level1MarketDataResponse:
-      type: object
-      properties:
-        Acknowledgement:
-          $ref: '#/components/schemas/ServerAcknowledgement'
-        DispName:
-          type: string
-        Trdprc1:
-          $ref: '#/components/schemas/Price'
-        Trdtim1:
-          type: string
-        SymbolDesc:
-          type: string
-        CompanyName:
-          type: string
-        ArcaImbalanceVolume:
-          type: integer
-          format: int32
-        ArcaMatchVolume:
-          type: integer
-          format: int32
-        SaleConditionVolume:
-          type: integer
-          format: int32
-        IntradayHighCount:
-          type: integer
-          format: int32
-        VwapVol:
-          type: integer
-          format: int32
-        Vwap:
-          type: number
-          format: double
-        Bid:
-          $ref: '#/components/schemas/Price'
-        Ask:
-          $ref: '#/components/schemas/Price'
-        ChangeLast:
-          $ref: '#/components/schemas/Price'
-        High1:
-          $ref: '#/components/schemas/Price'
-        High52:
-          $ref: '#/components/schemas/Price'
-        Low1:
-          $ref: '#/components/schemas/Price'
-        Low52:
-          $ref: '#/components/schemas/Price'
-        ExtendedFields:
-          type: object
-          additionalProperties:
-            type:
-            - string
-            - 'null'
-      additionalProperties: false
-    Google.Protobuf.WellKnownTypes.ValueKindOneofCase:
-      enum:
-      - 0
-      - 1
-      - 2
-      - 3
-      - 4
-      - 5
-      - 6
-      type: integer
-      format: int32
-    UnSubscribeIntradayBarsResponse:
-      type: object
-      properties:
-        Acknowledgement:
-          $ref: '#/components/schemas/ServerAcknowledgement'
-      additionalProperties: false
-    SubscribeTickDataResponse:
-      type: object
-      properties:
-        Acknowledgement:
-          $ref: '#/components/schemas/ServerAcknowledgement'
-        TrdPrc1:
-          type: array
-          items:
-            $ref: '#/components/schemas/Price'
-        TrdDate:
-          type: array
-          items:
-            type: string
-        TickType:
-          type: array
-          items:
-            type: integer
-            format: int32
-        TrdXid1:
-          type: array
-          items:
-            type: string
-        TrdVol1:
-          type: array
-          items:
-            type: integer
-            format: int32
-        TrdTim1:
-          type: array
-          items:
-            type: string
-        DispName:
-          type: array
-          items:
-            type: string
-        Count:
-          type: integer
-          format: int32
-      additionalProperties: false
-    DescriptionFromOptionSymbolResponse:
-      type: object
-      properties:
-        Root:
-          type: string
-        Expiration:
-          type: string
-        OptionType:
-          $ref: '#/components/schemas/OptionTypes'
-        StrikePrice:
-          type: number
-          format: double
-        Acknowledgement:
-          $ref: '#/components/schemas/ServerAcknowledgement'
-      additionalProperties: false
-    Level1MarketDataRecord:
-      type: object
-      properties:
-        DispName:
-          type: string
-        Trdprc1:
-          $ref: '#/components/schemas/Price'
-        Trdtim1:
-          type: string
-        SymbolDesc:
-          type: string
-        CompanyName:
-          type: string
-        ArcaImbalanceVolume:
-          type: integer
-          format: int32
-        ArcaMatchVolume:
-          type: integer
-          format: int32
-        SaleConditionVolume:
-          type: integer
-          format: int32
-        IntradayHighCount:
-          type: integer
-          format: int32
-        VwapVol:
-          type: integer
-          format: int32
-        Vwap:
-          type: number
-          format: double
-        Bid:
-          $ref: '#/components/schemas/Price'
-        Ask:
-          $ref: '#/components/schemas/Price'
-        ChangeLast:
-          $ref: '#/components/schemas/Price'
-        High1:
-          $ref: '#/components/schemas/Price'
-        High52:
-          $ref: '#/components/schemas/Price'
-        Low1:
-          $ref: '#/components/schemas/Price'
-        Low52:
-          $ref: '#/components/schemas/Price'
-        ExtendedFields:
-          type: object
-          additionalProperties:
-            type:
-            - string
-            - 'null'
-      additionalProperties: false
-    Level2MarketDataResponse:
-      type: object
-      properties:
-        Acknowledgement:
-          $ref: '#/components/schemas/ServerAcknowledgement'
-        MktSource:
-          type: string
-        MktMkrId:
-          type: string
-        DispName:
-          type: string
-        MktMkrStatus:
-          type: string
-        ExchName:
-          type: string
-        MktMkrDisplay:
-          type: string
-        MktMkrBidsize:
-          type: integer
-          format: int32
-        MktMkrAsksize:
-          type: integer
-          format: int32
-        SymbolId:
-          type: integer
-          format: int32
-        SymbolError:
-          type: integer
-          format: int32
-        TableId:
-          type: integer
-          format: int32
-        Styp:
-          type: integer
-          format: int32
-        QuoteUpdateType:
-          type: integer
-          format: int32
-        MktMkrDate:
-          type: string
-        MktMkrBidTime:
-          type: string
-        MktMkrAskTime:
-          type: string
-        MktMkrBid:
-          $ref: '#/components/schemas/Price'
-        MktMkrChangeLastAsk:
-          $ref: '#/components/schemas/Price'
-        MktMkrAsk:
-          $ref: '#/components/schemas/Price'
-      additionalProperties: false
-    SymbolLookupResult:
-      type: object
-      properties:
-        RequestedSymbol:
-          type: string
-        Acknowledgement:
-          $ref: '#/components/schemas/ServerAcknowledgement'
-        SymbolInfolist:
-          type: array
-          items:
-            $ref: '#/components/schemas/SymbolData'
-      additionalProperties: false
-    IntradayBarsResponse:
-      type: object
-      properties:
-        Bars:
-          $ref: '#/components/schemas/CommonBarsFields'
-        TrdTim1:
-          type: array
-          items:
-            type: string
-        Acknowledgement:
-          $ref: '#/components/schemas/ServerAcknowledgement'
-      additionalProperties: false
-    Google.Protobuf.WellKnownTypes.ListValue:
-      type: object
-      properties:
-        values:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Value'
-          readOnly: true
-      additionalProperties: false
-    OptionTypesTypesOptions:
-      enum:
-      - CALL
-      - PUT
-      type: string
-    ServerAcknowledgementTypesResponseCodesEnum:
-      enum:
-      - SUCCESS
-      - WARNING
-      - FAILED
-      - ERROR
-      - TIMED_OUT
-      - SESSION_NOT_FOUND
-      type: string
     SymbolData:
       type: object
       properties:
@@ -1513,14 +1850,6 @@ components:
         OptionRoot:
           type: string
       additionalProperties: false
-    OptionSymbolFromDescriptionResponse:
-      type: object
-      properties:
-        Symbol:
-          type: string
-        Acknowledgement:
-          $ref: '#/components/schemas/ServerAcknowledgement'
-      additionalProperties: false
     SubscribeIntradayBarsResponse:
       type: object
       properties:
@@ -1536,414 +1865,85 @@ components:
           items:
             $ref: '#/components/schemas/IntradayBarUpdate'
       additionalProperties: false
-    SymbolReferenceDataResponse:
+    SymbolLookupResult:
       type: object
       properties:
-        Acknowledgement:
-          $ref: '#/components/schemas/ServerAcknowledgement'
-        SymInfoList:
-          type: array
-          items:
-            $ref: '#/components/schemas/SymInfoResponse'
-      additionalProperties: false
-    SymbolsFromCompanyNameResponse:
-      type: object
-      properties:
-        Acknowledgement:
-          $ref: '#/components/schemas/ServerAcknowledgement'
-        SymbolDatalist:
-          type: array
-          items:
-            $ref: '#/components/schemas/SymbolData'
-      additionalProperties: false
-    SecurityDataResponse:
-      type: object
-      properties:
-        Acknowledgement:
-          $ref: '#/components/schemas/ServerAcknowledgement'
-        SecurityInfoList:
-          type: array
-          items:
-            $ref: '#/components/schemas/SecurityData'
-      additionalProperties: false
-    UnSubscribeTickDataResponse:
-      type: object
-      properties:
-        Acknowledgement:
-          $ref: '#/components/schemas/ServerAcknowledgement'
-      additionalProperties: false
-    OptionChainResponse:
-      type: object
-      properties:
-        Acknowledgement:
-          $ref: '#/components/schemas/ServerAcknowledgement'
-        Derivative:
-          type: array
-          items:
-            $ref: '#/components/schemas/QuoteChainResponse'
-      additionalProperties: false
-    RemoveSymbolsResponse:
-      type: object
-      properties:
-        ServerResponse:
+        RequestedSymbol:
           type: string
-        OptionalFields:
-          type: object
-          additionalProperties:
-            type:
-            - string
-            - 'null'
-        Acknowledgement:
-          $ref: '#/components/schemas/ServerAcknowledgement'
-      additionalProperties: false
-    UnSubscribeLevel1DataResponse:
-      type: object
-      properties:
-        ServerResponse:
-          type: string
-        OptionalFields:
-          type: object
-          additionalProperties:
-            type:
-            - string
-            - 'null'
-        Acknowledgement:
-          $ref: '#/components/schemas/ServerAcknowledgement'
-      additionalProperties: false
-    AddSymbolsRequest:
-      type: object
-      properties:
-        UserToken:
-          type: string
-        Symbols:
-          type: array
-          items:
-            type: string
-        MarketDataLevel:
-          type: string
-      additionalProperties: false
-    AlternateSymbologyTypesSymbology:
-      enum:
-      - ISIN
-      - SEDOL
-      - RIC
-      - CUSIP
-      - BBG
-      type: string
-    AddSymbolsResponse:
-      type: object
-      properties:
-        ServerResponse:
-          type: string
-        OptionalFields:
-          type: object
-          additionalProperties:
-            type:
-            - string
-            - 'null'
-        Acknowledgement:
-          $ref: '#/components/schemas/ServerAcknowledgement'
-      additionalProperties: false
-    Google.Rpc.Status:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int32
-        message:
-          type: string
-        details:
-          type: array
-          items:
-            $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Any'
-      additionalProperties: false
-    OptionTypes:
-      type: object
-      properties:
-        CallOrPut:
-          $ref: '#/components/schemas/OptionTypesTypesOptions'
-      additionalProperties: false
-    Price:
-      type: object
-      properties:
-        DecimalValue:
-          type: number
-          format: double
-        Denominator:
-          type: integer
-          format: int32
-        Numerator:
-          type: integer
-          format: int32
-        Base:
-          type: integer
-          format: int32
-        Int:
-          type: integer
-          format: int32
-        BaseCode:
-          type: integer
-          format: int32
-        IntegerValue:
-          type: integer
-          format: int32
-        Isnull:
-          type: boolean
-      additionalProperties: false
-    Google.Protobuf.WellKnownTypes.Value:
-      type: object
-      properties:
-        nullValue:
-          $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.NullValue'
-        hasNullValue:
-          type: boolean
-          readOnly: true
-        numberValue:
-          type: number
-          format: double
-        hasNumberValue:
-          type: boolean
-          readOnly: true
-        stringValue:
-          type:
-          - string
-          - 'null'
-        hasStringValue:
-          type: boolean
-          readOnly: true
-        boolValue:
-          type: boolean
-        hasBoolValue:
-          type: boolean
-          readOnly: true
-        structValue:
-          $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Struct'
-        listValue:
-          $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.ListValue'
-        kindCase:
-          $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.ValueKindOneofCase'
-      additionalProperties: false
-    BarUpdateKind:
-      enum:
-      - BAR_KIND_UNSPECIFIED
-      - BAR_KIND_HISTORICAL
-      - BAR_KIND_PARTIAL
-      - BAR_KIND_CLOSED
-      type: string
-    SymbolFromAlternateSymbologyResponse:
-      type: object
-      properties:
         Acknowledgement:
           $ref: '#/components/schemas/ServerAcknowledgement'
         SymbolInfolist:
           type: array
           items:
             $ref: '#/components/schemas/SymbolData'
-        Results:
-          type: array
-          items:
-            $ref: '#/components/schemas/SymbolLookupResult'
-        SuccessCount:
-          type: integer
-          format: int32
-        FailureCount:
-          type: integer
-          format: int32
-        TotalCount:
-          type: integer
-          format: int32
       additionalProperties: false
-    IntradayBarUpdate:
+    OptionTypesTypesOptions:
+      enum:
+      - CALL
+      - PUT
+      type: string
+    OptionsAndGreekDataResponse:
       type: object
       properties:
-        OpenTime:
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+        OptionsList:
+          type: array
+          items:
+            $ref: '#/components/schemas/OptionCalculationResponse'
+      additionalProperties: false
+    Level1MarketDataRecord:
+      type: object
+      properties:
+        DispName:
           type: string
-        TrdTim1:
+        Trdprc1:
+          $ref: '#/components/schemas/Price'
+        Trdtim1:
           type: string
-        OpenPrc:
-          $ref: '#/components/schemas/Price'
-        High1:
-          $ref: '#/components/schemas/Price'
-        Low1:
-          $ref: '#/components/schemas/Price'
-        Settle:
-          $ref: '#/components/schemas/Price'
-        AcVol1:
+        SymbolDesc:
+          type: string
+        CompanyName:
+          type: string
+        ArcaImbalanceVolume:
           type: integer
           format: int32
-        TickCount:
+        ArcaMatchVolume:
+          type: integer
+          format: int32
+        SaleConditionVolume:
+          type: integer
+          format: int32
+        IntradayHighCount:
+          type: integer
+          format: int32
+        VwapVol:
           type: integer
           format: int32
         Vwap:
           type: number
           format: double
-        Kind:
-          $ref: '#/components/schemas/BarUpdateKind'
-        Symbol:
-          type: string
-      additionalProperties: false
-    Google.Protobuf.WellKnownTypes.Struct:
-      type: object
-      properties:
-        fields:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Value'
-          readOnly: true
-      additionalProperties: false
-    ServerAcknowledgement:
-      type: object
-      properties:
-        ServerResponse:
-          type: string
-        OptionalFields:
+        Bid:
+          $ref: '#/components/schemas/Price'
+        Ask:
+          $ref: '#/components/schemas/Price'
+        ChangeLast:
+          $ref: '#/components/schemas/Price'
+        High1:
+          $ref: '#/components/schemas/Price'
+        High52:
+          $ref: '#/components/schemas/Price'
+        Low1:
+          $ref: '#/components/schemas/Price'
+        Low52:
+          $ref: '#/components/schemas/Price'
+        ExtendedFields:
           type: object
           additionalProperties:
             type:
             - string
             - 'null'
-        Message:
-          type: string
-        ResponseCode:
-          $ref: '#/components/schemas/ServerAcknowledgementTypesResponseCodesEnum'
       additionalProperties: false
-    TicksResponse:
-      type: object
-      properties:
-        TrdPrc1:
-          type: array
-          items:
-            $ref: '#/components/schemas/Price'
-        TrdDate:
-          type: array
-          items:
-            type: string
-        TickType:
-          type: array
-          items:
-            type: integer
-            format: int32
-        TrdXid1:
-          type: array
-          items:
-            type: string
-        TrdVol1:
-          type: array
-          items:
-            type: integer
-            format: int32
-        TrdTim1:
-          type: array
-          items:
-            type: string
-        DispName:
-          type: array
-          items:
-            type: string
-        Count:
-          type: integer
-          format: int32
-      additionalProperties: false
-    IntervalTypesOptions:
-      enum:
-      - DAILY
-      - WEEKLY
-      - MONTHLY
-      type: string
-    TickDataResponse:
-      type: object
-      properties:
-        Acknowledgement:
-          $ref: '#/components/schemas/ServerAcknowledgement'
-        TickInfo:
-          type: array
-          items:
-            $ref: '#/components/schemas/TicksResponse'
-      additionalProperties: false
-    QuoteChainResponse:
-      type: object
-      properties:
-        DispName:
-          type: string
-        ExchName:
-          type: string
-        SymbolDesc:
-          type: string
-        TrdUnits:
-          type: string
-        CommodityName:
-          type: string
-        Styp:
-          type: integer
-          format: int32
-        Session:
-          type: integer
-          format: int32
-        Minmove:
-          type: integer
-          format: int32
-        Basisvalue:
-          type: number
-          format: double
-        ExpirDate:
-          type: string
-        StrikePrice:
-          $ref: '#/components/schemas/Price'
-        PutCallInd:
-          type: string
-      additionalProperties: false
-    Level1FieldOptionsTypesFields:
-      enum:
-      - DISP_NAME
-      - TRDPRC1
-      - TRDTIM1
-      - SYMBOL_DESC
-      - COMPANY_NAME
-      - ARCA_IMBALANCE_VOLUME
-      - ARCA_MATCH_VOLUME
-      - SALE_CONDITION_VOLUME
-      - INTRADAY_HIGH_COUNT
-      - VWAP_VOL
-      - VWAP
-      - BID
-      - ASK
-      - CHANGE_LAST
-      - HIGH1
-      - HIGH52
-      - LOW1
-      - LOW52
-      - EXTENDED_FIELDS
-      type: string
-    SymInfoResponse:
-      type: object
-      properties:
-        Styp:
-          type: integer
-          format: int32
-        DispName:
-          type: string
-        BloombergCode:
-          type: string
-        BloombergCodeFull:
-          type: string
-        BloombergCodeComposite:
-          type: string
-        ExchName:
-          type: string
-        SymbolDesc:
-          type: string
-      additionalProperties: false
-    Google.Protobuf.WellKnownTypes.Any:
-      required:
-      - '@type'
-      type: object
-      properties:
-        '@type':
-          type: string
-      additionalProperties:
-        $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Value'
   securitySchemes:
     Bearer:
       type: http

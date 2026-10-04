@@ -795,248 +795,61 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    SubscribeNetPositionsResponse:
-      type: object
-      properties:
-        AggregatePositions:
-          $ref: '#/components/schemas/AggregatePositionRecord'
-        Acknowledgement:
-          $ref: '#/components/schemas/ServerAcknowledgement'
-      additionalProperties: false
-    Google.Protobuf.WellKnownTypes.NullValue:
-      enum:
-      - 0
-      type: integer
-      format: int32
-    StartLoginSrpResponse:
-      type: object
-      properties:
-        Status:
-          type: string
-        srpTransactId:
-          type: string
-        srpSalt:
-          type: string
-        srpN:
-          type: string
-        srpg:
-          type: string
-        srpb:
-          type: string
-        Response:
-          type: string
-        Acknowledgement:
-          $ref: '#/components/schemas/ServerAcknowledgement'
-      additionalProperties: false
-    TodaysActivityResponse:
-      type: object
-      properties:
-        OrderRecordList:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderResponse'
-        Acknowledgement:
-          $ref: '#/components/schemas/ServerAcknowledgement'
-      additionalProperties: false
     CreateStrategyResponse:
       type: object
       properties:
         Acknowledgement:
           $ref: '#/components/schemas/ServerAcknowledgement'
       additionalProperties: false
-    SubscribeHeartBeatResponseTypesHeartBeatStatus:
-      enum:
-      - LIVE
-      - DEAD
-      - UNKNOWN
-      type: string
-    GetUserRoutePropsResponse:
+    Google.Protobuf.WellKnownTypes.Value:
       type: object
       properties:
-        UserRouteProps:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/RoutePropsMap'
-        Acknowledgement:
-          $ref: '#/components/schemas/ServerAcknowledgement'
+        nullValue:
+          $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.NullValue'
+        hasNullValue:
+          type: boolean
+          readOnly: true
+        numberValue:
+          type: number
+          format: double
+        hasNumberValue:
+          type: boolean
+          readOnly: true
+        stringValue:
+          type:
+          - string
+          - 'null'
+        hasStringValue:
+          type: boolean
+          readOnly: true
+        boolValue:
+          type: boolean
+        hasBoolValue:
+          type: boolean
+          readOnly: true
+        structValue:
+          $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Struct'
+        listValue:
+          $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.ListValue'
+        kindCase:
+          $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.ValueKindOneofCase'
       additionalProperties: false
-    Google.Protobuf.WellKnownTypes.ValueKindOneofCase:
-      enum:
-      - 0
-      - 1
-      - 2
-      - 3
-      - 4
-      - 5
-      - 6
-      type: integer
-      format: int32
-    TodaysBalancesResponse:
+    StrategyListResponse:
       type: object
       properties:
-        DepositList:
+        StrategyList:
           type: array
           items:
-            $ref: '#/components/schemas/DepositRow'
+            $ref: '#/components/schemas/StrategyListRow'
         Acknowledgement:
           $ref: '#/components/schemas/ServerAcknowledgement'
       additionalProperties: false
-    ChangePasswordSRPResponse:
-      type: object
-      properties:
-        status:
-          type: string
-        message:
-          type: string
-        Acknowledgement:
-          $ref: '#/components/schemas/ServerAcknowledgement'
-      additionalProperties: false
-    GetUserRoutesResponse:
-      type: object
-      properties:
-        UserRoutes:
-          type: object
-          additionalProperties:
-            type:
-            - string
-            - 'null'
-        Acknowledgement:
-          $ref: '#/components/schemas/ServerAcknowledgement'
-      additionalProperties: false
-    ChangePasswordResponse:
-      type: object
-      properties:
-        status:
-          type: string
-        message:
-          type: string
-        Acknowledgement:
-          $ref: '#/components/schemas/ServerAcknowledgement'
-      additionalProperties: false
-    ExpirationType:
-      type: object
-      properties:
-        Expiration:
-          $ref: '#/components/schemas/ExpirationTypeTypesExpirationTypes'
-      additionalProperties: false
-    OrderResponse:
-      type: object
-      properties:
-        submitTime:
-          type: string
-        OrderId:
-          type: string
-        LinkedOrderId:
-          type: string
-        RefersToId:
-          type: string
-        TicketId:
-          type: string
-        OriginalOrderId:
-          type: string
-        Symbol:
-          type: string
-        Type:
-          type: string
-        CurrentStatus:
-          type: string
-        TraderId:
-          type: string
-        ClaimedByClerk:
-          type: string
-        Volume:
-          type: integer
-          format: int32
-        Price:
-          type: number
-          format: double
-        PriceType:
-          $ref: '#/components/schemas/PriceTypeEnum'
-        Buyorsell:
-          type: string
-        PairSpreadType:
-          type: string
-        Reason:
-          type: string
-        TimeStamp:
-          type: string
-        ExtendedFields:
-          type: object
-          additionalProperties:
-            type:
-            - string
-            - 'null'
-        GoodFrom:
-          type: string
-        TimeInForce:
-          $ref: '#/components/schemas/ExpirationType'
-        StopPrice:
-          type: number
-          format: double
-        UserMessage:
-          type: string
-        ExpirationDate:
-          type: string
-        Side:
-          type: string
-        Route:
-          type: string
-        Account:
-          type: string
-        OrderTag:
-          type: string
-        VolumeTraded:
-          type: integer
-          format: int32
-      additionalProperties: false
-    UnSubscribeNetPositionsResponse:
+    UpdateStrategyResponse:
       type: object
       properties:
         Acknowledgement:
           $ref: '#/components/schemas/ServerAcknowledgement'
       additionalProperties: false
-    Google.Protobuf.WellKnownTypes.ListValue:
-      type: object
-      properties:
-        values:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Value'
-          readOnly: true
-      additionalProperties: false
-    StrategyListRow:
-      type: object
-      properties:
-        FirmName:
-          type: string
-        UserName:
-          type: string
-        AlgoName:
-          type: string
-        StrategyName:
-          type: string
-        StratCreateDate:
-          type: string
-      additionalProperties: false
-    ServerAcknowledgementTypesResponseCodesEnum:
-      enum:
-      - SUCCESS
-      - WARNING
-      - FAILED
-      - ERROR
-      - TIMED_OUT
-      - SESSION_NOT_FOUND
-      type: string
-    PriceTypeEnumTypesPriceTypesEnum:
-      enum:
-      - Market
-      - Limit
-      - StopMarket
-      - StopLimit
-      - Other
-      type: string
     DepositRow:
       type: object
       properties:
@@ -1145,6 +958,154 @@ components:
             - string
             - 'null'
       additionalProperties: false
+    Google.Rpc.Status:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Any'
+      additionalProperties: false
+    TodaysActivityResponse:
+      type: object
+      properties:
+        OrderRecordList:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderResponse'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    DisconnectResponse:
+      type: object
+      properties:
+        ServerResponse:
+          type: string
+        OptionalFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    UpdateStrategyRequest:
+      type: object
+      properties:
+        UserToken:
+          type: string
+        FirmName:
+          type: string
+        AlgoName:
+          type: string
+        StrategyName:
+          type: string
+        Version:
+          type: integer
+          format: int32
+        StratParams:
+          type: string
+      additionalProperties: false
+    StartLoginSrpResponse:
+      type: object
+      properties:
+        Status:
+          type: string
+        srpTransactId:
+          type: string
+        srpSalt:
+          type: string
+        srpN:
+          type: string
+        srpg:
+          type: string
+        srpb:
+          type: string
+        Response:
+          type: string
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    UserExistsResponse:
+      type: object
+      properties:
+        UserExists:
+          type: boolean
+        FirmName:
+          type: string
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    GetStrategyDataResponse:
+      type: object
+      properties:
+        StrategyData:
+          $ref: '#/components/schemas/StrategyDataRow'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    UnSubscribeNetPositionsResponse:
+      type: object
+      properties:
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    ServerAcknowledgementTypesResponseCodesEnum:
+      enum:
+      - SUCCESS
+      - WARNING
+      - FAILED
+      - ERROR
+      - TIMED_OUT
+      - SESSION_NOT_FOUND
+      type: string
+    ExpirationType:
+      type: object
+      properties:
+        Expiration:
+          $ref: '#/components/schemas/ExpirationTypeTypesExpirationTypes'
+      additionalProperties: false
+    PriceTypeEnum:
+      type: object
+      properties:
+        PriceType:
+          $ref: '#/components/schemas/PriceTypeEnumTypesPriceTypesEnum'
+      additionalProperties: false
+    ConnectResponse:
+      type: object
+      properties:
+        UserToken:
+          type: string
+        Response:
+          type: string
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+        DPermStatusCode:
+          type: string
+        MFASecurityCode:
+          type: string
+        MFAtotpPreference:
+          type: string
+        MFAtotpValue:
+          type: string
+      additionalProperties: false
+    Google.Protobuf.WellKnownTypes.ValueKindOneofCase:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      type: integer
+      format: int32
     MultiFactorAuthenticationResponse:
       type: object
       properties:
@@ -1152,6 +1113,38 @@ components:
           type: string
         Response:
           type: string
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    PriceTypeEnumTypesPriceTypesEnum:
+      enum:
+      - Market
+      - Limit
+      - StopMarket
+      - StopLimit
+      - Other
+      type: string
+    ServerAcknowledgement:
+      type: object
+      properties:
+        ServerResponse:
+          type: string
+        OptionalFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        Message:
+          type: string
+        ResponseCode:
+          $ref: '#/components/schemas/ServerAcknowledgementTypesResponseCodesEnum'
+      additionalProperties: false
+    SubscribeNetPositionsResponse:
+      type: object
+      properties:
+        AggregatePositions:
+          $ref: '#/components/schemas/AggregatePositionRecord'
         Acknowledgement:
           $ref: '#/components/schemas/ServerAcknowledgement'
       additionalProperties: false
@@ -1165,6 +1158,71 @@ components:
         Acknowledgement:
           $ref: '#/components/schemas/ServerAcknowledgement'
       additionalProperties: false
+    TodaysBrokenDownPositionsResponse:
+      type: object
+      properties:
+        PositionRecords:
+          type: array
+          items:
+            $ref: '#/components/schemas/Position'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    Google.Protobuf.WellKnownTypes.NullValue:
+      enum:
+      - 0
+      type: integer
+      format: int32
+    SubscribeHeartBeatResponseTypesHeartBeatStatus:
+      enum:
+      - LIVE
+      - DEAD
+      - UNKNOWN
+      type: string
+    GetUserRoutesResponse:
+      type: object
+      properties:
+        UserRoutes:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    TodaysNetPositionsResponse:
+      type: object
+      properties:
+        AggregatePositionsList:
+          type: array
+          items:
+            $ref: '#/components/schemas/AggregatePositionRecord'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    Google.Protobuf.WellKnownTypes.ListValue:
+      type: object
+      properties:
+        values:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Value'
+          readOnly: true
+      additionalProperties: false
+    Google.Protobuf.WellKnownTypes.Struct:
+      type: object
+      properties:
+        fields:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Value'
+          readOnly: true
+      additionalProperties: false
     ExpirationTypeTypesExpirationTypes:
       enum:
       - DAY
@@ -1176,6 +1234,274 @@ components:
       - GTD
       - OTHER
       type: string
+    RoutePropsMap:
+      type: object
+      properties:
+        Properties:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+      additionalProperties: false
+    SubscribeHeartBeatResponse:
+      type: object
+      properties:
+        Status:
+          $ref: '#/components/schemas/SubscribeHeartBeatResponseTypesHeartBeatStatus'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    Google.Protobuf.WellKnownTypes.Any:
+      required:
+      - '@type'
+      type: object
+      properties:
+        '@type':
+          type: string
+      additionalProperties:
+        $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Value'
+    AggregatePositionRecord:
+      type: object
+      properties:
+        SoldShortQty:
+          type: number
+          format: double
+        SoldQty:
+          type: number
+          format: double
+        BoughtAvgPrc:
+          type: number
+          format: double
+        BoughtQty:
+          type: number
+          format: double
+        IntradayShortAvgPrc:
+          type: number
+          format: double
+        IntradayShortPos:
+          type: number
+          format: double
+        ShortAvgPrc:
+          type: number
+          format: double
+        ShortPos:
+          type: number
+          format: double
+        IntradayLongAvgPrc:
+          type: number
+          format: double
+        IntradayLongPos:
+          type: number
+          format: double
+        LongAvgPrc:
+          type: number
+          format: double
+        LongPos:
+          type: number
+          format: double
+        IntradayAvgPrc:
+          type: number
+          format: double
+        IntradayPos:
+          type: number
+          format: double
+        TotalAvgPrc:
+          type: number
+          format: double
+        TotalPos:
+          type: number
+          format: double
+        SoldAvgPrc:
+          type: number
+          format: double
+        SoldShortAvgPrc:
+          type: number
+          format: double
+        DispName:
+          type: string
+        Deposit:
+          type: string
+        Customer:
+          type: string
+        Branch:
+          type: string
+        Bank:
+          type: string
+        ExtendedFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+      additionalProperties: false
+    GetFirmNameResponse:
+      type: object
+      properties:
+        FirmName:
+          type: string
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    GetUserRoutePropsResponse:
+      type: object
+      properties:
+        UserRouteProps:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/RoutePropsMap'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    TodaysBalancesResponse:
+      type: object
+      properties:
+        DepositList:
+          type: array
+          items:
+            $ref: '#/components/schemas/DepositRow'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    StrategyDataRow:
+      type: object
+      properties:
+        FirmName:
+          type: string
+        UserName:
+          type: string
+        AlgoName:
+          type: string
+        StrategyName:
+          type: string
+        Version:
+          type: integer
+          format: int32
+        StratParams:
+          type: string
+        StratCreateDate:
+          type: string
+        StratUpdateDate:
+          type: string
+      additionalProperties: false
+    ChangePasswordSRPResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
+    CreateStrategyRequest:
+      type: object
+      properties:
+        UserToken:
+          type: string
+        FirmName:
+          type: string
+        AlgoName:
+          type: string
+        StrategyName:
+          type: string
+        StratParams:
+          type: string
+      additionalProperties: false
+    OrderResponse:
+      type: object
+      properties:
+        submitTime:
+          type: string
+        OrderId:
+          type: string
+        LinkedOrderId:
+          type: string
+        RefersToId:
+          type: string
+        TicketId:
+          type: string
+        OriginalOrderId:
+          type: string
+        Symbol:
+          type: string
+        Type:
+          type: string
+        CurrentStatus:
+          type: string
+        TraderId:
+          type: string
+        ClaimedByClerk:
+          type: string
+        Volume:
+          type: integer
+          format: int32
+        Price:
+          type: number
+          format: double
+        PriceType:
+          $ref: '#/components/schemas/PriceTypeEnum'
+        Buyorsell:
+          type: string
+        PairSpreadType:
+          type: string
+        Reason:
+          type: string
+        TimeStamp:
+          type: string
+        ExtendedFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        GoodFrom:
+          type: string
+        TimeInForce:
+          $ref: '#/components/schemas/ExpirationType'
+        StopPrice:
+          type: number
+          format: double
+        UserMessage:
+          type: string
+        ExpirationDate:
+          type: string
+        Side:
+          type: string
+        Route:
+          type: string
+        Account:
+          type: string
+        OrderTag:
+          type: string
+        VolumeTraded:
+          type: integer
+          format: int32
+      additionalProperties: false
+    StrategyListRow:
+      type: object
+      properties:
+        FirmName:
+          type: string
+        UserName:
+          type: string
+        AlgoName:
+          type: string
+        StrategyName:
+          type: string
+        StratCreateDate:
+          type: string
+      additionalProperties: false
+    ChangePasswordResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
+      additionalProperties: false
     Position:
       type: object
       properties:
@@ -1276,332 +1602,6 @@ components:
         Styp:
           type: integer
           format: int32
-      additionalProperties: false
-    GetStrategyDataResponse:
-      type: object
-      properties:
-        StrategyData:
-          $ref: '#/components/schemas/StrategyDataRow'
-        Acknowledgement:
-          $ref: '#/components/schemas/ServerAcknowledgement'
-      additionalProperties: false
-    DisconnectResponse:
-      type: object
-      properties:
-        ServerResponse:
-          type: string
-        OptionalFields:
-          type: object
-          additionalProperties:
-            type:
-            - string
-            - 'null'
-        Acknowledgement:
-          $ref: '#/components/schemas/ServerAcknowledgement'
-      additionalProperties: false
-    PriceTypeEnum:
-      type: object
-      properties:
-        PriceType:
-          $ref: '#/components/schemas/PriceTypeEnumTypesPriceTypesEnum'
-      additionalProperties: false
-    UpdateStrategyResponse:
-      type: object
-      properties:
-        Acknowledgement:
-          $ref: '#/components/schemas/ServerAcknowledgement'
-      additionalProperties: false
-    StrategyListResponse:
-      type: object
-      properties:
-        StrategyList:
-          type: array
-          items:
-            $ref: '#/components/schemas/StrategyListRow'
-        Acknowledgement:
-          $ref: '#/components/schemas/ServerAcknowledgement'
-      additionalProperties: false
-    UpdateStrategyRequest:
-      type: object
-      properties:
-        UserToken:
-          type: string
-        FirmName:
-          type: string
-        AlgoName:
-          type: string
-        StrategyName:
-          type: string
-        Version:
-          type: integer
-          format: int32
-        StratParams:
-          type: string
-      additionalProperties: false
-    RoutePropsMap:
-      type: object
-      properties:
-        Properties:
-          type: object
-          additionalProperties:
-            type:
-            - string
-            - 'null'
-      additionalProperties: false
-    StrategyDataRow:
-      type: object
-      properties:
-        FirmName:
-          type: string
-        UserName:
-          type: string
-        AlgoName:
-          type: string
-        StrategyName:
-          type: string
-        Version:
-          type: integer
-          format: int32
-        StratParams:
-          type: string
-        StratCreateDate:
-          type: string
-        StratUpdateDate:
-          type: string
-      additionalProperties: false
-    AggregatePositionRecord:
-      type: object
-      properties:
-        SoldShortQty:
-          type: number
-          format: double
-        SoldQty:
-          type: number
-          format: double
-        BoughtAvgPrc:
-          type: number
-          format: double
-        BoughtQty:
-          type: number
-          format: double
-        IntradayShortAvgPrc:
-          type: number
-          format: double
-        IntradayShortPos:
-          type: number
-          format: double
-        ShortAvgPrc:
-          type: number
-          format: double
-        ShortPos:
-          type: number
-          format: double
-        IntradayLongAvgPrc:
-          type: number
-          format: double
-        IntradayLongPos:
-          type: number
-          format: double
-        LongAvgPrc:
-          type: number
-          format: double
-        LongPos:
-          type: number
-          format: double
-        IntradayAvgPrc:
-          type: number
-          format: double
-        IntradayPos:
-          type: number
-          format: double
-        TotalAvgPrc:
-          type: number
-          format: double
-        TotalPos:
-          type: number
-          format: double
-        SoldAvgPrc:
-          type: number
-          format: double
-        SoldShortAvgPrc:
-          type: number
-          format: double
-        DispName:
-          type: string
-        Deposit:
-          type: string
-        Customer:
-          type: string
-        Branch:
-          type: string
-        Bank:
-          type: string
-        ExtendedFields:
-          type: object
-          additionalProperties:
-            type:
-            - string
-            - 'null'
-      additionalProperties: false
-    Google.Rpc.Status:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int32
-        message:
-          type: string
-        details:
-          type: array
-          items:
-            $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Any'
-      additionalProperties: false
-    UserExistsResponse:
-      type: object
-      properties:
-        UserExists:
-          type: boolean
-        FirmName:
-          type: string
-        Acknowledgement:
-          $ref: '#/components/schemas/ServerAcknowledgement'
-      additionalProperties: false
-    CreateStrategyRequest:
-      type: object
-      properties:
-        UserToken:
-          type: string
-        FirmName:
-          type: string
-        AlgoName:
-          type: string
-        StrategyName:
-          type: string
-        StratParams:
-          type: string
-      additionalProperties: false
-    Google.Protobuf.WellKnownTypes.Value:
-      type: object
-      properties:
-        nullValue:
-          $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.NullValue'
-        hasNullValue:
-          type: boolean
-          readOnly: true
-        numberValue:
-          type: number
-          format: double
-        hasNumberValue:
-          type: boolean
-          readOnly: true
-        stringValue:
-          type:
-          - string
-          - 'null'
-        hasStringValue:
-          type: boolean
-          readOnly: true
-        boolValue:
-          type: boolean
-        hasBoolValue:
-          type: boolean
-          readOnly: true
-        structValue:
-          $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Struct'
-        listValue:
-          $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.ListValue'
-        kindCase:
-          $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.ValueKindOneofCase'
-      additionalProperties: false
-    SubscribeHeartBeatResponse:
-      type: object
-      properties:
-        Status:
-          $ref: '#/components/schemas/SubscribeHeartBeatResponseTypesHeartBeatStatus'
-        Acknowledgement:
-          $ref: '#/components/schemas/ServerAcknowledgement'
-      additionalProperties: false
-    Google.Protobuf.WellKnownTypes.Struct:
-      type: object
-      properties:
-        fields:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Value'
-          readOnly: true
-      additionalProperties: false
-    ServerAcknowledgement:
-      type: object
-      properties:
-        ServerResponse:
-          type: string
-        OptionalFields:
-          type: object
-          additionalProperties:
-            type:
-            - string
-            - 'null'
-        Message:
-          type: string
-        ResponseCode:
-          $ref: '#/components/schemas/ServerAcknowledgementTypesResponseCodesEnum'
-      additionalProperties: false
-    GetFirmNameResponse:
-      type: object
-      properties:
-        FirmName:
-          type: string
-        Acknowledgement:
-          $ref: '#/components/schemas/ServerAcknowledgement'
-      additionalProperties: false
-    ConnectResponse:
-      type: object
-      properties:
-        UserToken:
-          type: string
-        Response:
-          type: string
-        Acknowledgement:
-          $ref: '#/components/schemas/ServerAcknowledgement'
-        DPermStatusCode:
-          type: string
-        MFASecurityCode:
-          type: string
-        MFAtotpPreference:
-          type: string
-        MFAtotpValue:
-          type: string
-      additionalProperties: false
-    Google.Protobuf.WellKnownTypes.Any:
-      required:
-      - '@type'
-      type: object
-      properties:
-        '@type':
-          type: string
-      additionalProperties:
-        $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Value'
-    TodaysNetPositionsResponse:
-      type: object
-      properties:
-        AggregatePositionsList:
-          type: array
-          items:
-            $ref: '#/components/schemas/AggregatePositionRecord'
-        Acknowledgement:
-          $ref: '#/components/schemas/ServerAcknowledgement'
-      additionalProperties: false
-    TodaysBrokenDownPositionsResponse:
-      type: object
-      properties:
-        PositionRecords:
-          type: array
-          items:
-            $ref: '#/components/schemas/Position'
-        Acknowledgement:
-          $ref: '#/components/schemas/ServerAcknowledgement'
       additionalProperties: false
   securitySchemes:
     Bearer:
