@@ -1,0 +1,12 @@
+{
+ "url": "https://emsuatxapi.taltrade.com:9001/swagger/v1/swagger.json",
+ "requested_url": "https://emsuatxapi.taltrade.com:9001/swagger/v1/swagger.json",
+ "status": 200,
+ "content_type": "application/json;charset=utf-8",
+ "bytes": 202637,
+ "sha256": "edd31072a37370fa87019be5684860e26aa78889e60b27915825165a2e629b82",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 0.973), but the bytes differ, so the archive is an earlier or reformatted copy."
+}
