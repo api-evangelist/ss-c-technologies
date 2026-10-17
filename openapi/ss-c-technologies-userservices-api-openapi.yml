@@ -35,6 +35,26 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    ServerAcknowledgementTypesResponseCodesEnum:
+      enum:
+      - SUCCESS
+      - WARNING
+      - FAILED
+      - ERROR
+      - TIMED_OUT
+      - SESSION_NOT_FOUND
+      type: string
+    Google.Protobuf.WellKnownTypes.ListValue:
+      type: object
+      properties:
+        values:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Value'
+          readOnly: true
+      additionalProperties: false
     UserPermissionRecord:
       type: object
       properties:
@@ -60,31 +80,16 @@ components:
         AcctDesc:
           type: string
       additionalProperties: false
-    ServerAcknowledgement:
+    GetUserPermissionsResponse:
       type: object
       properties:
-        ServerResponse:
-          type: string
-        OptionalFields:
-          type: object
-          additionalProperties:
-            type:
-            - string
-            - 'null'
-        Message:
-          type: string
-        ResponseCode:
-          $ref: '#/components/schemas/ServerAcknowledgementTypesResponseCodesEnum'
+        Permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserPermissionRecord'
+        Acknowledgement:
+          $ref: '#/components/schemas/ServerAcknowledgement'
       additionalProperties: false
-    Google.Protobuf.WellKnownTypes.Any:
-      required:
-      - '@type'
-      type: object
-      properties:
-        '@type':
-          type: string
-      additionalProperties:
-        $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Value'
     Google.Protobuf.WellKnownTypes.Value:
       type: object
       properties:
@@ -118,51 +123,30 @@ components:
         kindCase:
           $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.ValueKindOneofCase'
       additionalProperties: false
-    Google.Protobuf.WellKnownTypes.ListValue:
+    Google.Protobuf.WellKnownTypes.Any:
+      required:
+      - '@type'
       type: object
       properties:
-        values:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Value'
-          readOnly: true
-      additionalProperties: false
-    Google.Protobuf.WellKnownTypes.NullValue:
-      enum:
-      - 0
-      type: integer
-      format: int32
-    ServerAcknowledgementTypesResponseCodesEnum:
-      enum:
-      - SUCCESS
-      - WARNING
-      - FAILED
-      - ERROR
-      - TIMED_OUT
-      - SESSION_NOT_FOUND
-      type: string
-    Google.Protobuf.WellKnownTypes.ValueKindOneofCase:
-      enum:
-      - 0
-      - 1
-      - 2
-      - 3
-      - 4
-      - 5
-      - 6
-      type: integer
-      format: int32
-    GetUserPermissionsResponse:
+        '@type':
+          type: string
+      additionalProperties:
+        $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Value'
+    ServerAcknowledgement:
       type: object
       properties:
-        Permissions:
-          type: array
-          items:
-            $ref: '#/components/schemas/UserPermissionRecord'
-        Acknowledgement:
-          $ref: '#/components/schemas/ServerAcknowledgement'
+        ServerResponse:
+          type: string
+        OptionalFields:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        Message:
+          type: string
+        ResponseCode:
+          $ref: '#/components/schemas/ServerAcknowledgementTypesResponseCodesEnum'
       additionalProperties: false
     Google.Rpc.Status:
       type: object
@@ -177,6 +161,22 @@ components:
           items:
             $ref: '#/components/schemas/Google.Protobuf.WellKnownTypes.Any'
       additionalProperties: false
+    Google.Protobuf.WellKnownTypes.NullValue:
+      enum:
+      - 0
+      type: integer
+      format: int32
+    Google.Protobuf.WellKnownTypes.ValueKindOneofCase:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      type: integer
+      format: int32
     Google.Protobuf.WellKnownTypes.Struct:
       type: object
       properties:
