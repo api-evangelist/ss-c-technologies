@@ -194,3 +194,9 @@ components:
       description: 'Please enter a valid token : '
       scheme: Bearer
       bearerFormat: JWT
+x-provenance:
+  method: harvested
+  publisher: SS&C Technologies
+  source: https://emsuatxapi.taltrade.com:9001/swagger/v1/swagger.json
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
