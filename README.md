@@ -64,14 +64,133 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-SS&C Technologies Holdings (NASDAQ: SSNC) is a global provider of financial-services and healthcare
-software and outsourcing, operating brands including SS&C Advent, SS&C Eze, SS&C GlobeOp, SS&C GIDS,
-SS&C Intralinks, SS&C Black Diamond, SS&C Algorithmics and SS&C Blue Prism.
+SS&C Technologies Holdings (NASDAQ: SSNC) is a global provider of financial-services and healthcare software and outsourcing, headquartered in Windsor, Connecticut, operating under brands including SS&C Advent, SS&C Eze, SS&C GlobeOp, SS&C GIDS, SS&C Intralinks, SS&C Black Diamond, SS&C Algorithmics and SS&C Blue Prism. Most of the API surface is client-gated: the corporate SS&C APIM developer portal at developer.ssctech.com and the Black Diamond developer portal both require an account, and access is requested through a client relationship manager. The substantial public exception is SS&C Eze EMS xAPI, whose machine-readable contract SS&C Eze publishes openly on GitHub as three proto3 files — 64 gRPC RPCs across MarketDataService, SubmitOrderService and UtilityServices — alongside a matching REST projection described by a live OpenAPI 3.0.4 document with 73 operations covering order submission and amendment, pair and basket orders, allocations and trade reports, real-time and historical market data, and intraday balances, positions and activity.
 
-Most of SS&C's API surface is client-gated — the corporate SS&C APIM developer portal at
-developer.ssctech.com and the Black Diamond developer portal both require an account, and access is
-granted by a client relationship manager. The substantial public exception is **SS&C Eze EMS xAPI**,
-whose machine-readable contract SS&C Eze publishes openly at
-[github.com/ezesoft/xapi](https://github.com/ezesoft/xapi): three proto3 files carrying 64 gRPC RPCs
-across `MarketDataService`, `SubmitOrderService` and `UtilityServices`, plus a live OpenAPI 3.0.4
-document (73 operations, 123 schemas) describing the equivalent REST projection.
+**Areas:** Financial Services · Investment Management · Fund Administration · Wealth Management · Execution Management · Order Management · Market Data · Trading · gRPC · Enterprise Software
+
+## SS&C Technologies on APIs.io
+
+Everything profiled for SS&C Technologies is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/ss-c-technologies/](https://apis.io/providers/ss-c-technologies/)** — or go straight to one of the APIs or properties below.
+
+### APIs (7)
+
+- [SS&C APIM Developer Portal](https://apis.io/apis/ss-c-technologies/ssc-apim-developer-portal/) — SS&C's corporate API management portal, where clients register applications, request access to SS&C API products and manage consumers against a Kong…
+- [SS&C Black Diamond Wealth Platform API](https://apis.io/apis/ss-c-technologies/ssc-black-diamond-wealth-platform-api/) — REST API and developer portal for the SS&C Advent Black Diamond wealth platform, covering portfolio, account and client data exchange for advisors and…
+- [SS&C Technologies Market Data Service API](https://apis.io/apis/ss-c-technologies/ss-c-technologies-marketdataservice-api/) — The MarketDataService API from SS&C Technologies — 18 operation(s) for marketdataservice.
+- [SS&C Technologies Submit Order Service API](https://apis.io/apis/ss-c-technologies/ss-c-technologies-submitorderservice-api/) — The SubmitOrderService API from SS&C Technologies — 19 operation(s) for submitorderservice.
+- [SS&C Technologies User Services API](https://apis.io/apis/ss-c-technologies/ss-c-technologies-userservices-api/) — The UserServices API from SS&C Technologies — 1 operation(s) for userservices.
+- [SS&C Technologies XAPI Server API](https://apis.io/apis/ss-c-technologies/ss-c-technologies-xapiserver-api/) — The XAPIServer API from SS&C Technologies — 2 operation(s) for xapiserver.
+- [SS&C Technologies Utility Services API](https://apis.io/apis/ss-c-technologies/ss-c-technologies-utility-services-api/) — The Utility Services API from SS&C Technologies — 21 operation(s) for utility services.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [ss-c-technologies-mcp.yml](https://apis.io/servers/ss-c-technologies/ss-c-technologies-mcp-yml/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Ss C Technologies Eze Ems Xapi Overlay](https://apis.io/overlays/ss-c-technologies/ss-c-technologies-eze-ems-xapi-overlay/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Ss C Technologies Authentication](https://apis.io/security/ss-c-technologies/ss-c-technologies-authentication/)
+- [Ss C Technologies Domain Security](https://apis.io/security/ss-c-technologies/ss-c-technologies-domain-security/)
+- [Ss C Technologies Trust Center](https://apis.io/security/ss-c-technologies/ss-c-technologies-trust-center/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Ss C Technologies Scopes](https://apis.io/scopes/ss-c-technologies/ss-c-technologies-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Ss C Technologies Plans Pricing](https://apis.io/plans/ss-c-technologies/ss-c-technologies-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Ss C Technologies Rate Limits](https://apis.io/rate-limits/ss-c-technologies/ss-c-technologies-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.ssctech.com/)
+- [Documentation](https://github.com/ezesoft/xapi/blob/master/readme.md)
+- [Getting started](https://github.com/ezesoft/xapi/blob/master/readme.md#how-do-i-get-started-with-xapi)
+- [API reference](https://emsuatxapi.taltrade.com:9001/index.html)
+- [Sign up](https://developer.ssctech.com/register)
+- [Support](https://www.ssctech.com/about/support-client-portals)
+- [Blog](https://www.ssctech.com/blog)
+- [Compliance](https://www.ssctech.com/about/disclosures/security-addendum-schedule3)
+- [Terms of service](https://www.ssctech.com/about/disclaimer)
+- [Privacy policy](https://www.ssctech.com/about/privacy)
+- [GitHub](https://github.com/ezesoft)
+
+## API Evangelist rating
+
+**Kin Score 45.5** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 38.2 |
+| Contract governance | 4.5 |
+| Operational transparency | 31.6 |
+| Developer ergonomics | 68.5 |
+| Access clarity | 42.1 |
+
+**Agent readiness 30.4** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | yes |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | — |
+
+**Regulatory alignment 42.6** — Securities & Market Data
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/ss-c-technologies/](https://apis.io/providers/ss-c-technologies/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for SS&C Technologies: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/ss-c-technologies/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
